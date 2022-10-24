@@ -22,6 +22,7 @@
 		DAD0BAD729062AA900E7CD69 /* SourceHanSerifKR-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DAD0BACD29062A7400E7CD69 /* SourceHanSerifKR-SemiBold.otf */; };
 		DAD0BAD829062AA900E7CD69 /* SourceHanSerifKR-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = DAD0BAD129062A7400E7CD69 /* SourceHanSerifKR-Heavy.otf */; };
 		DAD0BADC29062B6E00E7CD69 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0BADB29062B6E00E7CD69 /* Font+Extension.swift */; };
+		DAD0BADF290630C800E7CD69 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAD0BADE290630C800E7CD69 /* Colors.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		DAD0BAD129062A7400E7CD69 /* SourceHanSerifKR-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceHanSerifKR-Heavy.otf"; sourceTree = "<group>"; };
 		DAD0BADB29062B6E00E7CD69 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
 		DAD0BADD29062C0D00E7CD69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		DAD0BADE290630C800E7CD69 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 			children = (
 				DAD0BACA29062A5200E7CD69 /* Font */,
 				DAD0BAA22906252D00E7CD69 /* Assets.xcassets */,
+				DAD0BADE290630C800E7CD69 /* Colors.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				DAD0BAD429062AA900E7CD69 /* SourceHanSerifKR-Regular.otf in Resources */,
 				DAD0BAD329062AA900E7CD69 /* SourceHanSerifKR-Light.otf in Resources */,
 				DAD0BAA62906252D00E7CD69 /* Preview Assets.xcassets in Resources */,
+				DAD0BADF290630C800E7CD69 /* Colors.xcassets in Resources */,
 				DAD0BAD229062AA900E7CD69 /* SourceHanSerifKR-Bold.otf in Resources */,
 				DAD0BAD529062AA900E7CD69 /* SourceHanSerifKR-Medium.otf in Resources */,
 				DAD0BAD729062AA900E7CD69 /* SourceHanSerifKR-SemiBold.otf in Resources */,
