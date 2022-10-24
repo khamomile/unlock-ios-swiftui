@@ -14,6 +14,14 @@
 		DAD0BAB02906252E00E7CD69 /* unlockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0BAAF2906252E00E7CD69 /* unlockTests.swift */; };
 		DAD0BABA2906252E00E7CD69 /* unlockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0BAB92906252E00E7CD69 /* unlockUITests.swift */; };
 		DAD0BABC2906252E00E7CD69 /* unlockUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0BABB2906252E00E7CD69 /* unlockUITestsLaunchTests.swift */; };
+		DAD0BAD229062AA900E7CD69 /* SourceHanSerifKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DAD0BACF29062A7400E7CD69 /* SourceHanSerifKR-Bold.otf */; };
+		DAD0BAD329062AA900E7CD69 /* SourceHanSerifKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DAD0BACC29062A7300E7CD69 /* SourceHanSerifKR-Light.otf */; };
+		DAD0BAD429062AA900E7CD69 /* SourceHanSerifKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DAD0BACB29062A7300E7CD69 /* SourceHanSerifKR-Regular.otf */; };
+		DAD0BAD529062AA900E7CD69 /* SourceHanSerifKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DAD0BACE29062A7400E7CD69 /* SourceHanSerifKR-Medium.otf */; };
+		DAD0BAD629062AA900E7CD69 /* SourceHanSerifKR-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = DAD0BAD029062A7400E7CD69 /* SourceHanSerifKR-ExtraLight.otf */; };
+		DAD0BAD729062AA900E7CD69 /* SourceHanSerifKR-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DAD0BACD29062A7400E7CD69 /* SourceHanSerifKR-SemiBold.otf */; };
+		DAD0BAD829062AA900E7CD69 /* SourceHanSerifKR-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = DAD0BAD129062A7400E7CD69 /* SourceHanSerifKR-Heavy.otf */; };
+		DAD0BADC29062B6E00E7CD69 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0BADB29062B6E00E7CD69 /* Font+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +52,16 @@
 		DAD0BAB52906252E00E7CD69 /* unlockUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = unlockUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAD0BAB92906252E00E7CD69 /* unlockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = unlockUITests.swift; sourceTree = "<group>"; };
 		DAD0BABB2906252E00E7CD69 /* unlockUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = unlockUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DAD0BAC82906260200E7CD69 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DAD0BACB29062A7300E7CD69 /* SourceHanSerifKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceHanSerifKR-Regular.otf"; sourceTree = "<group>"; };
+		DAD0BACC29062A7300E7CD69 /* SourceHanSerifKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceHanSerifKR-Light.otf"; sourceTree = "<group>"; };
+		DAD0BACD29062A7400E7CD69 /* SourceHanSerifKR-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceHanSerifKR-SemiBold.otf"; sourceTree = "<group>"; };
+		DAD0BACE29062A7400E7CD69 /* SourceHanSerifKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceHanSerifKR-Medium.otf"; sourceTree = "<group>"; };
+		DAD0BACF29062A7400E7CD69 /* SourceHanSerifKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceHanSerifKR-Bold.otf"; sourceTree = "<group>"; };
+		DAD0BAD029062A7400E7CD69 /* SourceHanSerifKR-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceHanSerifKR-ExtraLight.otf"; sourceTree = "<group>"; };
+		DAD0BAD129062A7400E7CD69 /* SourceHanSerifKR-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceHanSerifKR-Heavy.otf"; sourceTree = "<group>"; };
+		DAD0BADB29062B6E00E7CD69 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
+		DAD0BADD29062C0D00E7CD69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +92,7 @@
 		DAD0BA922906252C00E7CD69 = {
 			isa = PBXGroup;
 			children = (
+				DAD0BAC82906260200E7CD69 /* README.md */,
 				DAD0BA9D2906252C00E7CD69 /* unlock */,
 				DAD0BAAE2906252E00E7CD69 /* unlockTests */,
 				DAD0BAB82906252E00E7CD69 /* unlockUITests */,
@@ -94,9 +113,11 @@
 		DAD0BA9D2906252C00E7CD69 /* unlock */ = {
 			isa = PBXGroup;
 			children = (
+				DAD0BADD29062C0D00E7CD69 /* Info.plist */,
 				DAD0BA9E2906252C00E7CD69 /* unlockApp.swift */,
 				DAD0BAA02906252C00E7CD69 /* ContentView.swift */,
-				DAD0BAA22906252D00E7CD69 /* Assets.xcassets */,
+				DAD0BAC929062A2C00E7CD69 /* Resources */,
+				DAD0BAD929062B5900E7CD69 /* Sources */,
 				DAD0BAA42906252D00E7CD69 /* Preview Content */,
 			);
 			path = unlock;
@@ -125,6 +146,45 @@
 				DAD0BABB2906252E00E7CD69 /* unlockUITestsLaunchTests.swift */,
 			);
 			path = unlockUITests;
+			sourceTree = "<group>";
+		};
+		DAD0BAC929062A2C00E7CD69 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DAD0BACA29062A5200E7CD69 /* Font */,
+				DAD0BAA22906252D00E7CD69 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DAD0BACA29062A5200E7CD69 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				DAD0BACF29062A7400E7CD69 /* SourceHanSerifKR-Bold.otf */,
+				DAD0BAD029062A7400E7CD69 /* SourceHanSerifKR-ExtraLight.otf */,
+				DAD0BAD129062A7400E7CD69 /* SourceHanSerifKR-Heavy.otf */,
+				DAD0BACC29062A7300E7CD69 /* SourceHanSerifKR-Light.otf */,
+				DAD0BACE29062A7400E7CD69 /* SourceHanSerifKR-Medium.otf */,
+				DAD0BACB29062A7300E7CD69 /* SourceHanSerifKR-Regular.otf */,
+				DAD0BACD29062A7400E7CD69 /* SourceHanSerifKR-SemiBold.otf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		DAD0BAD929062B5900E7CD69 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				DAD0BADA29062B6400E7CD69 /* Extensions */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		DAD0BADA29062B6400E7CD69 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DAD0BADB29062B6E00E7CD69 /* Font+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,7 +291,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAD0BAD829062AA900E7CD69 /* SourceHanSerifKR-Heavy.otf in Resources */,
+				DAD0BAD629062AA900E7CD69 /* SourceHanSerifKR-ExtraLight.otf in Resources */,
+				DAD0BAD429062AA900E7CD69 /* SourceHanSerifKR-Regular.otf in Resources */,
+				DAD0BAD329062AA900E7CD69 /* SourceHanSerifKR-Light.otf in Resources */,
 				DAD0BAA62906252D00E7CD69 /* Preview Assets.xcassets in Resources */,
+				DAD0BAD229062AA900E7CD69 /* SourceHanSerifKR-Bold.otf in Resources */,
+				DAD0BAD529062AA900E7CD69 /* SourceHanSerifKR-Medium.otf in Resources */,
+				DAD0BAD729062AA900E7CD69 /* SourceHanSerifKR-SemiBold.otf in Resources */,
 				DAD0BAA32906252D00E7CD69 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,6 +326,7 @@
 			files = (
 				DAD0BAA12906252C00E7CD69 /* ContentView.swift in Sources */,
 				DAD0BA9F2906252C00E7CD69 /* unlockApp.swift in Sources */,
+				DAD0BADC29062B6E00E7CD69 /* Font+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,7 +413,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -399,7 +467,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -420,11 +488,13 @@
 				DEVELOPMENT_TEAM = MF7FTLWYJ6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = unlock/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -432,9 +502,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.khamomile.unlock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -449,11 +522,13 @@
 				DEVELOPMENT_TEAM = MF7FTLWYJ6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = unlock/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -461,9 +536,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.khamomile.unlock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -480,9 +558,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.khamomile.unlockTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/unlock.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/unlock";
 			};
 			name = Debug;
@@ -500,9 +581,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.khamomile.unlockTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/unlock.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/unlock";
 			};
 			name = Release;
@@ -518,9 +602,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.khamomile.unlockUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = unlock;
 			};
 			name = Debug;
@@ -536,9 +623,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.khamomile.unlockUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = unlock;
 			};
 			name = Release;
