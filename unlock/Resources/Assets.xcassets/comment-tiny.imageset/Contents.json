@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "comment-tiny.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

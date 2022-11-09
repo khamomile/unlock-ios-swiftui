@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct unlockApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
+    let unlockService: UnlockService = UnlockService.shared
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            UserInitialView()
+                .environmentObject(unlockService)
         }
     }
 }
+
