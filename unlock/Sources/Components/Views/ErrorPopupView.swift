@@ -19,15 +19,19 @@ struct ErrorPopupView: View {
             
             VStack(spacing: 0) {
                 Spacer()
+                
                 Text(errorText)
                     .font(.lightCaption1)
                     .foregroundColor(.gray9)
                     .padding(.top, 16)
+                
                 Spacer()
+                
                 Divider()
                     .padding(.horizontal, 16)
+                
                 Button {
-                    withAnimation(.easeInOut(duration: 0.2)) {
+                    withAnimation(.default) {
                         unlockService.errorMessage = nil
                     }
                 } label: {

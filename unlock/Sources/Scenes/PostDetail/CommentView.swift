@@ -22,6 +22,10 @@ struct CommentView: View {
             }
             .id(UUID())
         }
+        .navigationDestination(isPresented: $viewModel.moveToReportCommentView) {
+            ReportView(commentId: viewModel.reportCommentId)
+                .environmentObject(viewModel)
+        }
     }
 }
 

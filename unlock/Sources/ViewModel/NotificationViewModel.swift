@@ -19,6 +19,7 @@ class NotificationViewModel: ObservableObject {
     // NOTIFICATION
     @Published var notiList: [Notification] = []
     @Published var hasUnread: Bool = false
+    @Published var pushNotiReceived: Bool = false
     
     // VIEWMODELS FOR UPDATE
     var homeFeedViewModel: HomeFeedViewModel?

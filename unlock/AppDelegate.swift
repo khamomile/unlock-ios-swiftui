@@ -68,9 +68,11 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
-        let userInfo = notification.request.content.userInfo
+        // let userInfo = notification.request.content.userInfo
         
-        print("willPresent: userInfo: ", userInfo)
+        // print("willPresent: userInfo: ", userInfo)
+        // UnlockService.shared.notiReceived = true
+        print("Noti received 4: \(UnlockService.shared.notiReceived)")
         
         completionHandler([.badge, .list, .sound, .banner])
     }
@@ -80,15 +82,19 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        print("didReceive: userInfo: ", userInfo)
+        print("didReceive: userInfo: ", userInfo.keys)
         
         let link: String = userInfo["link"] as? String ?? ""
-        //let notiType: String = userInfo["type"] as? String ?? ""
-        print("Noti Link: \(link)")
         let realLink = link // getRealLink(title: userInfo["title"] as? String ?? "", link: link, messageBody: userInfo["body"] as? String) ?? ""
-        print("Noti Real link: \(realLink)")
-        //print("Noti Real lin: \(notiType)")
-        // print("Noti type: \()")
+        UnlockService.shared.notiReceived = true
+        
+        let linkIdentifying = realLink.components(separatedBy: "/post/")
+        
+        if linkIdentifying.count >= 2 {
+            UnlockService.shared.notiDestination = .post(id: linkIdentifying[1])
+        } else {
+            UnlockService.shared.notiDestination = .friend
+        }
         
         completionHandler()
     }

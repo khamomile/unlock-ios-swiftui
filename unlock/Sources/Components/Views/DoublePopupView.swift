@@ -11,13 +11,15 @@ struct DoublePopupView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var unlockService: UnlockService = UnlockService.shared
     
-    var mainText: String
+    var doublePopupInfo: DoublePopupInfo
     
-    var leftOptionText: String = "취소"
-    var rightOptionText: String = "확인"
-    
-    var leftAction: (() -> Void)?
-    var rightAction: (() -> Void)?
+//    var mainText: String
+//
+//    var leftOptionText: String = "취소"
+//    var rightOptionText: String = "확인"
+//
+//    var leftAction: (() -> Void)?
+//    var rightAction: (() -> Void)?
     
     var body: some View {
         ZStack {
@@ -25,24 +27,25 @@ struct DoublePopupView: View {
             
             VStack(spacing: 0) {
                 Spacer()
-                Text(mainText)
+                Text(doublePopupInfo.mainText)
                     .font(.lightCaption1)
                     .foregroundColor(.gray9)
                     .padding(.top, 16)
+                    .multilineTextAlignment(.center)
                 Spacer()
                 Divider()
                     .padding(.horizontal, 16)
                 HStack {
                     Button {
-                        withAnimation(.easeInOut(duration: 0.2)) {
+                        withAnimation(.default) {
                             unlockService.showPopup = false
                         }
                         
-                        if let leftAction = leftAction {
+                        if let leftAction = doublePopupInfo.leftAction {
                             leftAction()
                         }
                     } label: {
-                        Text(leftOptionText)
+                        Text(doublePopupInfo.leftText)
                             .font(.boldBody)
                             .foregroundColor(.red1)
                             .frame(maxWidth: .infinity)
@@ -51,15 +54,15 @@ struct DoublePopupView: View {
                     .padding(.vertical, 20)
                     
                     Button {
-                        withAnimation(.easeInOut(duration: 0.2)) {
+                        withAnimation(.default) {
                             unlockService.showPopup = false
                         }
                         
-                        if let rightAction = rightAction {
+                        if let rightAction = doublePopupInfo.rightAction {
                             rightAction()
                         }
                     } label: {
-                        Text(rightOptionText)
+                        Text(doublePopupInfo.rightText)
                             .font(.boldBody)
                             .foregroundColor(.gray9)
                             .frame(maxWidth: .infinity)
@@ -78,6 +81,6 @@ struct DoublePopupView: View {
 
 struct DoublePopupView_Previews: PreviewProvider {
     static var previews: some View {
-        DoublePopupView(mainText: "계정을 탈퇴할까요?")
+        DoublePopupView(doublePopupInfo: .deleteAccount(leftAction: nil, rightAction: nil))
     }
 }

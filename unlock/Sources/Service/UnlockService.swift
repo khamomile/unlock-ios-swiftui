@@ -26,15 +26,21 @@ class UnlockService: ObservableObject {
     
     // GENERAL STATUS
     @Published var errorMessage: String?
-    @Published var showPopup: Bool = false
     @Published var isLoading: Bool = false
+    
+    @Published var showPopup: Bool = false
+    @Published var doublePopupToShow: DoublePopupInfo?
     
     // IMAGE POPUP
     @Published var showImageView: Bool = false
     @Published var postToShowImage: Post?
     
     // GET USER
-    @Published var me: User = User()    
+    @Published var me: User = User()
+    
+    // PUSH-NOTIFICATION
+    @Published var notiReceived: Bool = false
+    @Published var notiDestination: PushNotiType?
 }
 
 extension UnlockService {
@@ -114,9 +120,6 @@ extension UnlockService {
             } receiveValue: { response in
                 guard self.handleResponse(response) == .success else { return }
                 print("Sent fcm token to server")
-                //guard let responseData = try? response.map(UserResponse.self) else { return }
-                //print(responseData)
-                //self.me = User(data: responseData)
             }
             .store(in: &subscription)
     }
@@ -132,10 +135,19 @@ extension UnlockService {
                 }
             } receiveValue: { response in
                 guard self.handleResponse(response) == .success else { return }
-                //guard let responseData = try? response.map(UserResponse.self) else { return }
-                //print(responseData)
-                //self.me = User(data: responseData)
             }
             .store(in: &subscription)
+    }
+}
+
+extension UINavigationController: UIGestureRecognizerDelegate {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        // self.popToRootViewController(animated: true)
+        return viewControllers.count > 1
     }
 }

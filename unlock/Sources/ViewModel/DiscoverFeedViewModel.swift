@@ -9,12 +9,13 @@ import Foundation
 import Alamofire
 import Combine
 import Moya
+import SwiftUI
 
 class DiscoverFeedViewModel: ObservableObject {
     private let provider = MoyaProvider<UnlockAPI>(session: Moya.Session(interceptor: Interceptor()), plugins: [NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))])
     
     private var subscription = Set<AnyCancellable>()
-
+    
     private let unlockService = UnlockService.shared
     
     @Published var pageNo: Int = 1
@@ -25,17 +26,14 @@ class DiscoverFeedViewModel: ObservableObject {
     
     @Published var newPageUpdated: Bool = false
     
+    var updatedLikesCount: [String : Int] = [:]
+    var updatedDidLike: [String : Bool] = [:]
+    
+    var postPagingCalled: [Int : Bool] = [:]
+    
     init() {
         getPage()
         getNextPages(nextPageNo: pageNo + 1)
-        
-//        $tempPostList
-//            .filter { $0.count == 0}
-//            .sink { [weak self] _ in
-//                guard let self = self else { return }
-//                self.getNextPages(nextPageNo: self.pageNo)
-//            }
-//            .store(in: &subscription)
     }
     
     func getPage() {
@@ -61,19 +59,10 @@ class DiscoverFeedViewModel: ObservableObject {
             .store(in: &subscription)
     }
     
-//    func updateNextPages() {
-//        for post in tempPostList {
-//            postList.append(post)
-//            print("Appended post: \(post.title)")
-//        }
-//
-//        tempPostList = []
-//    }
-    
     func getNextPages(nextPageNo: Int) {
         newPageUpdated = false
-        // print("Page no: \(nextPageNo)", "tempPostList count: \(tempPostList.count)")
         
+        print("Index: Get Next Page Called")
         
         provider.requestPublisher(.getDiscover(page: nextPageNo))
             .sink { completion in
@@ -87,13 +76,9 @@ class DiscoverFeedViewModel: ObservableObject {
                 print(response)
                 guard self.unlockService.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(PaginatedResultResponse.self) else { return }
-                // print(responseData)
                 
-                for post in self.tempPostList {
-                    self.postList.append(post)
-                    // print("Page no: \(nextPageNo)", "Appended post: \(post.title)")
-                }
-
+                self.postList.append(contentsOf: self.tempPostList)
+                
                 self.tempPostList = []
                 
                 self.tempPostList = responseData.docs.map {
@@ -102,15 +87,21 @@ class DiscoverFeedViewModel: ObservableObject {
                 print("Fetched Page: \(nextPageNo)")
                 
                 self.pageNo = nextPageNo == 2 ? self.pageNo + 2 : self.pageNo + 1
-                // print("Page no: \(nextPageNo)", "New page no: \(self.pageNo)")
                 self.newPageUpdated = true
             }
             .store(in: &subscription)
     }
     
+    func lastUnhiddenPostIndex() -> Int {
+        let idx = postList.lastIndex(where: { ($0.didHide == false && $0.didBlock == false) || $0.showTrace == true })
+        
+        return idx ?? 0
+    }
+    
     func refreshPages() {
         postList = []
         tempPostList = []
+        postPagingCalled = [:]
         pageNo = 1
         totalPageNo = 1
         

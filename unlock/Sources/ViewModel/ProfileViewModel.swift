@@ -21,12 +21,14 @@ class ProfileViewModel: ObservableObject {
     var updatedLikesCount: [String : Int] = [:]
     
     init() {
-        getMyPosts()
+        getMyPosts(isInitial: true)
     }
     
-    func getMyPosts() {
-        unlockService.isLoading = true
-        
+    func getMyPosts(isInitial: Bool = false) {
+        if !isInitial {
+            unlockService.isLoading = true
+        }
+
         provider.requestPublisher(.getMyPosts)
             .sink { completion in
                 switch completion {

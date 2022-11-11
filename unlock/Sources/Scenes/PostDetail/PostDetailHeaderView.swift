@@ -16,14 +16,13 @@ struct PostDetailHeaderView: View {
     @EnvironmentObject var profileViewModel: ProfileViewModel
     
     @Binding var showStoreDropDown: Bool
-    @Binding var path: NavigationPath
     
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         HStack(spacing: 15) {
             Button {
-                path = NavigationPath()
+                dismiss()
             } label: {
                 Image("angle-left")
             }
@@ -33,6 +32,7 @@ struct PostDetailHeaderView: View {
             Text("게시물")
                 .font(.lightBody)
                 .foregroundColor(.gray9)
+                .padding(.leading, 16)
             
             Spacer()
             
@@ -41,6 +41,7 @@ struct PostDetailHeaderView: View {
             } label: {
                 Image("dots-horizontal")
             }
+            .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 0))
         }
         .overlay (
             VStack {
@@ -65,7 +66,13 @@ struct PostDetailHeaderView: View {
         if unlockService.me.id == viewModel.post?.author {
             let buttonInfo1 = CustomButtonInfo(title: "수정", btnColor: .gray8, action: { viewModel.moveToEditView = true })
             
-            let buttonInfo2 = CustomButtonInfo(title: "삭제", btnColor: .red, action: { viewModel.deletePost(id: viewModel.post?.id ?? "0") })
+            let buttonInfo2 = CustomButtonInfo(title: "삭제", btnColor: .red, action: {
+                unlockService.doublePopupToShow = .deletePost(leftAction: nil, rightAction: { viewModel.deletePost(id: viewModel.post?.id ?? "0") })
+                
+                withAnimation(.default) {
+                    unlockService.showPopup = true
+                }
+            })
             
             return [buttonInfo1, buttonInfo2]
         } else {
@@ -75,10 +82,17 @@ struct PostDetailHeaderView: View {
             }
             
             let buttonInfo2 = CustomButtonInfo(title: "차단하기", btnColor: .gray8) {
-                viewModel.postBlock(userId: viewModel.post?.author ?? "")
+                unlockService.doublePopupToShow = .blockUser(leftAction: nil, rightAction: {
+                    viewModel.postBlock(userId: viewModel.post?.author ?? "")
+                    dismiss()
+                }, userFullname: viewModel.post?.authorFullname ?? "")
+                
+                withAnimation(.default) {
+                    unlockService.showPopup = true
+                }
             }
             
-            let buttonInfo3 = CustomButtonInfo(title: "신고하기", btnColor: .red) { viewModel.moveToReportView = true }
+            let buttonInfo3 = CustomButtonInfo(title: "신고하기", btnColor: .red) { viewModel.moveToReportPostView = true }
             
             return [buttonInfo1, buttonInfo2, buttonInfo3]
         }
@@ -87,7 +101,7 @@ struct PostDetailHeaderView: View {
 
 struct PostDetailHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        PostDetailHeaderView(showStoreDropDown: .constant(false), path: .constant(NavigationPath()))
+        PostDetailHeaderView(showStoreDropDown: .constant(false))
             .environmentObject(UnlockService.shared)
             .environmentObject(PostDetailViewModel())
             .environmentObject(ProfileViewModel())

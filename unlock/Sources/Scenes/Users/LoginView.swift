@@ -74,18 +74,22 @@ struct LoginView: View {
                 .padding(EdgeInsets(top: 16, leading: 32, bottom: 0, trailing: 32))
                 .disabled(!checkIdPw() || unlockService.isLoading)
                 
-                NavigationLink {
-                    PWResetEmailView()
-                } label: {
-                    Text("비밀번호를 모르겠어요")
-                        .font(.lightCaption2)
-                        .foregroundColor(.gray4)
-                        .underline()
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                        .padding(EdgeInsets(top: 10, leading: 32, bottom: 0, trailing: 32))
+                HStack {
+                    Spacer()
+                    
+                    NavigationLink {
+                        PWResetEmailView()
+                    } label: {
+                        Text("비밀번호를 모르겠어요")
+                            .font(.lightCaption2)
+                            .foregroundColor(.gray4)
+                            .underline()
+                            .padding(EdgeInsets(top: 10, leading: 32, bottom: 0, trailing: 32))
+                    }
                 }
-                
+
                 Spacer()
+                
                 HStack {
                     Link(destination: URL(string: "https://www.unlock.im/privacy.html")!, label: {
                         Text("개인정보처리방침")
@@ -101,11 +105,16 @@ struct LoginView: View {
                 }
                 .font(.lightCaption3)
                 .foregroundColor(.gray4)
+                .padding(.bottom, 10)
+                
             }
             .frame(maxHeight: .infinity)
             .fullScreenCover(isPresented: $viewModel.loggedIn, content: {
                 MainTabView()
             })
+            .onTapGesture {
+                focusedField = nil
+            }
             
             if let errorMessage = unlockService.errorMessage {
                 ErrorPopupView(errorText: errorMessage)
@@ -113,9 +122,9 @@ struct LoginView: View {
             }
         }
         .navigationBarHidden(true)
-        .onAppear {
-            focusedField = .id
-        }
+        .onChange(of: unlockService.errorMessage, perform: { message in
+            focusedField = nil
+        })
         .onSubmit {
             if focusedField == .id {
                 focusedField = .pw

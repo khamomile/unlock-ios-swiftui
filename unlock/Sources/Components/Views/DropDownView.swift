@@ -35,15 +35,8 @@ struct DropDownView: View {
 struct SampleDropDown: View {
     let buttonInfo: [CustomButtonInfo]
     
-    // let action : (String?) -> Void
-    
     var body: some View {
         VStack(alignment: .leading){
-            //            ForEach(0...3, id: \.self){ valueStore in
-            //
-            //                Divider().background(.gray1)
-            //            }
-            
             ForEach(buttonInfo, id: \.self) { info in
                 Button {
                     info.action()

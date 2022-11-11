@@ -5,6 +5,8 @@ import SwiftUI
 struct TextEditorApproachView: View {
     
     @Binding var text: String
+    @FocusState var isFocused: Bool
+    
     var placeholder: String
     var editorBackgroundColor: Color
     
@@ -26,6 +28,7 @@ struct TextEditorApproachView: View {
 
                     if #available(iOS 16.0, *) {
                         TextEditor(text: Binding($text, replacingNilWith: ""))
+                            .focused($isFocused)
                             .frame(minHeight: 30, alignment: .leading)
                             .cornerRadius(6.0)
                             .multilineTextAlignment(.leading)
@@ -36,6 +39,7 @@ struct TextEditorApproachView: View {
                     } else {
                         // Fallback on earlier versions
                         TextEditor(text: Binding($text, replacingNilWith: ""))
+                            .focused($isFocused)
                             .frame(minHeight: 30, alignment: .leading)
                             .cornerRadius(6.0)
                             .multilineTextAlignment(.leading)

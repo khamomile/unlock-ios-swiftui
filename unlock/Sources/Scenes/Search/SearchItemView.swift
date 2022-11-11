@@ -9,12 +9,16 @@ import SwiftUI
 import Kingfisher
 
 struct SearchItemView: View {
+    @EnvironmentObject var unlockService: UnlockService
     @EnvironmentObject var viewModel: FriendViewModel
     
     @State private var showStoreDropDown: Bool = false
     
     var user: User
+    
     @State private var myZindex: Double = 1
+    
+    @FocusState var isFocused: Bool
     
     var body: some View {
         HStack(spacing: 14) {
@@ -84,7 +88,12 @@ struct SearchItemView: View {
     
     func getDropdownButtonInfo() -> [CustomButtonInfo] {
         let buttonInfo1 = CustomButtonInfo(title: "친구삭제", btnColor: .red1) {
-            viewModel.deleteFriend(id: user.id)
+            unlockService.doublePopupToShow = .deleteFriend(leftAction: nil, rightAction: { viewModel.deleteFriend(id: user.id) }, userFullname: user.fullname)
+            
+            withAnimation {
+                isFocused = false
+                unlockService.showPopup = true
+            }
         }
         
         return [buttonInfo1]
@@ -94,6 +103,7 @@ struct SearchItemView: View {
 struct SearchItemView_Previews: PreviewProvider {
     static var previews: some View {
         SearchItemView(user: User())
+            .environmentObject(UnlockService.shared)
             .environmentObject(FriendViewModel())
     }
 }

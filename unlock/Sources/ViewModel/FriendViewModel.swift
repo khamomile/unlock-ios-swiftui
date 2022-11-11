@@ -25,6 +25,9 @@ class FriendViewModel: ObservableObject {
     @Published var friendList: [User] = []
     @Published var friendRequestList: [User] = []
     
+    // LOADING STATUS
+    @Published var isLoadingMyFriend: Bool = false
+    
     // VIEWMODELS FOR UPDATE
     var homeFeedViewModel: HomeFeedViewModel?
     var discoverFeedViewModel: DiscoverFeedViewModel?
@@ -142,7 +145,7 @@ class FriendViewModel: ObservableObject {
     }
     
     func getFriendList() {
-        unlockService.isLoading = true
+        isLoadingMyFriend = true
         
         provider.requestPublisher(.getMyFriendList)
             .sink { completion in
@@ -171,7 +174,7 @@ class FriendViewModel: ObservableObject {
                 }
                 self.getFriendRequestList()
                 
-                self.unlockService.isLoading = false
+                self.isLoadingMyFriend = false
             }
             .store(in: &subscription)
     }

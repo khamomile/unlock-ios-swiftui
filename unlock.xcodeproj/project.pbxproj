@@ -108,6 +108,12 @@
 		DAC59B1F291B8043006F9A28 /* SettingViewModel+Bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59B1E291B8043006F9A28 /* SettingViewModel+Bridge.swift */; };
 		DAC59B21291B8982006F9A28 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DAC59B20291B8982006F9A28 /* GoogleService-Info.plist */; };
 		DAC59B24291B9086006F9A28 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59B23291B9086006F9A28 /* AppDelegate.swift */; };
+		DAC59B26291BF069006F9A28 /* PushNotiType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59B25291BF069006F9A28 /* PushNotiType.swift */; };
+		DAC59B28291CADF3006F9A28 /* DiscoverFeedViewModel+Bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59B27291CADF3006F9A28 /* DiscoverFeedViewModel+Bridge.swift */; };
+		DAC59B2B291CB21C006F9A28 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59B2A291CB21C006F9A28 /* ActivityView.swift */; };
+		DAC59B2D291CF072006F9A28 /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59B2C291CF072006F9A28 /* General.swift */; };
+		DAC59B2F291CF172006F9A28 /* ZStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59B2E291CF172006F9A28 /* ZStackView.swift */; };
+		DAC59B31291E1F24006F9A28 /* DoublePopupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59B30291E1F24006F9A28 /* DoublePopupInfo.swift */; };
 		DAD0BA9F2906252C00E7CD69 /* unlockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0BA9E2906252C00E7CD69 /* unlockApp.swift */; };
 		DAD0BAA32906252D00E7CD69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAD0BAA22906252D00E7CD69 /* Assets.xcassets */; };
 		DAD0BAA62906252D00E7CD69 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAD0BAA52906252D00E7CD69 /* Preview Assets.xcassets */; };
@@ -252,6 +258,12 @@
 		DAC59B20291B8982006F9A28 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DAC59B22291B8DD5006F9A28 /* unlock.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = unlock.entitlements; sourceTree = "<group>"; };
 		DAC59B23291B9086006F9A28 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DAC59B25291BF069006F9A28 /* PushNotiType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotiType.swift; sourceTree = "<group>"; };
+		DAC59B27291CADF3006F9A28 /* DiscoverFeedViewModel+Bridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoverFeedViewModel+Bridge.swift"; sourceTree = "<group>"; };
+		DAC59B2A291CB21C006F9A28 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		DAC59B2C291CF072006F9A28 /* General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
+		DAC59B2E291CF172006F9A28 /* ZStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZStackView.swift; sourceTree = "<group>"; };
+		DAC59B30291E1F24006F9A28 /* DoublePopupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoublePopupInfo.swift; sourceTree = "<group>"; };
 		DAD0BA9B2906252C00E7CD69 /* unlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = unlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAD0BA9E2906252C00E7CD69 /* unlockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = unlockApp.swift; sourceTree = "<group>"; };
 		DAD0BAA22906252D00E7CD69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -346,6 +358,7 @@
 		DA15F6B5290651B200A188A5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				DAC59B29291CB1DE006F9A28 /* ViewControllerRepresentables */,
 				DAA68A8F290D445D005BA1DE /* ViewModifiers */,
 				DAA68A90290D4468005BA1DE /* Views */,
 			);
@@ -554,10 +567,14 @@
 		DA3C695029160DB300BA0894 /* Const */ = {
 			isa = PBXGroup;
 			children = (
+				DAC59B2C291CF072006F9A28 /* General.swift */,
 				DA15F6B3290650D100A188A5 /* Tab.swift */,
 				DA3C695129160DD100BA0894 /* Report.swift */,
 				DAC59AF829189BC1006F9A28 /* PostPublicStatus.swift */,
+				DAA68AAB29139DF5005BA1DE /* CustomButtonInfo.swift */,
+				DAC59B30291E1F24006F9A28 /* DoublePopupInfo.swift */,
 				DAC59B182918D22C006F9A28 /* NavButton.swift */,
+				DAC59B25291BF069006F9A28 /* PushNotiType.swift */,
 			);
 			path = Const;
 			sourceTree = "<group>";
@@ -578,11 +595,10 @@
 				DA15F70F2907CBD000A188A5 /* BasicHeaderView.swift */,
 				DA15F7302909479B00A188A5 /* SinglePopupView.swift */,
 				DA15F73229094AE500A188A5 /* DoublePopupView.swift */,
-				DAA68AAB29139DF5005BA1DE /* CustomButtonInfo.swift */,
 				DA15F7152907FE4D00A188A5 /* DropDownView.swift */,
-				DA15F769290BC8F500A188A5 /* ImagePicker.swift */,
 				DAA68A8B290D10B1005BA1DE /* ColoredProgressView.swift */,
 				DAA68A8D290D1706005BA1DE /* ErrorPopupView.swift */,
+				DAC59B2E291CF172006F9A28 /* ZStackView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -592,10 +608,20 @@
 			children = (
 				DAC59AED2917C6A0006F9A28 /* PostDetailViewModel+Bridge.swift */,
 				DAC59AEF2917C6BE006F9A28 /* HomeFeedViewModel+Bridge.swift */,
+				DAC59B27291CADF3006F9A28 /* DiscoverFeedViewModel+Bridge.swift */,
 				DAC59AF12917C6E1006F9A28 /* ProfileViewModel+Bridge.swift */,
 				DAC59B1E291B8043006F9A28 /* SettingViewModel+Bridge.swift */,
 			);
 			path = Bridge;
+			sourceTree = "<group>";
+		};
+		DAC59B29291CB1DE006F9A28 /* ViewControllerRepresentables */ = {
+			isa = PBXGroup;
+			children = (
+				DA15F769290BC8F500A188A5 /* ImagePicker.swift */,
+				DAC59B2A291CB21C006F9A28 /* ActivityView.swift */,
+			);
+			path = ViewControllerRepresentables;
 			sourceTree = "<group>";
 		};
 		DAD0BA922906252C00E7CD69 = {
@@ -963,6 +989,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAC59B2B291CB21C006F9A28 /* ActivityView.swift in Sources */,
 				DAC59AF02917C6BE006F9A28 /* HomeFeedViewModel+Bridge.swift in Sources */,
 				DA15F750290A3E5200A188A5 /* UnlockAPI.swift in Sources */,
 				DA15F6CA29066F6000A188A5 /* PostInsideView.swift in Sources */,
@@ -1012,6 +1039,8 @@
 				DA15F70A2907BF2A00A188A5 /* ProfilePostEmptyView.swift in Sources */,
 				DA15F6CE29066F7B00A188A5 /* CommentComposeView.swift in Sources */,
 				DAA68AAA29138F83005BA1DE /* PostImageView.swift in Sources */,
+				DAC59B26291BF069006F9A28 /* PushNotiType.swift in Sources */,
+				DAC59B31291E1F24006F9A28 /* DoublePopupInfo.swift in Sources */,
 				DAD0BA9F2906252C00E7CD69 /* unlockApp.swift in Sources */,
 				DA15F6B4290650D100A188A5 /* Tab.swift in Sources */,
 				DAA68AAC29139DF5005BA1DE /* CustomButtonInfo.swift in Sources */,
@@ -1030,6 +1059,7 @@
 				DA15F7232909126200A188A5 /* ProfileInputView.swift in Sources */,
 				DA15F73A29094F0E00A188A5 /* Post.swift in Sources */,
 				DA15F6FE2907BBC900A188A5 /* FriendListView.swift in Sources */,
+				DAC59B28291CADF3006F9A28 /* DiscoverFeedViewModel+Bridge.swift in Sources */,
 				DA15F7102907CBD000A188A5 /* BasicHeaderView.swift in Sources */,
 				DAA68A8E290D1706005BA1DE /* ErrorPopupView.swift in Sources */,
 				DA15F6EF2907779600A188A5 /* ReportItemView.swift in Sources */,
@@ -1046,11 +1076,13 @@
 				DA15F6E72906ADA900A188A5 /* ReportView.swift in Sources */,
 				DA15F6D229067EB200A188A5 /* LockedCommentView.swift in Sources */,
 				DA15F6B2290650AF00A188A5 /* MainTabView.swift in Sources */,
+				DAC59B2D291CF072006F9A28 /* General.swift in Sources */,
 				DA15F6B7290652A800A188A5 /* SimpleHeaderView.swift in Sources */,
 				DA15F71F2908FE6500A188A5 /* EmailVerificationView.swift in Sources */,
 				DA15F7032907BCD500A188A5 /* FriendRequestView.swift in Sources */,
 				DA15F6ED290771C500A188A5 /* TextEditorApproachView.swift in Sources */,
 				DA15F70E2907CB0F00A188A5 /* ProfileEditView.swift in Sources */,
+				DAC59B2F291CF172006F9A28 /* ZStackView.swift in Sources */,
 				DAC59B24291B9086006F9A28 /* AppDelegate.swift in Sources */,
 				DA15F6DD2906A6BA00A188A5 /* PostDetailHeaderView.swift in Sources */,
 				DA15F73E2909505600A188A5 /* Friend.swift in Sources */,
@@ -1227,17 +1259,18 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = unlock/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Unlock;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.khamomile.unlock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1263,17 +1296,18 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = unlock/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Unlock;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.khamomile.unlock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

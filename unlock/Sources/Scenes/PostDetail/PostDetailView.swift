@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct PostDetailView: View {
     // UnlockService + PostDetailViewModel
@@ -19,14 +20,13 @@ struct PostDetailView: View {
     @FocusState private var isFocused: Bool
 
     @State private var showDropDown: Bool = false
-    @Binding var path: NavigationPath
     
     var postID: String = ""
     
     var body: some View {
         ZStack {
             VStack {
-                PostDetailHeaderView(showStoreDropDown: $showDropDown, path: $path)
+                PostDetailHeaderView(showStoreDropDown: $showDropDown)
                     .environmentObject(viewModel)
                     .environmentObject(profileViewModel)
                     .zIndex(1)
@@ -83,18 +83,20 @@ struct PostDetailView: View {
             }
             
             if unlockService.showPopup {
-                DoublePopupView(mainText: "정말 탈퇴하시겠습니까?", leftOptionText: "취소", rightOptionText: "확인")
-                    .zIndex(1)
+                if let doublePopupToShow = unlockService.doublePopupToShow {
+                    DoublePopupView(doublePopupInfo: doublePopupToShow)
+                        .zIndex(1)
+                }
             }
         }
         .navigationBarHidden(true)
         .toolbar(.hidden, for: .tabBar)
-        .navigationDestination(isPresented: $viewModel.moveToReportView) {
+        .navigationDestination(isPresented: $viewModel.moveToReportPostView) {
             ReportView(postId: postID)
                 .environmentObject(viewModel)
         }
         .navigationDestination(isPresented: $viewModel.moveToEditView) {
-            PostComposeView(path: $path, postToEditId: postID)
+            PostComposeView(postToEditId: postID)
                 .environmentObject(homeFeedViewModel)
                 .environmentObject(discoverFeedViewModel)
                 .environmentObject(profileViewModel)
@@ -111,12 +113,21 @@ struct PostDetailView: View {
         .onDisappear {
             showDropDown = false
         }
+        .introspectNavigationController { navController in
+            if navController.viewControllers.count == 3 {
+                navController.viewControllers = [navController.viewControllers[0], navController.viewControllers[2]]
+            }
+            
+            if navController.viewControllers.count == 4 {
+                navController.viewControllers = [navController.viewControllers[0], navController.viewControllers[3]]
+            }
+        }
     }
 }
 
 struct PostDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        PostDetailView(path: .constant(NavigationPath()))
+        PostDetailView()
             .environmentObject(UnlockService.shared)
             .environmentObject(HomeFeedViewModel())
             .environmentObject(DiscoverFeedViewModel())

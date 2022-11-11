@@ -16,8 +16,6 @@ struct PostItemView: View {
     @EnvironmentObject var discoverFeedViewModel: DiscoverFeedViewModel
     @EnvironmentObject var profileViewModel: ProfileViewModel
     
-    @Binding var path: NavigationPath
-    
     @ObservedObject var post: Post
     
     @State private var showStoreDropDown: Bool = false
@@ -42,7 +40,9 @@ struct PostItemView: View {
                             .font(.regularCaption1)
                             .foregroundColor(.gray4)
                     }
+                    
                     Spacer()
+                    
                     Button {
                         showStoreDropDown.toggle()
                     } label: {
@@ -127,12 +127,12 @@ struct PostItemView: View {
         .onDisappear {
             showStoreDropDown = false
         }
-        .navigationDestination(isPresented: $viewModel.moveToReportView) {
+        .navigationDestination(isPresented: $viewModel.moveToReportPostView) {
             ReportView(postId: post.id)
                 .environmentObject(viewModel)
         }
         .navigationDestination(isPresented: $viewModel.moveToEditView) {
-            PostComposeView(path: $path, postToEditId: post.id)
+            PostComposeView(postToEditId: post.id)
                 .environmentObject(homeFeedViewModel)
                 .environmentObject(discoverFeedViewModel)
                 .environmentObject(profileViewModel)
@@ -156,7 +156,11 @@ struct PostItemView: View {
             let buttonInfo1 = CustomButtonInfo(title: "수정", btnColor: .gray8, action: { viewModel.moveToEditView = true })
             
             let buttonInfo2 = CustomButtonInfo(title: "삭제", btnColor: .red, action: {
-                viewModel.deletePost(id: viewModel.post?.id ?? "0")
+                unlockService.doublePopupToShow = .deletePost(leftAction: nil, rightAction: { viewModel.deletePost(id: viewModel.post?.id ?? "0") })
+                
+                withAnimation(.default) {
+                    unlockService.showPopup = true
+                }
             })
             
             return [buttonInfo1, buttonInfo2]
@@ -166,10 +170,16 @@ struct PostItemView: View {
             }
             
             let buttonInfo2 = CustomButtonInfo(title: "차단하기", btnColor: .gray8) {
-                viewModel.postBlock(userId: viewModel.post?.author ?? "")
+                unlockService.doublePopupToShow = .blockUser(leftAction: nil, rightAction: {
+                    viewModel.postBlock(userId: viewModel.post?.author ?? "")
+                }, userFullname: viewModel.post?.authorFullname ?? "")
+                
+                withAnimation(.default) {
+                    unlockService.showPopup = true
+                }
             }
             
-            let buttonInfo3 = CustomButtonInfo(title: "신고하기", btnColor: .red) { viewModel.moveToReportView = true }
+            let buttonInfo3 = CustomButtonInfo(title: "신고하기", btnColor: .red) { viewModel.moveToReportPostView = true }
             
             return [buttonInfo1, buttonInfo2, buttonInfo3]
         }
@@ -178,7 +188,7 @@ struct PostItemView: View {
 
 struct PostItemView_Previews: PreviewProvider {
     static var previews: some View {
-        PostItemView(path: .constant(NavigationPath()), post: Post.preview)
+        PostItemView(post: Post.preview)
             .environmentObject(UnlockService.shared)
             .environmentObject(HomeFeedViewModel())
             .environmentObject(DiscoverFeedViewModel())

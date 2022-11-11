@@ -35,7 +35,7 @@ struct ProfilePostEmptyView: View {
                     .font(.mediumBody)
                     .foregroundColor(.gray9)
                 NavigationLink {
-                    PostComposeView(path: .constant(NavigationPath()))
+                    PostComposeView()
                 } label: {
                     Image("pencil")
                         .padding()

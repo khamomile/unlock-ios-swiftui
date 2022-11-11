@@ -6,6 +6,7 @@ target 'unlock' do
   use_frameworks!
 
   # Pods for unlock
+  pod 'Introspect'
   pod 'Moya'
   pod 'Moya/RxSwift'
   pod 'Moya/ReactiveSwift'

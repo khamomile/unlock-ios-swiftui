@@ -22,7 +22,9 @@ class PostDetailViewModel: ObservableObject {
     @Published var deleteSuccess: Bool = false
     @Published var reportSuccess: Bool = false
     
-    @Published var moveToReportView: Bool = false
+    @Published var moveToReportPostView: Bool = false
+    @Published var moveToReportCommentView: Bool = false
+    @Published var reportCommentId: String = ""
     @Published var moveToEditView: Bool = false
     
     @Published var newCommentAdded: Bool = false

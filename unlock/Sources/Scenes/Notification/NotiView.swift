@@ -24,7 +24,7 @@ struct NotiView: View {
                 SimpleHeaderView(title: "Activity")
                 
                 GeometryReader { geometry in
-                    ScrollView {
+                    ScrollView(showsIndicators: false) {
                         if !unlockService.isLoading {
                             if viewModel.notiList.count == 0 {
                                 EmptyNotiView()
@@ -56,16 +56,42 @@ struct NotiView: View {
             .navigationDestination(for: Notification.self, destination: { noti in
                 switch noti.type {
                 case .like, .comment, .postAuthorComment:
-                    PostDetailView(path: $navPath, postID: noti.destPostId)
+                    PostDetailView(postID: noti.destPostId)
                 case .friendAccepted, .friendRequested:
                     FriendListView()
                 case .unknown:
                     EmptyView()
                 }
             })
+            .navigationDestination(isPresented: $viewModel.pushNotiReceived, destination: {
+                if let pushNoti = unlockService.notiDestination {
+                    switch pushNoti {
+                    case .friend:
+                        FriendListView()
+                            .onDisappear {
+                                if unlockService.notiDestination != nil {
+                                    unlockService.notiDestination = nil
+                                }
+                            }
+                    case .post:
+                        PostDetailView(postID: pushNoti.postID)
+                            .onDisappear {
+                                if unlockService.notiDestination != nil {
+                                    unlockService.notiDestination = nil
+                                }
+                            }
+                    case .unknown:
+                        EmptyView()
+                    }
+                }
+            })
         }
         .onAppear {
             viewModel.getNotiList()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                viewModel.pushNotiReceived = unlockService.notiDestination != nil ? true : false
+            }
         }
     }
 }

@@ -71,10 +71,6 @@ struct CommentItemView: View {
                 .foregroundColor(.gray4)
         }
         .padding(EdgeInsets(top: 10, leading: 16, bottom: 0, trailing: 16))
-        .navigationDestination(isPresented: $viewModel.moveToReportView) {
-            ReportView(commentId: comment.id)
-                .environmentObject(viewModel)
-        }
         .onDisappear {
             showStoreDropDown = false
         }
@@ -83,10 +79,20 @@ struct CommentItemView: View {
     
     func getDropdownButtonInfo() -> [CustomButtonInfo] {
         let buttonInfo1 = CustomButtonInfo(title: "차단하기", btnColor: .gray8) {
-            viewModel.postBlock(userId: comment.author)
+            unlockService.doublePopupToShow = .blockUser(leftAction: nil, rightAction: {
+                viewModel.postBlock(userId: comment.author)
+                viewModel.getComment(id: viewModel.post?.id ?? "")
+            }, userFullname: comment.authorFullname)
+            
+            withAnimation(.default) {
+                unlockService.showPopup = true
+            }
         }
         
-        let buttonInfo2 = CustomButtonInfo(title: "신고하기", btnColor: .red) { viewModel.moveToReportView = true }
+        let buttonInfo2 = CustomButtonInfo(title: "신고하기", btnColor: .red) {
+            viewModel.reportCommentId = comment.id
+            viewModel.moveToReportCommentView = true
+        }
         
         return [buttonInfo1, buttonInfo2]
     }

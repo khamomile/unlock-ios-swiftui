@@ -21,11 +21,6 @@ struct NotiItemView: View {
                     .resizable()
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .frame(width: 42, height: 42)
-                    .onTapGesture {
-                        print("AYE0: ", noti.id)
-                        print("AYE1: ", noti.type.rawValue)
-                        print("AYE2: ", noti.linkTo)
-                    }
                 
                 VStack(alignment: .leading) {
                     HStack(alignment: .lastTextBaseline, spacing: 0) {

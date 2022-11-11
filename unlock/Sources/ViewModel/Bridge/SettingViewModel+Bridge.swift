@@ -18,5 +18,6 @@ extension SettingViewModel {
         guard let homeFeedViewModel = homeFeedViewModel, let discoverFeedViewModel = discoverFeedViewModel else { return }
         
         homeFeedViewModel.updateUnblockedUser(unblockedUserId: unblockedUserId)
+        discoverFeedViewModel.updateUnblockedUser(unblockedUserId: unblockedUserId)
     }
 }

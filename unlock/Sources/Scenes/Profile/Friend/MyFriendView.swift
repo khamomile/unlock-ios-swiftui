@@ -20,19 +20,24 @@ struct MyFriendView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             VStack {
-                if viewModel.friendList.count == 0 {
-                    InviteFriendSearchView()
-                        .padding(.top, 100)
+                if viewModel.isLoadingMyFriend {
+                    ColoredProgressView(color: .gray)
+                        .frame(maxHeight: .infinity)
                 } else {
-                    VStack {
-                        ForEach(viewModel.friendList) { friend in
-                            FriendItemView(friend: friend)
+                    if viewModel.friendList.count == 0 {
+                        InviteFriendSearchView()
+                            .padding(.top, 100)
+                    } else {
+                        VStack {
+                            ForEach(viewModel.friendList) { friend in
+                                FriendItemView(friend: friend)
+                            }
                         }
+                        .animation(.default, value: viewModel.friendList)
                     }
-                    .animation(.default, value: viewModel.friendList)
                 }
             }
-            .animation(.default, value: viewModel.friendList)
+            .animation(.default, value: viewModel.isLoadingMyFriend)
         }
         .padding(.vertical, 16)
         

@@ -15,10 +15,8 @@ struct HomeView: View {
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     @EnvironmentObject var profileViewModel: ProfileViewModel
     
-    @State var navPath = NavigationPath()
-    
     var body: some View {
-        NavigationStack(path: $navPath) {
+        NavigationStack {
             ZStack {
                 VStack(spacing: 0) {
                     SimpleHeaderView(title: "Unlock")
@@ -26,22 +24,7 @@ struct HomeView: View {
                     ZStack(alignment: .bottomTrailing) {
                         Color(.init(gray: 0.9, alpha: 0.5))
                         
-                        ScrollView(showsIndicators: false) {
-                            LazyVStack {
-                                ForEach(Array(viewModel.postList.enumerated()), id: \.element.self) { idx, post in
-                                        getPostItemView(post: post)
-                                        .onAppear {
-                                            inifitePaging(idx: idx)
-                                        }
-                                }
-                                .id(UUID())
-                            }
-                            .padding(.bottom, 100)
-                            .animation(.easeInOut, value: viewModel.postList)
-                        }
-                        .refreshable {
-                            viewModel.refreshPages()
-                        }
+                        postListView()
                         
                         NavigationLink(value: NavButton.composePost) {
                             Image("pencil")
@@ -53,30 +36,30 @@ struct HomeView: View {
                     }
                 }
                 .toolbar(.visible, for: .tabBar)
-            }
-            .navigationDestination(for: NavButton.self, destination: { navButton in
-                switch navButton {
-                case .composePost:
-                    PostComposeView(path: $navPath)
-                        .environmentObject(viewModel)
-                        .environmentObject(discoverFeedViewModel)
-                        .environmentObject(profileViewModel)
-                case .searchUser:
-                    SearchView()
+                .animation(.default, value: viewModel.isLoadingPost)
+                .navigationDestination(for: NavButton.self, destination: { navButton in
+                    switch navButton {
+                    case .composePost:
+                        PostComposeView()
+                            .environmentObject(viewModel)
+                            .environmentObject(discoverFeedViewModel)
+                            .environmentObject(profileViewModel)
+                    case .searchUser:
+                        SearchView()
+                    }
+                })
+                .navigationDestination(for: String.self, destination: { postId in
+                    PostDetailView(postID: postId)
+                })
+                .onAppear {
+                    viewModel.batchUpdateLikesCount()
+                    notificationViewModel.getUnreadNoti()
                 }
-            })
-            .navigationDestination(for: String.self, destination: { postId in
-                PostDetailView(path: $navPath, postID: postId)
-            })
-            .onAppear {
-                viewModel.batchUpdateLikesCount()
-                notificationViewModel.getUnreadNoti()
             }
         }
     }
     
     func inifitePaging(idx: Int) {
-        print("Index: \(idx), DidBlock: \(viewModel.postList[idx].didBlock ?? true), UPIndex: \(viewModel.lastUnhiddenPostIndex()) ")
         if idx == viewModel.lastUnhiddenPostIndex() && viewModel.postPagingCalled[idx] == nil {
             if viewModel.pageNo <= viewModel.totalPageNo + 1 {
                 if viewModel.newPageUpdated {
@@ -92,15 +75,44 @@ struct HomeView: View {
     }
     
     @ViewBuilder
-    func getPostItemView(post: Post) -> some View {
+    func postItemView(post: Post) -> some View {
         if !(post.didHide ?? false) && !(post.didBlock ?? false) {
             NavigationLink(value: post.id) {
-                PostItemView(path: $navPath, post: post)
+                PostItemView(post: post)
             }
         } else if post.showTrace ?? false {
             HiddenPostView(post: post)
         } else {
             EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    func postListView() -> some View {
+        if viewModel.isLoadingPost {
+            ColoredProgressView(color: .gray)
+                .frame(maxHeight: .infinity)
+        } else {
+            if unlockService.me.friendsCount == 0 {
+                InviteFriendSearchView()
+            } else {
+                ScrollView(showsIndicators: false) {
+                    LazyVStack {
+                        ForEach(Array(viewModel.postList.enumerated()), id: \.element.self) { idx, post in
+                                postItemView(post: post)
+                                .onAppear {
+                                    inifitePaging(idx: idx)
+                                }
+                        }
+                        .id(UUID())
+                    }
+                    .padding(.bottom, 100)
+                    .animation(.easeInOut, value: viewModel.postList)
+                }
+                .refreshable {
+                    viewModel.refreshPages()
+                }
+            }
         }
     }
 }

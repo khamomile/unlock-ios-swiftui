@@ -35,7 +35,7 @@ extension PostDetailViewModel {
         
         // UPDATING LIKES COUNT
         homeFeedViewModel.updateLikesCount(postId: post.id, count: post.likes, didLike: post.didLike ?? false)
-        // Discover Feed update
+        discoverFeedViewModel.updateLikesCount(postId: post.id, count: post.likes, didLike: post.didLike ?? false)
         profileViewModel.updateLikesCount(postId: post.id, count: post.likes)
     }
     
@@ -43,9 +43,10 @@ extension PostDetailViewModel {
     func bridgeHiddenStatus() {
         guard let post = post else { return }
         
-        guard let homeFeedViewModel = homeFeedViewModel, let discoverFeedViewModel = discoverFeedViewModel, let profileViewModel = profileViewModel else { return }
+        guard let homeFeedViewModel = homeFeedViewModel, let discoverFeedViewModel = discoverFeedViewModel else { return }
         
         homeFeedViewModel.updateHiddenPost(postId: post.id, didHide: post.didHide ?? false, showTrace: post.showTrace ?? false)
+        discoverFeedViewModel.updateHiddenPost(postId: post.id, didHide: post.didHide ?? false, showTrace: post.showTrace ?? false)
     }
     
     // BRIDGE DELETED STATUS
@@ -56,6 +57,7 @@ extension PostDetailViewModel {
         
         homeFeedViewModel.updateDeletedPost(postId: post.id)
         profileViewModel.updateDeletedPost(postId: post.id)
+        discoverFeedViewModel.updateDeletedPost(postId: post.id)
     }
     
     // BRIDGE COMMENT NO
@@ -65,20 +67,23 @@ extension PostDetailViewModel {
         guard let homeFeedViewModel = homeFeedViewModel, let discoverFeedViewModel = discoverFeedViewModel, let profileViewModel = profileViewModel else { return }
 
         homeFeedViewModel.updateCommentNo(postId: post.id, commentsCount: post.commentsCount)
+        discoverFeedViewModel.updateCommentNo(postId: post.id, commentsCount: post.commentsCount)
         profileViewModel.updateCommentNo(postId: post.id, commentsCount: post.commentsCount)
     }
 
     func bridgeAuthorInfo() {
         guard let post = post else { return }
 
-        guard let homeFeedViewModel = homeFeedViewModel, let discoverFeedViewModel = discoverFeedViewModel, let profileViewModel = profileViewModel else { return }
+        guard let homeFeedViewModel = homeFeedViewModel, let discoverFeedViewModel = discoverFeedViewModel else { return }
 
         homeFeedViewModel.updateAuthorInfo(postId: post.id, author: post.author, authorFullname: post.authorFullname, authorProfileImage: post.authorProfileImage)
+        discoverFeedViewModel.updateAuthorInfo(postId: post.id, author: post.author, authorFullname: post.authorFullname, authorProfileImage: post.authorProfileImage)
     }
     
     func bridgeBlockedUser(blockedUserId: String) {
-        guard let homeFeedViewModel = homeFeedViewModel, let discoverFeedViewModel = discoverFeedViewModel, let profileViewModel = profileViewModel else { return }
+        guard let homeFeedViewModel = homeFeedViewModel, let discoverFeedViewModel = discoverFeedViewModel else { return }
         
         homeFeedViewModel.updateBlockedUser(blockedUserId: blockedUserId)
+        discoverFeedViewModel.updateBlockedUser(blockedUserId: blockedUserId)
     }
 }

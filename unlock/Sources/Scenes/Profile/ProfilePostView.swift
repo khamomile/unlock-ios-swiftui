@@ -11,15 +11,6 @@ struct ProfilePostView: View {
     @EnvironmentObject var unlockService: UnlockService
     @EnvironmentObject var viewModel: ProfileViewModel
     
-    @Binding var path: NavigationPath
-    
-    struct Number: Identifiable {
-        let value: Int
-        var id: Int { value }
-    }
-    
-    let numbers: [Number] = (0...8).map { Number(value: $0) }
-    
     private let columns = [
         GridItem(.fixed(UIScreen.main.bounds.width/2 - 16), spacing: nil, alignment: .leading),
         GridItem(.fixed(UIScreen.main.bounds.width/2 - 16), spacing: nil, alignment: .leading)
@@ -49,7 +40,7 @@ struct ProfilePostView: View {
             }
         }
         .navigationDestination(for: String.self) { postId in
-            PostDetailView(path: $path, postID: postId)
+            PostDetailView(postID: postId)
                 .environmentObject(viewModel)
         }
     }
@@ -57,7 +48,7 @@ struct ProfilePostView: View {
 
 struct ProfilePostView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfilePostView(path: .constant(NavigationPath()))
+        ProfilePostView()
             .environmentObject(UnlockService.shared)
             .environmentObject(ProfileViewModel())
     }

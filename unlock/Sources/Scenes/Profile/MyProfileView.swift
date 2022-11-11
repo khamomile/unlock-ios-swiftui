@@ -13,10 +13,8 @@ struct MyProfileView: View {
     @EnvironmentObject var viewModel: ProfileViewModel
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     
-    @State var navPath = NavigationPath()
-    
     var body: some View {
-        NavigationStack(path: $navPath) {
+        NavigationStack {
             VStack(spacing: 0) {
                 ProfileHeaderView(title: "Profile")
                 
@@ -24,7 +22,7 @@ struct MyProfileView: View {
                     ProfileGeneralView()
                         .environmentObject(unlockService.me)
                     
-                    ProfilePostView(path: $navPath)
+                    ProfilePostView()
                         .environmentObject(viewModel)
                 }
                 .refreshable {

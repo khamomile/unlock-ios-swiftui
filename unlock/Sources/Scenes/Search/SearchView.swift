@@ -16,71 +16,75 @@ struct SearchView: View {
     @State private var keyword: String = ""
     @FocusState var isFocused: Bool
     
-    struct Number: Identifiable {
-        let value: Int
-        var id: Int { value }
-    }
-    
-    let numbers: [Number] = (0...5).map { Number(value: $0) }
-    
     var body: some View {
-        VStack {
-            HStack(spacing: 15) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image("angle-left")
-                }
+        ZStack {
+            VStack {
+                HStack(spacing: 15) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image("angle-left")
+                    }
 
-                HStack {
-                    Image("search-grey")
-                    
-                    TextField("아이디 또는 이름으로 검색", text: $keyword)
-                        .focused($isFocused)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
-                        .font(.lightCaption1)
-                    
-                    Image("close-input")
-                        .onTapGesture {
-                            keyword = ""
-                        }
+                    HStack {
+                        Image("search-grey")
+                        
+                        TextField("아이디 또는 이름으로 검색", text: $keyword)
+                            .keyboardCleaned(keyboardType: .default, text: $keyword)
+                            .focused($isFocused)
+                            .font(.lightCaption1)
+                        
+                        Image("close-input")
+                            .onTapGesture {
+                                keyword = ""
+                                isFocused = false
+                            }
+                    }
+                    .padding(8)
+                    .background(Color.gray0)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
-                .padding(8)
-                .background(Color.gray0)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-            }
-            .padding()
-            
-            GeometryReader { geometry in
-                ScrollView {
-                    if keyword.count >= 2 && viewModel.userList.count == 0 {
-                        EmptySearchView()
-                            .frame(height: geometry.size.height)
-                    } else {
-                        ForEach(viewModel.userList) { user in
-                            SearchItemView(user: user)
-                                .environmentObject(viewModel)
+                .padding()
+                
+                GeometryReader { geometry in
+                    ScrollView(showsIndicators: false) {
+                        if keyword.count < 2 {
+                            Color.white
+                                .frame(height: geometry.size.height)
+                        } else if keyword.count >= 2 && viewModel.userList.count == 0 {
+                            EmptySearchView()
+                                .frame(height: geometry.size.height)
+                        } else {
+                            ForEach(viewModel.userList) { user in
+                                SearchItemView(user: user, isFocused: _isFocused)
+                                    .environmentObject(viewModel)
+                            }
                         }
                     }
-                }
-                .padding(.bottom, 16)
-                .onTapGesture {
-                    isFocused = false
+                    .padding(.bottom, 16)
+                    .onTapGesture {
+                        isFocused = false
+                    }
                 }
             }
-            // InviteFriendSearchView()
-        }
-        .navigationBarHidden(true)
-        .onChange(of: keyword) { newKeyword in
-            if newKeyword.count >= 2 {
-                viewModel.getUserList(keyword: newKeyword)
-            } else if newKeyword.count < 2 {
-                viewModel.userList = []
+            .navigationBarHidden(true)
+            .onChange(of: keyword) { newKeyword in
+                if newKeyword.count >= 2 {
+                    viewModel.getUserList(keyword: newKeyword)
+                } else if newKeyword.count < 2 {
+                    viewModel.userList = []
+                }
             }
-        }
-        .onAppear {
-            isFocused = true
+            .onAppear {
+                isFocused = true
+            }
+            
+            if unlockService.showPopup {
+                if let doublePopupToShow = unlockService.doublePopupToShow {
+                    DoublePopupView(doublePopupInfo: doublePopupToShow)
+                        .zIndex(1)
+                }
+            }
         }
     }
 }

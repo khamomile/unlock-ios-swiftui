@@ -18,13 +18,17 @@ class HomeFeedViewModel: ObservableObject {
     
     private let unlockService = UnlockService.shared
     
+    // PAGING INFORMATION
     @Published var pageNo: Int = 1
     @Published var totalPageNo: Int = 1
+    @Published var newPageUpdated: Bool = false
     
+    // POST STORING
     @Published var postList: [Post] = []
     @Published var tempPostList: [Post] = []
     
-    @Published var newPageUpdated: Bool = false
+    // LOADING STATUS
+    @Published var isLoadingPost: Bool = false
     
     var updatedLikesCount: [String : Int] = [:]
     var updatedDidLike: [String : Bool] = [:]
@@ -37,6 +41,8 @@ class HomeFeedViewModel: ObservableObject {
     }
     
     func getPage() {
+        isLoadingPost = true
+        
         provider.requestPublisher(.getFeed(page: pageNo))
             .sink { completion in
                 switch completion {
@@ -49,12 +55,11 @@ class HomeFeedViewModel: ObservableObject {
                 print(response)
                 guard self.unlockService.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(PaginatedResultResponse.self) else { return }
-                // print(responseData)
                 self.totalPageNo = responseData.totalPages
-                print("Total page: \(self.totalPageNo)")
                 self.postList = responseData.docs.map {
                     Post(data: $0)
                 }
+                self.isLoadingPost = false
             }
             .store(in: &subscription)
     }
@@ -79,10 +84,6 @@ class HomeFeedViewModel: ObservableObject {
                 
                 self.postList.append(contentsOf: self.tempPostList)
                 
-//                for post in self.tempPostList {
-//                    self.postList.append(post)
-//                }
-                
                 self.tempPostList = []
                 
                 self.tempPostList = responseData.docs.map {
@@ -98,8 +99,6 @@ class HomeFeedViewModel: ObservableObject {
     
     func lastUnhiddenPostIndex() -> Int {
         let idx = postList.lastIndex(where: { ($0.didHide == false && $0.didBlock == false) || $0.showTrace == true })
-        
-//        let idx = postList.lastIndex(where: { $0.didHide == false || $0.showTrace == true })
         
         return idx ?? 0
     }

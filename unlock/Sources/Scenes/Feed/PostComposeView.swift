@@ -26,8 +26,6 @@ struct PostComposeView: View {
     @State private var inputImage: UIImage?
     @State private var showingImagePicker: Bool = false
     
-    @Binding var path: NavigationPath
-    
     var postToEditId: String?
     
     var body: some View {
@@ -90,14 +88,12 @@ struct PostComposeView: View {
         }
         .navigationDestination(isPresented: $viewModel.postSuccess, destination: {
             if viewModel.postId.count > 0 {
-                PostDetailView(path: $path, postID: viewModel.postId)
+                PostDetailView(postID: viewModel.postId)
             }
         })
         .navigationBarHidden(true)
         .toolbar(.hidden, for: .tabBar)
         .onAppear {
-            print("Post compose path: ", path.count)
-            
             viewModel.setViewModel(homeFeedViewModel: homeFeedViewModel, discoverFeedViewModel: discoverFeedViewModel, profileViewModel: profileViewModel)
             
             if let postToEditId = postToEditId {
@@ -197,7 +193,7 @@ struct PostHeaderView: View {
 
 struct PostComposeView_Previews: PreviewProvider {
     static var previews: some View {
-        PostComposeView(path: .constant(NavigationPath()))
+        PostComposeView()
             .environmentObject(UnlockService.shared)
             .environmentObject(HomeFeedViewModel())
             .environmentObject(DiscoverFeedViewModel())

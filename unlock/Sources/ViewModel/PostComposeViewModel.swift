@@ -49,9 +49,7 @@ class PostComposeViewModel: ObservableObject {
                 print(response)
                 guard self.unlockService.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(PostResponse.self) else { return }
-                print("Kingking", responseData)
                 self.postId = responseData._id
-                print("Keke", self.postId)
                 self.postSuccess = true
                 self.updatePostListInfo()
             }
@@ -73,7 +71,6 @@ class PostComposeViewModel: ObservableObject {
                 print(response)
                 guard self.unlockService.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(PostResponse.self) else { return }
-                print("Kingking", responseData)
                 self.postId = responseData._id
                 self.postSuccess = true
                 self.updatePostListInfo()
@@ -140,6 +137,7 @@ extension PostComposeViewModel {
         guard let homeFeedViewModel = homeFeedViewModel, let discoverFeedViewModel = discoverFeedViewModel, let profileViewModel = profileViewModel else { return }
         
         homeFeedViewModel.refreshPages()
+        discoverFeedViewModel.refreshPages()
         profileViewModel.getMyPosts()
     }
 }

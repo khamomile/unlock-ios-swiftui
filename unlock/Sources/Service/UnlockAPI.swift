@@ -367,8 +367,9 @@ extension UnlockAPI: TargetType {
                 "showPublic": showPublic,
                 "content": content,
                 "htmlContent": htmlContent,
-                "images": imageList
+                "images": imageList.count == 0 ? [] : imageList
             ]
+            print("Params: \(params)")
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .putPost(id: _, title: let title, content: let content, htmlContent: let htmlContent, showPublic: let showPublic, images: let images):
             var imageList: [String : String] = [:]
@@ -384,7 +385,7 @@ extension UnlockAPI: TargetType {
                 "showPublic": showPublic,
                 "content": content,
                 "htmlContent": htmlContent,
-                "images": imageList
+                "images": imageList.count == 0 ? [] : imageList
             ]
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .postPostImage(file: let file):
