@@ -42,7 +42,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         return true
     }
     
-    // fcm 토큰이 등록 되었을 때
+    // Did register fcm token
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
     }
@@ -50,9 +50,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 extension AppDelegate : MessagingDelegate {
     
-    // fcm 등록 토큰을 받았을 때
+    // Did receive fcm token
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        print("AppDelegate - 파베 토큰을 받았다.")
         print("AppDelegate - Firebase registration token: \(String(describing: fcmToken))")
         
         guard let fcmToken = fcmToken else { return }
@@ -63,21 +62,15 @@ extension AppDelegate : MessagingDelegate {
 
 extension AppDelegate : UNUserNotificationCenterDelegate {
     
-    // 푸시메세지가 앱이 켜져 있을때 나올때
+    // Did receive push message (foreground)
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
-        // let userInfo = notification.request.content.userInfo
-        
-        // print("willPresent: userInfo: ", userInfo)
-        // UnlockService.shared.notiReceived = true
-        print("Noti received 4: \(UnlockService.shared.notiReceived)")
-        
         completionHandler([.badge, .list, .sound, .banner])
     }
     
-    // 푸시메세지를 받았을 때
+    // Did receive push message (background)
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
