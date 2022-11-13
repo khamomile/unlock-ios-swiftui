@@ -151,7 +151,7 @@ class SettingViewModel: ObservableObject {
     }
 
     func putUser(username: String, fullname: String, bDay: String, profileImage: String, bio: String) {
-        let birthDate = bDay.dateFromYYMMDD()
+        let birthDate = Date.parseYMDDate(from: bDay) ?? Date()
         
         unlockService.isLoading = true
         

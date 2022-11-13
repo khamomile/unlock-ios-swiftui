@@ -136,7 +136,7 @@ class SignInViewModel: ObservableObject {
     }
     
     func postRegister(fullName: String, bDay: String, gender: String) {
-        let birthDate = bDay.dateFromYYMMDD()
+        let birthDate = Date.parseYMDDate(from: bDay) ?? Date()
         
         unlockService.isLoading = true
         

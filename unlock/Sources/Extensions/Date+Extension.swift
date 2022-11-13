@@ -20,18 +20,6 @@ extension Date {
     }
     
     static func parseDateTime(from date: String?) -> Date? {
-//        let iso8601DateFormatter = ISO8601DateFormatter()
-//        iso8601DateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-//
-//        let date2 = Date()
-//        print(iso8601DateFormatter.string(from: date2))
-//        print("???")
-//
-//        if let date = date {
-//            return iso8601DateFormatter.date(from: date)
-//        } else {
-//            return nil
-//        }
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSxxxxx"
@@ -40,5 +28,31 @@ extension Date {
         } else {
             return nil
         }
+    }
+    
+    static func parseYMDDate(from date: String) -> Date? {
+        var year = Int(date.substring(from: 0, to: 1)) ?? 0
+        let month = Int(date.substring(from: 2, to: 3)) ?? 0
+        let day = Int(date.substring(from: 4, to: 5)) ?? 0
+        
+        let now = Date.now
+        let calendar = Calendar.current
+        
+        let components = calendar.dateComponents([.year], from: now)
+        
+        if (year > (components.year! - 2000)) {
+          year += 1900;
+        } else {
+          year += 2000;
+        }
+        
+        var dateComponents = DateComponents()
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+        
+        let resultDate = Calendar(identifier: .gregorian).date(from: dateComponents)
+        
+        return resultDate
     }
 }
