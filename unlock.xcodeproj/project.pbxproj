@@ -80,6 +80,8 @@
 		DA15F768290BC02000A188A5 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F767290BC02000A188A5 /* String+Extension.swift */; };
 		DA15F76A290BC8F500A188A5 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F769290BC8F500A188A5 /* ImagePicker.swift */; };
 		DA3C695229160DD100BA0894 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C695129160DD100BA0894 /* Report.swift */; };
+		DA903EB22920B1DD0080F305 /* PostComposeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA903EB12920B1DD0080F305 /* PostComposeHeaderView.swift */; };
+		DA903EB42920B38E0080F305 /* PostComposeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA903EB32920B38E0080F305 /* PostComposeFooterView.swift */; };
 		DAA68A8C290D10B1005BA1DE /* ColoredProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A8B290D10B1005BA1DE /* ColoredProgressView.swift */; };
 		DAA68A8E290D1706005BA1DE /* ErrorPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A8D290D1706005BA1DE /* ErrorPopupView.swift */; };
 		DAA68A92290D449D005BA1DE /* KeyboardCleaned.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A91290D449D005BA1DE /* KeyboardCleaned.swift */; };
@@ -88,7 +90,6 @@
 		DAA68A98290FF9FD005BA1DE /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A97290FF9FD005BA1DE /* Date+Extension.swift */; };
 		DAA68A9A2911144F005BA1DE /* ProfileEditHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A992911144F005BA1DE /* ProfileEditHeaderView.swift */; };
 		DAA68A9E2911460C005BA1DE /* BannedUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A9D2911460C005BA1DE /* BannedUserView.swift */; };
-		DAA68AA02911598F005BA1DE /* MoyaPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A9F2911598F005BA1DE /* MoyaPlugin.swift */; };
 		DAA68AA229123C93005BA1DE /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68AA129123C93005BA1DE /* ProfileViewModel.swift */; };
 		DAA68AA6291287A3005BA1DE /* HTML+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68AA5291287A3005BA1DE /* HTML+Extension.swift */; };
 		DAA68AA829129D22005BA1DE /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68AA729129D22005BA1DE /* PostDetailViewModel.swift */; };
@@ -229,6 +230,8 @@
 		DA15F767290BC02000A188A5 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		DA15F769290BC8F500A188A5 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		DA3C695129160DD100BA0894 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+		DA903EB12920B1DD0080F305 /* PostComposeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComposeHeaderView.swift; sourceTree = "<group>"; };
+		DA903EB32920B38E0080F305 /* PostComposeFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComposeFooterView.swift; sourceTree = "<group>"; };
 		DAA68A8B290D10B1005BA1DE /* ColoredProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredProgressView.swift; sourceTree = "<group>"; };
 		DAA68A8D290D1706005BA1DE /* ErrorPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopupView.swift; sourceTree = "<group>"; };
 		DAA68A91290D449D005BA1DE /* KeyboardCleaned.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardCleaned.swift; sourceTree = "<group>"; };
@@ -237,7 +240,6 @@
 		DAA68A97290FF9FD005BA1DE /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		DAA68A992911144F005BA1DE /* ProfileEditHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditHeaderView.swift; sourceTree = "<group>"; };
 		DAA68A9D2911460C005BA1DE /* BannedUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannedUserView.swift; sourceTree = "<group>"; };
-		DAA68A9F2911598F005BA1DE /* MoyaPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaPlugin.swift; sourceTree = "<group>"; };
 		DAA68AA129123C93005BA1DE /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		DAA68AA5291287A3005BA1DE /* HTML+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTML+Extension.swift"; sourceTree = "<group>"; };
 		DAA68AA729129D22005BA1DE /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				DA15F6C029065EE900A188A5 /* Tab */,
 				DA15F7192908EEB700A188A5 /* Users */,
 				DA15F6C129065EF100A188A5 /* Feed */,
+				DA903EB02920B1370080F305 /* PostCompose */,
 				DA15F6C629066D5800A188A5 /* PostDetail */,
 				DA15F6D72906864B00A188A5 /* Search */,
 				DA15F6DE2906A8ED00A188A5 /* Notification */,
@@ -380,7 +383,6 @@
 				DA15F6BA29065E5D00A188A5 /* DiscoverView.swift */,
 				DA15F6C229065F2400A188A5 /* PostItemView.swift */,
 				DA15F6C429066A9300A188A5 /* HiddenPostView.swift */,
-				DA15F6F029077A6900A188A5 /* PostComposeView.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -523,7 +525,6 @@
 				DA15F755290A5DD100A188A5 /* UnlockService.swift */,
 				DA15F74F290A3E5200A188A5 /* UnlockAPI.swift */,
 				DA15F748290A1CD300A188A5 /* ApiError.swift */,
-				DAA68A9F2911598F005BA1DE /* MoyaPlugin.swift */,
 				DA15F757290A5E5E00A188A5 /* AuthInterceptor.swift */,
 				DA15F754290A4D2A00A188A5 /* ApiTest.playground */,
 			);
@@ -577,6 +578,16 @@
 				DAC59B25291BF069006F9A28 /* PushNotiType.swift */,
 			);
 			path = Const;
+			sourceTree = "<group>";
+		};
+		DA903EB02920B1370080F305 /* PostCompose */ = {
+			isa = PBXGroup;
+			children = (
+				DA15F6F029077A6900A188A5 /* PostComposeView.swift */,
+				DA903EB12920B1DD0080F305 /* PostComposeHeaderView.swift */,
+				DA903EB32920B38E0080F305 /* PostComposeFooterView.swift */,
+			);
+			path = PostCompose;
 			sourceTree = "<group>";
 		};
 		DAA68A8F290D445D005BA1DE /* ViewModifiers */ = {
@@ -717,9 +728,9 @@
 				DA15F764290BB3F600A188A5 /* Utils */,
 				DA15F745290A1BFB00A188A5 /* Service */,
 				DA3C695029160DB300BA0894 /* Const */,
-				DA15F74C290A1DB400A188A5 /* ViewModel */,
-				DA15F73429094E2E00A188A5 /* Model */,
 				DA15F6B5290651B200A188A5 /* Components */,
+				DA15F73429094E2E00A188A5 /* Model */,
+				DA15F74C290A1DB400A188A5 /* ViewModel */,
 				DA15F6B0290650A400A188A5 /* Scenes */,
 				DAD0BADA29062B6400E7CD69 /* Extensions */,
 			);
@@ -1016,7 +1027,6 @@
 				DA15F6FC2907ADA000A188A5 /* ProfilePostItemView.swift in Sources */,
 				DAC59AF929189BC1006F9A28 /* PostPublicStatus.swift in Sources */,
 				DA15F7052907BCDD00A188A5 /* FriendItemView.swift in Sources */,
-				DAA68AA02911598F005BA1DE /* MoyaPlugin.swift in Sources */,
 				DA15F753290A4CE500A188A5 /* ValidResponseType.swift in Sources */,
 				DA15F744290953A600A188A5 /* PaginatedResult.swift in Sources */,
 				DA15F6D92906A35400A188A5 /* EmptySearchView.swift in Sources */,
@@ -1048,8 +1058,10 @@
 				DAA68AAE2914247B005BA1DE /* HomeFeedViewModel.swift in Sources */,
 				DA15F71D2908F91900A188A5 /* IDInputView.swift in Sources */,
 				DA15F6FA2907ACAF00A188A5 /* ProfilePostView.swift in Sources */,
+				DA903EB22920B1DD0080F305 /* PostComposeHeaderView.swift in Sources */,
 				DAD0BADC29062B6E00E7CD69 /* Font+Extension.swift in Sources */,
 				DA15F6E42906ABC300A188A5 /* EmptyNotiView.swift in Sources */,
+				DA903EB42920B38E0080F305 /* PostComposeFooterView.swift in Sources */,
 				DAC59AEE2917C6A0006F9A28 /* PostDetailViewModel+Bridge.swift in Sources */,
 				DAA68A8C290D10B1005BA1DE /* ColoredProgressView.swift in Sources */,
 				DA15F7402909521D00A188A5 /* Notification.swift in Sources */,

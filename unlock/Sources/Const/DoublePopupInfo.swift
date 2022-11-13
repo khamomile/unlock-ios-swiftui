@@ -15,6 +15,7 @@ enum DoublePopupInfo {
     case reportPost(leftAction: (() -> Void)?, rightAction: (() -> Void)?)
     case reportComment(leftAction: (() -> Void)?, rightAction: (() -> Void)?)
     case deleteFriend(leftAction: (() -> Void)?, rightAction: (() -> Void)?, userFullname: String)
+    case deleteImageFromPost(leftAction: (() -> Void)?, rightAction: (() -> Void)?)
     
     var mainText: String {
         switch self {
@@ -24,6 +25,7 @@ enum DoublePopupInfo {
         case .reportPost(_, _): return "게시물을 신고할까요?"
         case .reportComment(_, _): return "댓글을 신고할까요?"
         case .deleteFriend(_, _, let userFullname): return "\(userFullname)님을 친구에서 삭제할까요?"
+        case .deleteImageFromPost(_, _): return "사진을 삭제할까요?"
         }
     }
     
@@ -35,6 +37,7 @@ enum DoublePopupInfo {
         case .reportPost(_, _): return "취소"
         case .reportComment(_, _): return "취소"
         case .deleteFriend(_, _, _): return "아니요"
+        case .deleteImageFromPost(_, _): return "취소"
         }
     }
     
@@ -46,6 +49,7 @@ enum DoublePopupInfo {
         case .reportPost(_, _): return "신고하기"
         case .reportComment(_, _): return "신고하기"
         case .deleteFriend(_, _, _): return "네"
+        case .deleteImageFromPost(_, _): return "확인"
         }
     }
     
@@ -57,6 +61,8 @@ enum DoublePopupInfo {
         case .reportPost(let leftAction, _): return leftAction
         case .reportComment(let leftAction, _): return leftAction
         case .deleteFriend(let leftAction, _, _): return leftAction
+        case .deleteImageFromPost(let leftAction, _): return leftAction
+            
         }
     }
     
@@ -68,9 +74,7 @@ enum DoublePopupInfo {
         case .reportPost(_, let rightAction): return rightAction
         case .reportComment(_, let rightAction): return rightAction
         case .deleteFriend(_, let rightAction, _): return rightAction
+        case .deleteImageFromPost(_, let rightAction): return rightAction
         }
     }
-    
-    // DoublePopupView(mainText: "정말 탈퇴하시겠습니까?", leftOptionText: "취소", rightOptionText: "확인", rightAction: { viewModel.deleteUser() })
-        // .zIndex(1)
 }
