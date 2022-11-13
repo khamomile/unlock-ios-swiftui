@@ -36,9 +36,6 @@ struct CustomImage: Codable, Equatable  {
     let _id: String
     let transforms: [S3ImageTransform]
     let mimetype: String
-//    let encoding: String
-//    let originalName: String
-//    let fieldName: String
 }
 
 enum S3_IMAGE_TRANSFORM_ID: String, Codable {

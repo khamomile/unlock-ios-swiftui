@@ -15,11 +15,6 @@ enum UnlockError: String, Error {
     case forbidden = "0403"
     case network = "0404"
     case serverError = "0500"
-    
-//    case invalidUrl(String) =
-//    case invalidResponse
-//    case failed(Int)
-//    case emptyData
 
     init(code: String) {
         self = (.init(rawValue: code) ?? .unknown)
