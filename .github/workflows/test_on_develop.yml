@@ -19,4 +19,4 @@ jobs:
     - name: Build Xcode Project
       run: |
         pod install
-        xcodebuild clean test -workspace unlock/unlock.xcworkspace -scheme unlock -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest' 
+        xcodebuild clean test -workspace unlock.xcworkspace -scheme unlock -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest' 
