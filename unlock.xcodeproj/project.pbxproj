@@ -122,6 +122,7 @@
 		DA903EDE2920D77C0080F305 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F74A290A1D2700A188A5 /* Color+Extension.swift */; };
 		DA903EDF2920D77C0080F305 /* HTML+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68AA5291287A3005BA1DE /* HTML+Extension.swift */; };
 		DA903EE02920D77C0080F305 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A97290FF9FD005BA1DE /* Date+Extension.swift */; };
+		DA903EEB29221AF20080F305 /* NavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA903EEA29221AF20080F305 /* NavigationController+Extension.swift */; };
 		DAA68A8C290D10B1005BA1DE /* ColoredProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A8B290D10B1005BA1DE /* ColoredProgressView.swift */; };
 		DAA68A8E290D1706005BA1DE /* ErrorPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A8D290D1706005BA1DE /* ErrorPopupView.swift */; };
 		DAA68A92290D449D005BA1DE /* KeyboardCleaned.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A91290D449D005BA1DE /* KeyboardCleaned.swift */; };
@@ -272,6 +273,7 @@
 		DA3C695129160DD100BA0894 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		DA903EB12920B1DD0080F305 /* PostComposeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComposeHeaderView.swift; sourceTree = "<group>"; };
 		DA903EB32920B38E0080F305 /* PostComposeFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComposeFooterView.swift; sourceTree = "<group>"; };
+		DA903EEA29221AF20080F305 /* NavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationController+Extension.swift"; sourceTree = "<group>"; };
 		DAA68A8B290D10B1005BA1DE /* ColoredProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredProgressView.swift; sourceTree = "<group>"; };
 		DAA68A8D290D1706005BA1DE /* ErrorPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopupView.swift; sourceTree = "<group>"; };
 		DAA68A91290D449D005BA1DE /* KeyboardCleaned.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardCleaned.swift; sourceTree = "<group>"; };
@@ -785,6 +787,7 @@
 				DA15F767290BC02000A188A5 /* String+Extension.swift */,
 				DAA68A97290FF9FD005BA1DE /* Date+Extension.swift */,
 				DAA68AA5291287A3005BA1DE /* HTML+Extension.swift */,
+				DA903EEA29221AF20080F305 /* NavigationController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1071,6 +1074,7 @@
 				DA15F744290953A600A188A5 /* PaginatedResult.swift in Sources */,
 				DA15F6D92906A35400A188A5 /* EmptySearchView.swift in Sources */,
 				DA15F749290A1CD300A188A5 /* ApiError.swift in Sources */,
+				DA903EEB29221AF20080F305 /* NavigationController+Extension.swift in Sources */,
 				DA15F72B29092D0E00A188A5 /* PWResetEmailVerificationView.swift in Sources */,
 				DAC59AF529189874006F9A28 /* PostComposeViewModel.swift in Sources */,
 				DA15F6C529066A9300A188A5 /* HiddenPostView.swift in Sources */,
