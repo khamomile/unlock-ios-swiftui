@@ -82,6 +82,46 @@
 		DA3C695229160DD100BA0894 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C695129160DD100BA0894 /* Report.swift */; };
 		DA903EB22920B1DD0080F305 /* PostComposeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA903EB12920B1DD0080F305 /* PostComposeHeaderView.swift */; };
 		DA903EB42920B38E0080F305 /* PostComposeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA903EB32920B38E0080F305 /* PostComposeFooterView.swift */; };
+		DA903EB52920D7450080F305 /* UnlockAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F74F290A3E5200A188A5 /* UnlockAPI.swift */; };
+		DA903EB62920D7450080F305 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F757290A5E5E00A188A5 /* AuthInterceptor.swift */; };
+		DA903EB72920D7450080F305 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F748290A1CD300A188A5 /* ApiError.swift */; };
+		DA903EB82920D7450080F305 /* UnlockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F755290A5DD100A188A5 /* UnlockService.swift */; };
+		DA903EBD2920D74D0080F305 /* ErrorResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A93290E68C2005BA1DE /* ErrorResponseType.swift */; };
+		DA903EBE2920D74D0080F305 /* ValidResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F752290A4CE500A188A5 /* ValidResponseType.swift */; };
+		DA903EBF2920D7530080F305 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F765290BB40300A188A5 /* Utils.swift */; };
+		DA903EC02920D75B0080F305 /* CustomButtonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68AAB29139DF5005BA1DE /* CustomButtonInfo.swift */; };
+		DA903EC12920D75B0080F305 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C695129160DD100BA0894 /* Report.swift */; };
+		DA903EC22920D75B0080F305 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F6B3290650D100A188A5 /* Tab.swift */; };
+		DA903EC32920D75B0080F305 /* PushNotiType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59B25291BF069006F9A28 /* PushNotiType.swift */; };
+		DA903EC42920D75B0080F305 /* PostPublicStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59AF829189BC1006F9A28 /* PostPublicStatus.swift */; };
+		DA903EC52920D75B0080F305 /* DoublePopupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59B30291E1F24006F9A28 /* DoublePopupInfo.swift */; };
+		DA903EC62920D75B0080F305 /* NavButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59B182918D22C006F9A28 /* NavButton.swift */; };
+		DA903EC72920D75B0080F305 /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59B2C291CF072006F9A28 /* General.swift */; };
+		DA903EC82920D7640080F305 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F73729094E4E00A188A5 /* User.swift */; };
+		DA903EC92920D7640080F305 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F73D2909505600A188A5 /* Friend.swift */; };
+		DA903ECA2920D7640080F305 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F73F2909521D00A188A5 /* Notification.swift */; };
+		DA903ECB2920D7640080F305 /* PaginatedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F743290953A600A188A5 /* PaginatedResult.swift */; };
+		DA903ECC2920D7640080F305 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F73B29094FAE00A188A5 /* Comment.swift */; };
+		DA903ECD2920D7640080F305 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F73929094F0E00A188A5 /* Post.swift */; };
+		DA903ECE2920D76C0080F305 /* DiscoverFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68AAF29142485005BA1DE /* DiscoverFeedViewModel.swift */; };
+		DA903ECF2920D76C0080F305 /* PostComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59AF429189874006F9A28 /* PostComposeViewModel.swift */; };
+		DA903ED02920D76C0080F305 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68AA129123C93005BA1DE /* ProfileViewModel.swift */; };
+		DA903ED12920D76C0080F305 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68AA729129D22005BA1DE /* PostDetailViewModel.swift */; };
+		DA903ED22920D76C0080F305 /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68AB12914248C005BA1DE /* FriendViewModel.swift */; };
+		DA903ED32920D76C0080F305 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59B1C291B4247006F9A28 /* NotificationViewModel.swift */; };
+		DA903ED42920D76C0080F305 /* HomeFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68AAD2914247B005BA1DE /* HomeFeedViewModel.swift */; };
+		DA903ED52920D76C0080F305 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A95290FE6B5005BA1DE /* SettingViewModel.swift */; };
+		DA903ED62920D76C0080F305 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F74D290A1EF000A188A5 /* SignInViewModel.swift */; };
+		DA903ED72920D7720080F305 /* HomeFeedViewModel+Bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59AEF2917C6BE006F9A28 /* HomeFeedViewModel+Bridge.swift */; };
+		DA903ED82920D7720080F305 /* DiscoverFeedViewModel+Bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59B27291CADF3006F9A28 /* DiscoverFeedViewModel+Bridge.swift */; };
+		DA903ED92920D7720080F305 /* PostDetailViewModel+Bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59AED2917C6A0006F9A28 /* PostDetailViewModel+Bridge.swift */; };
+		DA903EDA2920D7720080F305 /* SettingViewModel+Bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59B1E291B8043006F9A28 /* SettingViewModel+Bridge.swift */; };
+		DA903EDB2920D7720080F305 /* ProfileViewModel+Bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC59AF12917C6E1006F9A28 /* ProfileViewModel+Bridge.swift */; };
+		DA903EDC2920D77C0080F305 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0BADB29062B6E00E7CD69 /* Font+Extension.swift */; };
+		DA903EDD2920D77C0080F305 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F767290BC02000A188A5 /* String+Extension.swift */; };
+		DA903EDE2920D77C0080F305 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F74A290A1D2700A188A5 /* Color+Extension.swift */; };
+		DA903EDF2920D77C0080F305 /* HTML+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68AA5291287A3005BA1DE /* HTML+Extension.swift */; };
+		DA903EE02920D77C0080F305 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A97290FF9FD005BA1DE /* Date+Extension.swift */; };
 		DAA68A8C290D10B1005BA1DE /* ColoredProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A8B290D10B1005BA1DE /* ColoredProgressView.swift */; };
 		DAA68A8E290D1706005BA1DE /* ErrorPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A8D290D1706005BA1DE /* ErrorPopupView.swift */; };
 		DAA68A92290D449D005BA1DE /* KeyboardCleaned.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A91290D449D005BA1DE /* KeyboardCleaned.swift */; };
@@ -1114,7 +1154,47 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA903EDA2920D7720080F305 /* SettingViewModel+Bridge.swift in Sources */,
+				DA903ED62920D76C0080F305 /* SignInViewModel.swift in Sources */,
+				DA903EB62920D7450080F305 /* AuthInterceptor.swift in Sources */,
+				DA903EDC2920D77C0080F305 /* Font+Extension.swift in Sources */,
+				DA903ECD2920D7640080F305 /* Post.swift in Sources */,
+				DA903EC12920D75B0080F305 /* Report.swift in Sources */,
+				DA903EBE2920D74D0080F305 /* ValidResponseType.swift in Sources */,
+				DA903ED82920D7720080F305 /* DiscoverFeedViewModel+Bridge.swift in Sources */,
+				DA903ECE2920D76C0080F305 /* DiscoverFeedViewModel.swift in Sources */,
+				DA903ECF2920D76C0080F305 /* PostComposeViewModel.swift in Sources */,
+				DA903EB72920D7450080F305 /* ApiError.swift in Sources */,
+				DA903EC02920D75B0080F305 /* CustomButtonInfo.swift in Sources */,
+				DA903EE02920D77C0080F305 /* Date+Extension.swift in Sources */,
+				DA903EC22920D75B0080F305 /* Tab.swift in Sources */,
+				DA903EC72920D75B0080F305 /* General.swift in Sources */,
+				DA903EC82920D7640080F305 /* User.swift in Sources */,
+				DA903ED42920D76C0080F305 /* HomeFeedViewModel.swift in Sources */,
+				DA903ED92920D7720080F305 /* PostDetailViewModel+Bridge.swift in Sources */,
+				DA903ED22920D76C0080F305 /* FriendViewModel.swift in Sources */,
+				DA903EB82920D7450080F305 /* UnlockService.swift in Sources */,
+				DA903EBD2920D74D0080F305 /* ErrorResponseType.swift in Sources */,
+				DA903EDF2920D77C0080F305 /* HTML+Extension.swift in Sources */,
+				DA903ECC2920D7640080F305 /* Comment.swift in Sources */,
+				DA903ED02920D76C0080F305 /* ProfileViewModel.swift in Sources */,
+				DA903EDD2920D77C0080F305 /* String+Extension.swift in Sources */,
+				DA903EB52920D7450080F305 /* UnlockAPI.swift in Sources */,
+				DA903ED32920D76C0080F305 /* NotificationViewModel.swift in Sources */,
+				DA903EDE2920D77C0080F305 /* Color+Extension.swift in Sources */,
+				DA903EC62920D75B0080F305 /* NavButton.swift in Sources */,
+				DA903ED12920D76C0080F305 /* PostDetailViewModel.swift in Sources */,
+				DA903ECA2920D7640080F305 /* Notification.swift in Sources */,
+				DA903EC32920D75B0080F305 /* PushNotiType.swift in Sources */,
 				DAD0BAB02906252E00E7CD69 /* unlockTests.swift in Sources */,
+				DA903EC52920D75B0080F305 /* DoublePopupInfo.swift in Sources */,
+				DA903ED72920D7720080F305 /* HomeFeedViewModel+Bridge.swift in Sources */,
+				DA903ED52920D76C0080F305 /* SettingViewModel.swift in Sources */,
+				DA903ECB2920D7640080F305 /* PaginatedResult.swift in Sources */,
+				DA903EC92920D7640080F305 /* Friend.swift in Sources */,
+				DA903EDB2920D7720080F305 /* ProfileViewModel+Bridge.swift in Sources */,
+				DA903EBF2920D7530080F305 /* Utils.swift in Sources */,
+				DA903EC42920D75B0080F305 /* PostPublicStatus.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1341,7 +1421,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MF7FTLWYJ6;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.khamomile.unlockTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1365,7 +1445,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MF7FTLWYJ6;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.khamomile.unlockTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
