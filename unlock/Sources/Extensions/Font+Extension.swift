@@ -9,8 +9,24 @@ import Foundation
 
 import SwiftUI
 
-extension Font {
+enum SourceHanSerifType: String {
+    case bold = "Bold"
+    case extraLight = "ExtraLight"
+    case heavy = "Heavy"
+    case light = "Light"
+    case medium = "Medium"
+    case regular = "Regular"
+    case semiBold = "SemiBold"
     
+    case thin = "Thin"
+    case extraBold = "ExtraBold"
+
+    var name: String {
+        "SourceHanSerifKR-" + self.rawValue
+    }
+}
+
+extension Font {
     static var boldCaption1: Font { sourceHanSerif(type: .bold, size: 14) }
     static var boldBody: Font { sourceHanSerif(type: .bold, size: 16) }
     static var boldHeadline: Font { sourceHanSerif(type: .bold, size: 18) }
@@ -42,23 +58,5 @@ extension Font {
     static func sourceHanSerif(type: SourceHanSerifType, size: CGFloat) -> Font {
         let font = custom(type.name, size: size)
         return font
-    }
-    
-    public enum SourceHanSerifType: String {
-        
-        case bold = "Bold"
-        case extraLight = "ExtraLight"
-        case heavy = "Heavy"
-        case light = "Light"
-        case medium = "Medium"
-        case regular = "Regular"
-        case semiBold = "SemiBold"
-        
-        case thin = "Thin"
-        case extraBold = "ExtraBold"
-
-        var name: String {
-            "SourceHanSerifKR-" + self.rawValue
-        }
     }
 }
