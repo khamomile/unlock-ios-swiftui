@@ -56,7 +56,7 @@ jobs:
           EXPORT_PLIST_PATH=$RUNNER_TEMP/ExportOptions.plist
           echo -n "$EXPORT_LIST" | base64 --decode --output $EXPORT_PLIST_PATH
           xcodebuild -exportArchive -archivePath unlock.xcarchive -exportOptionsPlist $EXPORT_PLIST_PATH -exportPath . -allowProvisioningUpdates
-    - name: Decode auth. api key file and save it.
+    - name: Decode auth. API key file and save it.
       env:
         API_KEY_BASE64: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
       run: |
