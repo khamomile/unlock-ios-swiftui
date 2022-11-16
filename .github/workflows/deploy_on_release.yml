@@ -47,7 +47,7 @@ jobs:
         cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
     - name: Archive app
       run: |
-          pod install --repo-update --clean-install --project-directory=unlock/
+          pod install --repo-update --clean-install
           xcodebuild clean archive -workspace unlock.xcworkspace -scheme unlock -configuration release -archivePath unlock.xcarchive
     - name: Export app
       env:
