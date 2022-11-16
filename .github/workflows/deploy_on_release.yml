@@ -69,5 +69,5 @@ jobs:
       run: |
           echo "Starting upload. "
           ls ~/private_keys
-          xcrun altool — validate-app -f unlock.ipa -t ios — apiKey ${{ secrets.APPSTORE_API_KEY_ID }} — apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
-          xcrun altool — upload-app -f unlock.ipa -t ios — apiKey “${{ secrets.APPSTORE_API_KEY_ID }}” — apiIssuer “${{ secrets.APPSTORE_ISSUER_ID }}”
+          xcrun altool --validate-app -f unlock.ipa -t ios — apiKey ${{ secrets.APPSTORE_API_KEY_ID }} — apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
+          xcrun altool --upload-app -f unlock.ipa -t ios — apiKey “${{ secrets.APPSTORE_API_KEY_ID }}” — apiIssuer “${{ secrets.APPSTORE_ISSUER_ID }}”
