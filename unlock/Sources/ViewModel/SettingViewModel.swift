@@ -16,14 +16,15 @@ class SettingViewModel: ObservableObject {
     
     private let unlockService = UnlockService.shared
     
-    // VIEWMODELS FOR UPDATE
+    // 0. VIEWMODELS FOR UPDATE
     var homeFeedViewModel: HomeFeedViewModel?
     var discoverFeedViewModel: DiscoverFeedViewModel?
     var profileViewModel: ProfileViewModel?
     
-    // CHECK STEP STATUS
+    // 1. CHECK STEP STATUS
+    // 1.1 LOGOUT
     @Published var logoutSuccess: Bool = false
-    
+    // 1.2 PROFILE-EDIT
     @Published var usernameVerified: Bool = false
     @Published var isPostingImage: Bool = false
     @Published var editSuccess: Bool = false
@@ -34,14 +35,14 @@ class SettingViewModel: ObservableObject {
     @Published var pwChanged: Bool = false
     
     @Published var userDeleted: Bool = false
-    
-    // VARIABLES FOR PROFILE EDIT
-    @Published var profileImageURL: String
-    var username: String
-    var fullname: String
-    var bDay: String
-    var bio: String
-    
+
+    // 2. PROFILE-EDIT DATA
+    @Published var eUsername: String = ""
+    @Published var eName: String = ""
+    @Published var eBDay: String = ""
+    @Published var eBio: String = ""
+    @Published var profileImageURL: String = ""
+
     var email: String = ""
     var code: String = ""
     
@@ -49,17 +50,13 @@ class SettingViewModel: ObservableObject {
     @Published var blockedUsers: [User] = []
     
     init() {
-        username = unlockService.me.username
-        fullname = unlockService.me.fullname
-        bDay = unlockService.me.birthDate.format(with: "yyMMdd")
-        bio = unlockService.me.bio
-        profileImageURL = unlockService.me.profileImage
-        
+        setUpProfileEditData()
+
         $usernameVerified
             .filter { $0 == true }
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.putUser(username: self.username, fullname: self.fullname, bDay: self.bDay, profileImage: self.profileImageURL, bio: self.bio)
+                self.putUser(username: self.eUsername, fullname: self.eName, bDay: self.eBDay, profileImage: self.profileImageURL, bio: self.eBio)
             }
             .store(in: &subscription)
         
@@ -86,6 +83,36 @@ class SettingViewModel: ObservableObject {
                 self.postLogout()
             }
             .store(in: &subscription)
+    }
+
+    func setUpProfileEditData() {
+        eUsername = unlockService.me.username
+        eName = unlockService.me.fullname
+        eBDay = unlockService.me.birthDate.format(with: "yyMMdd")
+        eBio = unlockService.me.bio
+        profileImageURL = unlockService.me.profileImage
+    }
+
+    func profileChanged() -> Bool {
+        let condition1 = profileImageURL != unlockService.me.profileImage
+        let condition2 = eName != unlockService.me.fullname
+        let condition3 = eUsername != unlockService.me.username
+        let condition4 = eBDay != unlockService.me.birthDate.format(with: "yyMMdd")
+        let condition5 = eBio != unlockService.me.bio
+
+        return condition1 || condition2 || condition3 || condition4 || condition5
+    }
+
+    func postEdit() {
+        if eUsername != unlockService.me.username {
+            if Utils.inIDFormat(eUsername) {
+                postCheckUsernameDuplicate(username: eUsername)
+            } else {
+                unlockService.forceErrorMessage("5글자 이상 20글자 이하의 아이디를 입력해주세요.")
+            }
+        } else {
+            usernameVerified = true
+        }
     }
     
     func postLogout() {

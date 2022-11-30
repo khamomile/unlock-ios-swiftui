@@ -12,23 +12,14 @@ struct ProfileEditView: View {
     @EnvironmentObject var unlockService: UnlockService
     @EnvironmentObject var viewModel: SettingViewModel
     
-    @Environment(\.dismiss) var dismiss
-    
-    @State private var goBackAlert: Bool = false
-    
     @State private var image: Image?
     @State private var inputImage: UIImage?
     @State private var showingImagePicker: Bool = false
     
-    @State private var name: String = ""
-    @State private var username: String = ""
-    @State private var bday: String = ""
-    @State private var bio: String = ""
-    
     var body: some View {
         ZStack {
             VStack {
-                ProfileEditHeaderView(name: $name, username: $username, bday: $bday, bio: $bio)
+                ProfileEditHeaderView()
                     .environmentObject(viewModel)
                 
                 ScrollView {
@@ -70,33 +61,34 @@ struct ProfileEditView: View {
                         VStack(alignment: .leading) {
                             HStack(alignment: .lastTextBaseline) {
                                 Text("이름")
-                                    .keyboardCleaned(keyboardType: .default, text: $name)
                                     .font(.semiBoldBody)
                                     .frame(width: 80, alignment: .leading)
                                 VStack {
-                                    TextField("이름", text: $name)
+                                    TextField("이름", text: $viewModel.eName)
+                                        .keyboardCleaned(keyboardType: .default, text: $viewModel.eName)
                                         .font(.lightBody)
                                     Divider()
                                 }
                             }
                             HStack(alignment: .lastTextBaseline) {
                                 Text("아이디")
-                                    .keyboardCleaned(keyboardType: .default, text: $username)
                                     .font(.semiBoldBody)
                                     .frame(width: 80, alignment: .leading)
                                 VStack {
-                                    TextField("아이디", text: $username)
+                                    TextField("아이디", text: $viewModel.eUsername)
+                                        .keyboardCleaned(keyboardType: .default, text: $viewModel.eUsername)
                                         .font(.lightBody)
                                     Divider()
                                 }
                             }
                             HStack(alignment: .lastTextBaseline) {
                                 Text("생년월일")
-                                    .keyboardCleaned(keyboardType: .numberPad, text: $bday, wordCount: 6)
                                     .font(.semiBoldBody)
                                     .frame(width: 80, alignment: .leading)
+
                                 VStack {
-                                    TextField("생년월일", text: $bday)
+                                    TextField("생년월일", text: $viewModel.eBDay)
+                                        .keyboardCleaned(keyboardType: .numberPad, text: $viewModel.eBDay, wordCount: 6)
                                         .font(.lightBody)
                                     Divider()
                                 }
@@ -104,7 +96,8 @@ struct ProfileEditView: View {
                             VStack(alignment: .leading) {
                                 Text("자기소개")
                                     .font(.semiBoldBody)
-                                TextEditorApproachView(text: $bio, placeholder: "자기소개를 입력해주세요.", editorBackgroundColor: .gray1)
+
+                                TextEditorApproachView(text: $viewModel.eBio, placeholder: "자기소개를 입력해주세요.", editorBackgroundColor: .gray1)
                             }
                             .padding(.top, 32)
                         }
@@ -120,10 +113,7 @@ struct ProfileEditView: View {
         }
         .navigationBarHidden(true)
         .onAppear {
-            name = viewModel.fullname
-            username = viewModel.username
-            bday = viewModel.bDay
-            bio = viewModel.bio
+            viewModel.setUpProfileEditData()
         }
         .sheet(isPresented: $showingImagePicker, content: {
             ImagePicker(image: $inputImage)

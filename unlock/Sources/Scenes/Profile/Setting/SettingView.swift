@@ -62,7 +62,6 @@ struct SettingView: View {
         .alert("로그아웃이 완료되었습니다.", isPresented: $viewModel.logoutSuccess) {
             Button("확인", role: .cancel) {
                 moveToMain = true
-                print(unlockService.me)
             }
         }
         .fullScreenCover(isPresented: $moveToMain) {
