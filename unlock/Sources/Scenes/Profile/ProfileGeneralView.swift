@@ -29,13 +29,16 @@ struct ProfileGeneralView: View {
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(Color.gray2)
                 })
+
             Text(me.fullname)
                 .font(.semiBoldHeadline)
                 .foregroundColor(.gray9)
+
             Text("@\(me.username)")
                 .font(.lightCaption2)
                 .foregroundColor(.gray6)
                 .padding(.bottom, 10)
+
             NavigationLink {
                 FriendListView()
             } label: {
@@ -44,15 +47,18 @@ struct ProfileGeneralView: View {
                         .font(.mediumBody)
                         .foregroundColor(.gray9)
                         .padding(.trailing, 5)
+
                     Text("\(me.friendsCount)")
                         .font(.mediumHeadline)
                         .foregroundColor(.orange1)
                         .padding(.trailing, 2)
+
                     Text("명")
                         .font(.mediumBody)
                         .foregroundColor(.gray9)
                 }
             }
+
             Text(me.bio)
                 .font(.regularBody)
                 .padding(10)

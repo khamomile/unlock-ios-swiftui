@@ -11,22 +11,14 @@ struct ProfilePostEmptyView: View {
     var body: some View {
         ZStack {
             VStack {
-                HStack {
-                    RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.gray0)
-                        .frame(width: UIScreen.main.bounds.width/2 - 16, height: 130)
-                    RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.gray0)
-                        .frame(width: UIScreen.main.bounds.width/2 - 16, height: 130)
-                }
-                
-                HStack {
-                    RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.gray0)
-                        .frame(width: UIScreen.main.bounds.width/2 - 16, height: 130)
-                    RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.gray0)
-                        .frame(width: UIScreen.main.bounds.width/2 - 16, height: 130)
+                ForEach(0..<2) { _ in
+                    HStack {
+                        ForEach(0..<2) { _ in
+                            RoundedRectangle(cornerRadius: 12)
+                                .foregroundColor(.gray0)
+                                .frame(width: UIScreen.main.bounds.width/2 - 16, height: 130)
+                        }
+                    }
                 }
             }
 
@@ -34,6 +26,7 @@ struct ProfilePostEmptyView: View {
                 Text("아무 생각이나 적어보세요.")
                     .font(.mediumBody)
                     .foregroundColor(.gray9)
+
                 NavigationLink {
                     PostComposeView()
                 } label: {

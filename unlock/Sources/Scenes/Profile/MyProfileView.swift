@@ -28,11 +28,11 @@ struct MyProfileView: View {
                 .refreshable {
                     viewModel.getMyPosts()
                 }
+
                 Spacer()
             }
             .onAppear {
                 viewModel.batchUpdateLikesCount()
-                print("ProfileView Appeared")
             }
         }
         .onAppear {

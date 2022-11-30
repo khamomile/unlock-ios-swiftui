@@ -29,6 +29,7 @@ struct ProfilePostView: View {
                         .font(.boldBody)
                         .foregroundColor(.gray8)
                         .padding(EdgeInsets(top: 40, leading: 16, bottom: 0, trailing: 40))
+
                     LazyVGrid(columns: columns, spacing: 12) {
                         ForEach(viewModel.myPosts) { post in
                             NavigationLink(value: post.id) {

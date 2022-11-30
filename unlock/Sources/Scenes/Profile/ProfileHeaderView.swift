@@ -14,12 +14,15 @@ struct ProfileHeaderView: View {
         HStack {
             Text(title)
                 .font(.boldHeadline)
+
             Spacer()
+
             NavigationLink {
                 SearchView()
             } label: {
                 Image("search")
             }
+
             NavigationLink {
                 SettingView()
             } label: {

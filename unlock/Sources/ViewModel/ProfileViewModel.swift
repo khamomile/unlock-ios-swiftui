@@ -15,7 +15,8 @@ class ProfileViewModel: ObservableObject {
     private var subscription = Set<AnyCancellable>()
     
     private let unlockService = UnlockService.shared
-    
+
+    // DATA
     @Published var myPosts: [Post] = []
     
     var updatedLikesCount: [String : Int] = [:]
@@ -38,16 +39,12 @@ class ProfileViewModel: ObservableObject {
                     print("Get my posts finished")
                 }
             } receiveValue: { response in
-                print(response)
-                print("HERE1")
                 guard self.unlockService.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map([PostResponse].self) else { return }
-                print(responseData)
-                print("HERE2")
+
                 self.myPosts = responseData.map {
                     Post(data: $0)
                 }
-                print("Why?", self.myPosts.count)
             }
             .store(in: &subscription)
     }

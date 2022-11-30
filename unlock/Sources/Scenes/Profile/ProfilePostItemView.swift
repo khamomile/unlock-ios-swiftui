@@ -17,11 +17,14 @@ struct ProfilePostItemView: View {
                 .lineLimit(3)
                 .font(.mediumBody)
                 .foregroundColor(.gray7)
+
             Spacer()
+
             HStack(spacing: 0) {
                 Text(post.updatedAt.format(with: "yyyy/MM/dd"))
                     .font(.regularCaption2)
                     .foregroundColor(.gray4)
+                
                 Spacer()
                 
                 Image("heart-small")
