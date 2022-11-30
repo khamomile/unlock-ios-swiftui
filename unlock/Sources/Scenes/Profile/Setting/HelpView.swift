@@ -11,6 +11,7 @@ struct HelpView: View {
     var body: some View {
         VStack(alignment: .leading) {
             BasicHeaderView(text: "도움말")
+
             List {
                 Link("이용약관", destination: URL(string: "https://polyester-ghoul-e62.notion.site/Unlock-b6ed1f758c0f41608f7a37ec8c6ce23f")!)
                     .font(.lightBody)

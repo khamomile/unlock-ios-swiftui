@@ -74,11 +74,7 @@ struct FriendItemView: View {
     
     func getDropdownButtonInfo() -> [CustomButtonInfo] {
         let buttonInfo1 = CustomButtonInfo(title: "친구삭제", btnColor: .red1) {
-            unlockService.doublePopupToShow = .deleteFriend(leftAction: nil, rightAction: { viewModel.deleteFriend(id: friend.id) }, userFullname: friend.fullname)
-            
-            withAnimation {
-                unlockService.showPopup = true
-            }
+            unlockService.setDoublePopup(.deleteFriend(leftAction: nil, rightAction: { viewModel.deleteFriend(id: friend.id) }, userFullname: friend.fullname))
         }
         
         return [buttonInfo1]

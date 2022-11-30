@@ -11,18 +11,15 @@ struct AccountView: View {
     @EnvironmentObject var unlockService: UnlockService
     @EnvironmentObject var viewModel: SettingViewModel
     
-    @State private var moveToMain: Bool = false
-    
-    @State private var showPopup: Bool = false
-    @State private var doublePopupToShow: DoublePopupInfo?
-    
     var body: some View {
         VStack(alignment: .leading) {
             BasicHeaderView(text: "계정")
+
             List {
                 HStack(spacing: 15) {
                     Text("이메일 주소")
                         .font(.lightBody)
+
                     Text(verbatim: unlockService.me.email)
                         .font(.lightBody)
                         .foregroundColor(.gray6)
@@ -44,8 +41,7 @@ struct AccountView: View {
                 }
                 
                 Button {
-                    doublePopupToShow = .deleteAccount(leftAction: nil, rightAction: { viewModel.deleteUser() })
-                    showPopup = true
+                    unlockService.setDoublePopup(.deleteAccount(leftAction: nil, rightAction: { viewModel.deleteUser() }))
                 } label: {
                     Text("탈퇴하기")
                         .font(.lightBody)
@@ -57,23 +53,11 @@ struct AccountView: View {
         .navigationBarHidden(true)
         .alert("회원 탈퇴가 완료되었습니다.", isPresented: $viewModel.userDeleted) {
             Button("확인", role: .cancel) {
-                moveToMain = true
+                viewModel.setMoveToMain(true)
             }
         }
-        .fullScreenCover(isPresented: $moveToMain) {
+        .fullScreenCover(isPresented: $viewModel.moveToMain) {
             UserInitialView()
-        }
-        .onChange(of: showPopup) { newValue in
-            if newValue == true {
-                if let doublePopupToShow = doublePopupToShow {
-                    unlockService.doublePopupToShow = doublePopupToShow
-                }
-                
-                withAnimation {
-                    unlockService.showPopup = true
-                    showPopup = false
-                }
-            }
         }
     }
 }

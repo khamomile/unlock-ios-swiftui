@@ -87,6 +87,16 @@ extension UnlockService {
             self.errorMessage = message
         }
     }
+
+    func setDoublePopup(_ doublePopup: DoublePopupInfo?) {
+        if let doublePopup = doublePopup {
+            self.doublePopupToShow = doublePopup
+
+            withAnimation {
+                showPopup = true
+            }
+        }
+    }
     
     func getMe() {
         provider.requestPublisher(.getMe)

@@ -13,16 +13,10 @@ struct ProfileEditHeaderView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    @State private var goBackAlert: Bool = false
-    
     var body: some View {
         HStack(spacing: 15) {
             Button {
-                if viewModel.profileChanged() {
-                    goBackAlert = true
-                } else {
-                    dismiss()
-                }
+                viewModel.profileChanged() ? viewModel.showCancelEditAlert(true) : dismiss()
             } label: {
                 Image("angle-left")
             }
@@ -45,7 +39,7 @@ struct ProfileEditHeaderView: View {
             
         }
         .padding(EdgeInsets(top: 8, leading: 16, bottom: 0, trailing: 16))
-        .alert("프로필 편집을 취소할까요?", isPresented: $goBackAlert) {
+        .alert("프로필 편집을 취소할까요?", isPresented: $viewModel.cancelEditAlert) {
             Button("네", role: .cancel) { dismiss() }
             Button("아니오", role: .destructive) { }
         }

@@ -84,11 +84,7 @@ struct PostComposeFooterView: View {
                 .frame(width: 24, height: 24)
                 .clipShape(Circle())
                 .onTapGesture {
-                    unlockService.doublePopupToShow = .deleteImageFromPost(leftAction: nil, rightAction: { viewModel.images = [] })
-                    
-                    withAnimation {
-                        unlockService.showPopup = true
-                    }
+                    unlockService.setDoublePopup(.deleteImageFromPost(leftAction: nil, rightAction: { viewModel.images = [] }))
                 }
         }
     }

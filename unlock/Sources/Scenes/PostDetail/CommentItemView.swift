@@ -79,14 +79,10 @@ struct CommentItemView: View {
     
     func getDropdownButtonInfo() -> [CustomButtonInfo] {
         let buttonInfo1 = CustomButtonInfo(title: "차단하기", btnColor: .gray8) {
-            unlockService.doublePopupToShow = .blockUser(leftAction: nil, rightAction: {
+            unlockService.setDoublePopup(.blockUser(leftAction: nil, rightAction: {
                 viewModel.postBlock(userId: comment.author)
                 viewModel.getComment(id: viewModel.post?.id ?? "")
-            }, userFullname: comment.authorFullname)
-            
-            withAnimation(.default) {
-                unlockService.showPopup = true
-            }
+            }, userFullname: comment.authorFullname))
         }
         
         let buttonInfo2 = CustomButtonInfo(title: "신고하기", btnColor: .red) {

@@ -156,11 +156,7 @@ struct PostItemView: View {
             let buttonInfo1 = CustomButtonInfo(title: "수정", btnColor: .gray8, action: { viewModel.moveToEditView = true })
             
             let buttonInfo2 = CustomButtonInfo(title: "삭제", btnColor: .red, action: {
-                unlockService.doublePopupToShow = .deletePost(leftAction: nil, rightAction: { viewModel.deletePost(id: viewModel.post?.id ?? "0") })
-                
-                withAnimation(.default) {
-                    unlockService.showPopup = true
-                }
+                unlockService.setDoublePopup(.deletePost(leftAction: nil, rightAction: { viewModel.deletePost(id: viewModel.post?.id ?? "0") }))
             })
             
             return [buttonInfo1, buttonInfo2]
@@ -170,13 +166,9 @@ struct PostItemView: View {
             }
             
             let buttonInfo2 = CustomButtonInfo(title: "차단하기", btnColor: .gray8) {
-                unlockService.doublePopupToShow = .blockUser(leftAction: nil, rightAction: {
+                unlockService.setDoublePopup(.blockUser(leftAction: nil, rightAction: {
                     viewModel.postBlock(userId: viewModel.post?.author ?? "")
-                }, userFullname: viewModel.post?.authorFullname ?? "")
-                
-                withAnimation(.default) {
-                    unlockService.showPopup = true
-                }
+                }, userFullname: viewModel.post?.authorFullname ?? ""))
             }
             
             let buttonInfo3 = CustomButtonInfo(title: "신고하기", btnColor: .red) { viewModel.moveToReportPostView = true }

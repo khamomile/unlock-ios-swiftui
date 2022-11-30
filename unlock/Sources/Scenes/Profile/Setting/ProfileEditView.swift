@@ -114,6 +114,7 @@ struct ProfileEditView: View {
         .navigationBarHidden(true)
         .onAppear {
             viewModel.setUpProfileEditData()
+            viewModel.showCancelEditAlert(false)
         }
         .sheet(isPresented: $showingImagePicker, content: {
             ImagePicker(image: $inputImage)

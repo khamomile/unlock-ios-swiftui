@@ -21,13 +21,16 @@ class SettingViewModel: ObservableObject {
     var discoverFeedViewModel: DiscoverFeedViewModel?
     var profileViewModel: ProfileViewModel?
     
-    // 1. CHECK STEP STATUS
+    // 1. STATUS
+    // 1.0 GENERAL
+    @Published var moveToMain: Bool = false
     // 1.1 LOGOUT
     @Published var logoutSuccess: Bool = false
     // 1.2 PROFILE-EDIT
     @Published var usernameVerified: Bool = false
     @Published var isPostingImage: Bool = false
     @Published var editSuccess: Bool = false
+    @Published var cancelEditAlert: Bool = false
 
     @Published var validResetEmail: Bool = false
     @Published var resetEmailSent: Bool = false
@@ -113,6 +116,14 @@ class SettingViewModel: ObservableObject {
         } else {
             usernameVerified = true
         }
+    }
+
+    func showCancelEditAlert(_ show: Bool) {
+        cancelEditAlert = show
+    }
+
+    func setMoveToMain(_ set: Bool) {
+        moveToMain = set
     }
     
     func postLogout() {

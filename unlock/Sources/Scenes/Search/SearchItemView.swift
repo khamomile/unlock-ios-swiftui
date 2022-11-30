@@ -88,12 +88,8 @@ struct SearchItemView: View {
     
     func getDropdownButtonInfo() -> [CustomButtonInfo] {
         let buttonInfo1 = CustomButtonInfo(title: "친구삭제", btnColor: .red1) {
-            unlockService.doublePopupToShow = .deleteFriend(leftAction: nil, rightAction: { viewModel.deleteFriend(id: user.id) }, userFullname: user.fullname)
-            
-            withAnimation {
-                isFocused = false
-                unlockService.showPopup = true
-            }
+            unlockService.setDoublePopup(.deleteFriend(leftAction: nil, rightAction: { viewModel.deleteFriend(id: user.id) }, userFullname: user.fullname))
+            isFocused = false
         }
         
         return [buttonInfo1]

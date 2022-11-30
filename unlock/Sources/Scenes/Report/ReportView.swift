@@ -62,17 +62,14 @@ struct ReportView: View {
                         
                         Button {
                             if let postId = postId {
-                                unlockService.doublePopupToShow = .reportPost(leftAction: nil, rightAction: {                                 viewModel.reportPost(type: ReportType.post.rawValue, postId: postId, reason: selectedReportItem?.option ?? 0, content: content) })
+                                unlockService.setDoublePopup(.reportPost(leftAction: nil, rightAction: {                                 viewModel.reportPost(type: ReportType.post.rawValue, postId: postId, reason: selectedReportItem?.option ?? 0, content: content) }))
                             }
                             
                             if let commentId = commentId {
-                                unlockService.doublePopupToShow = .reportComment(leftAction: nil, rightAction: {                                 viewModel.reportComment(type: ReportType.comment.rawValue, commentId: commentId, reason: selectedReportItem?.option ?? 0, content: content) })
+                                unlockService.setDoublePopup(.reportComment(leftAction: nil, rightAction: {                                 viewModel.reportComment(type: ReportType.comment.rawValue, commentId: commentId, reason: selectedReportItem?.option ?? 0, content: content) }))
                             }
                             
-                            withAnimation {
-                                isFocused = false
-                                unlockService.showPopup = true
-                            }
+                            isFocused = false
                         } label: {
                             Text("신고하기")
                                 .font(.regularHeadline)

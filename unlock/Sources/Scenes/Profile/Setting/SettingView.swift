@@ -14,8 +14,6 @@ struct SettingView: View {
     @EnvironmentObject var homeFeedViewModel: HomeFeedViewModel
     @EnvironmentObject var discoverFeedViewModel: DiscoverFeedViewModel
     
-    @State private var moveToMain: Bool = false
-    
     var body: some View {
         VStack(alignment: .leading) {
             BasicHeaderView(text: "설정")
@@ -61,10 +59,10 @@ struct SettingView: View {
         }
         .alert("로그아웃이 완료되었습니다.", isPresented: $viewModel.logoutSuccess) {
             Button("확인", role: .cancel) {
-                moveToMain = true
+                viewModel.setMoveToMain(true)
             }
         }
-        .fullScreenCover(isPresented: $moveToMain) {
+        .fullScreenCover(isPresented: $viewModel.moveToMain) {
             UserInitialView()
         }
         .navigationBarHidden(true)
