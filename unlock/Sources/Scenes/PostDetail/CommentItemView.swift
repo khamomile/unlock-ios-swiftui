@@ -75,6 +75,10 @@ struct CommentItemView: View {
             showStoreDropDown = false
         }
         .zIndex(myZindex)
+        .navigationDestination(isPresented: $viewModel.moveToReportCommentView) {
+            ReportView(commentID: comment.id)
+                .environmentObject(viewModel)
+        }
     }
     
     func getDropdownButtonInfo() -> [CustomButtonInfo] {

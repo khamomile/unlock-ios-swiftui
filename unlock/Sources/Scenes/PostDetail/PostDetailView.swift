@@ -92,7 +92,7 @@ struct PostDetailView: View {
         .navigationBarHidden(true)
         .toolbar(.hidden, for: .tabBar)
         .navigationDestination(isPresented: $viewModel.moveToReportPostView) {
-            ReportView(postId: postID)
+            ReportView(postID: postID)
                 .environmentObject(viewModel)
         }
         .navigationDestination(isPresented: $viewModel.moveToEditView) {

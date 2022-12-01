@@ -9,12 +9,12 @@ import SwiftUI
 
 struct ReportView: View {
     @EnvironmentObject var unlockService: UnlockService
-    @EnvironmentObject var viewModel: PostDetailViewModel
+    @StateObject var viewModel: ReportViewModel = ReportViewModel()
     
     @Environment(\.dismiss) var dismiss
     
-    var postId: String?
-    var commentId: String?
+    var postID: String? = nil
+    var commentID: String? = nil
     
     @State private var content: String = ""
     @State private var selectedReportItem: ReportItem?
@@ -61,13 +61,9 @@ struct ReportView: View {
                             .padding(.horizontal, 16)
                         
                         Button {
-                            if let postId = postId {
-                                unlockService.setDoublePopup(.reportPost(leftAction: nil, rightAction: {                                 viewModel.reportPost(type: ReportType.post.rawValue, postId: postId, reason: selectedReportItem?.option ?? 0, content: content) }))
-                            }
-                            
-                            if let commentId = commentId {
-                                unlockService.setDoublePopup(.reportComment(leftAction: nil, rightAction: {                                 viewModel.reportComment(type: ReportType.comment.rawValue, commentId: commentId, reason: selectedReportItem?.option ?? 0, content: content) }))
-                            }
+                            unlockService.setDoublePopup(.report(leftAction: nil, rightAction: {
+                                viewModel.report(reason: selectedReportItem?.option ?? 0, content: content)
+                            }, reportType: viewModel.reportType))
                             
                             isFocused = false
                         } label: {
@@ -89,13 +85,14 @@ struct ReportView: View {
                     }
                 }
             }
-            .alert("게시물 신고가 완료되었습니다.", isPresented: $viewModel.reportSuccess) {
+            .alert(viewModel.reportSuccessAlertText, isPresented: $viewModel.reportSuccess) {
                 Button("확인", role: .cancel) {
                     dismiss()
                 }
-            } // 신고 완료 시 팝업
+            }
             .onAppear {
                 UITextView.appearance().backgroundColor = .clear
+                viewModel.setPostAndCommentID(postID: postID, commentID: commentID)
             }
             .navigationBarHidden(true)
             .toolbar(.hidden, for: .tabBar)

@@ -80,6 +80,7 @@
 		DA15F768290BC02000A188A5 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F767290BC02000A188A5 /* String+Extension.swift */; };
 		DA15F76A290BC8F500A188A5 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F769290BC8F500A188A5 /* ImagePicker.swift */; };
 		DA3C695229160DD100BA0894 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C695129160DD100BA0894 /* Report.swift */; };
+		DA73CEB32938A47B00626F63 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA73CEB22938A47B00626F63 /* ReportViewModel.swift */; };
 		DA903EB22920B1DD0080F305 /* PostComposeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA903EB12920B1DD0080F305 /* PostComposeHeaderView.swift */; };
 		DA903EB42920B38E0080F305 /* PostComposeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA903EB32920B38E0080F305 /* PostComposeFooterView.swift */; };
 		DA903EB52920D7450080F305 /* UnlockAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F74F290A3E5200A188A5 /* UnlockAPI.swift */; };
@@ -271,6 +272,7 @@
 		DA15F767290BC02000A188A5 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		DA15F769290BC8F500A188A5 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		DA3C695129160DD100BA0894 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+		DA73CEB22938A47B00626F63 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		DA903EB12920B1DD0080F305 /* PostComposeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComposeHeaderView.swift; sourceTree = "<group>"; };
 		DA903EB32920B38E0080F305 /* PostComposeFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComposeFooterView.swift; sourceTree = "<group>"; };
 		DA903EEA29221AF20080F305 /* NavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationController+Extension.swift"; sourceTree = "<group>"; };
@@ -586,6 +588,7 @@
 				DAA68A95290FE6B5005BA1DE /* SettingViewModel.swift */,
 				DAA68AB12914248C005BA1DE /* FriendViewModel.swift */,
 				DAC59B1C291B4247006F9A28 /* NotificationViewModel.swift */,
+				DA73CEB22938A47B00626F63 /* ReportViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1142,6 +1145,7 @@
 				DAC59B24291B9086006F9A28 /* AppDelegate.swift in Sources */,
 				DA15F6DD2906A6BA00A188A5 /* PostDetailHeaderView.swift in Sources */,
 				DA15F73E2909505600A188A5 /* Friend.swift in Sources */,
+				DA73CEB32938A47B00626F63 /* ReportViewModel.swift in Sources */,
 				DA15F758290A5E5E00A188A5 /* AuthInterceptor.swift in Sources */,
 				DAA68AB22914248C005BA1DE /* FriendViewModel.swift in Sources */,
 				DA15F7072907BDDA00A188A5 /* MyFriendView.swift in Sources */,

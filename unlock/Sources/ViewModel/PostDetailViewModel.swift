@@ -18,21 +18,24 @@ class PostDetailViewModel: ObservableObject {
     
     @Published var post: Post?
     @Published var comments: [Comment] = []
-    
-    @Published var deleteSuccess: Bool = false
-    @Published var reportSuccess: Bool = false
-    
-    @Published var moveToReportPostView: Bool = false
-    @Published var moveToReportCommentView: Bool = false
-    @Published var reportCommentId: String = ""
-    @Published var moveToEditView: Bool = false
-    
-    @Published var newCommentAdded: Bool = false
-    
-    // VIEWMODELS FOR UPDATE
+
+    // 0. VIEWMODELS FOR UPDATE
     var homeFeedViewModel: HomeFeedViewModel?
     var discoverFeedViewModel: DiscoverFeedViewModel?
     var profileViewModel: ProfileViewModel?
+
+    // 1. STATUS
+    // 1.0 CRUD
+    @Published var moveToEditView: Bool = false
+    @Published var deleteSuccess: Bool = false
+    @Published var newCommentAdded: Bool = false
+    // 1.1 REPORT
+    @Published var moveToReportPostView: Bool = false
+    @Published var moveToReportCommentView: Bool = false
+    @Published var reportSuccess: Bool = false
+
+    // 2. REPORT DATA
+    @Published var reportCommentId: String = ""
     
     func getPost(id: String) {
         unlockService.isLoading = true
@@ -188,49 +191,6 @@ class PostDetailViewModel: ObservableObject {
                 self.post?.didHide = false
                 self.post?.showTrace = false
                 self.updatePostListInfo()
-            }
-            .store(in: &subscription)
-    }
-    
-    // report post
-    func reportPost(type: String, postId: String, reason: Int, content: String) {
-        unlockService.isLoading = true
-        
-        provider.requestPublisher(.postReport(type: type, postId: postId, commentId: nil, reason: reason, content: content))
-            .sink { completion in
-                switch completion {
-                case let .failure(error):
-                    print("Report post failed: " + error.localizedDescription)
-                case .finished:
-                    print("Report post finished")
-                }
-            } receiveValue: { response in
-                print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
-                guard let responseData = try? response.map(ReportResponse.self) else { return }
-                print(responseData)
-                self.reportSuccess = true
-            }
-            .store(in: &subscription)
-    }
-    
-    func reportComment(type: String, commentId: String, reason: Int, content: String) {
-        unlockService.isLoading = true
-        
-        provider.requestPublisher(.postReport(type: type, postId: nil, commentId: commentId, reason: reason, content: content))
-            .sink { completion in
-                switch completion {
-                case let .failure(error):
-                    print("Report comment failed: " + error.localizedDescription)
-                case .finished:
-                    print("Report comment finished")
-                }
-            } receiveValue: { response in
-                print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
-                guard let responseData = try? response.map(ReportResponse.self) else { return }
-                print(responseData)
-                self.reportSuccess = true
             }
             .store(in: &subscription)
     }

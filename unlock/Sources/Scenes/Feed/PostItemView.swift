@@ -128,7 +128,7 @@ struct PostItemView: View {
             showStoreDropDown = false
         }
         .navigationDestination(isPresented: $viewModel.moveToReportPostView) {
-            ReportView(postId: post.id)
+            ReportView(postID: post.id)
                 .environmentObject(viewModel)
         }
         .navigationDestination(isPresented: $viewModel.moveToEditView) {
