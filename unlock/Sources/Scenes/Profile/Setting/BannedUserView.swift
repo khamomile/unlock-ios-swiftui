@@ -13,11 +13,20 @@ struct BannedUserView: View {
     var body: some View {
         VStack(alignment: .leading) {
             BasicHeaderView(text: "차단된 계정 관리")
-            
-            ScrollView {
-                ForEach(viewModel.blockedUsers) { blockedUser in
-                    BannedUserItemView(blockedUser: blockedUser)
-                        .environmentObject(viewModel)
+
+            if viewModel.blockedUsers.isEmpty {
+                VStack {
+                    Text("차단된 계정이 없어요.")
+                        .font(.lightCaption2)
+                        .foregroundColor(.gray6)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                ScrollView {
+                    ForEach(viewModel.blockedUsers) { blockedUser in
+                        BannedUserItemView(blockedUser: blockedUser)
+                            .environmentObject(viewModel)
+                    }
                 }
             }
         }
