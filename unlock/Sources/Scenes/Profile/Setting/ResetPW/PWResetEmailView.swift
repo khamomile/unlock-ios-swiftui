@@ -11,12 +11,9 @@ struct PWResetEmailView: View {
     @EnvironmentObject var unlockService: UnlockService
     @StateObject var viewModel = SettingViewModel()
     
-    @State private var email: String = ""
-    
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        //  Text("서비스에서 사용할\n") + Text("이메일").underline() + Text("을 입력해주세요.")
         ZStack {
             VStack {
                 BasicHeaderView(text: "비밀번호 변경")
@@ -28,8 +25,8 @@ struct PWResetEmailView: View {
                 .padding(EdgeInsets(top: 80, leading: 0, bottom: 100, trailing: 0))
                 
                 VStack {
-                    TextField(String("예) minds@unlock.im"), text: $email)
-                        .keyboardCleaned(keyboardType: .emailAddress, text: $email)
+                    TextField(String("예) minds@unlock.im"), text: $viewModel.resetEmail)
+                        .keyboardCleaned(keyboardType: .emailAddress, text: $viewModel.resetEmail)
                         .focused($isFocused)
                         .font(.lightCaption1)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -40,7 +37,7 @@ struct PWResetEmailView: View {
                 .padding(.horizontal, 32)
                 
                 Button {
-                    viewModel.postCheckEmailDuplicate(email: email)
+                    viewModel.postCheckEmailDuplicate(email: viewModel.resetEmail)
                 } label: {
                     if unlockService.isLoading {
                         ColoredProgressView(color: .gray)
@@ -48,7 +45,7 @@ struct PWResetEmailView: View {
                         Text("비밀번호 재설정")
                             .font(.regularHeadline)
                             .foregroundColor(
-                                Utils.inEmailFormat(email) ? .gray8 : .gray2
+                                Utils.inEmailFormat(viewModel.resetEmail) ? .gray8 : .gray2
                             )
                             .padding(.vertical, 14)
                             .background(RoundedRectangle(cornerRadius: 12).fill(Color.white))
@@ -60,7 +57,7 @@ struct PWResetEmailView: View {
                         .stroke(Color.gray2)
                 }
                 .padding(EdgeInsets(top: 16, leading: 32, bottom: 0, trailing: 32))
-                .disabled(!Utils.inEmailFormat(email))
+                .disabled(!Utils.inEmailFormat(viewModel.resetEmail))
                 
                 Spacer()
             }
@@ -79,8 +76,8 @@ struct PWResetEmailView: View {
             isFocused = true
         }
         .onSubmit {
-            if Utils.inEmailFormat(email) {
-                viewModel.postCheckEmailDuplicate(email: email)
+            if Utils.inEmailFormat(viewModel.resetEmail) {
+                viewModel.postCheckEmailDuplicate(email: viewModel.resetEmail)
             }
         }
     }

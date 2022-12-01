@@ -31,12 +31,13 @@ class SettingViewModel: ObservableObject {
     @Published var isPostingImage: Bool = false
     @Published var editSuccess: Bool = false
     @Published var cancelEditAlert: Bool = false
-
+    // 1.3 PASSWORD-RESET
     @Published var validResetEmail: Bool = false
     @Published var resetEmailSent: Bool = false
     @Published var emailVerified: Bool = false
     @Published var pwChanged: Bool = false
-    
+    @Published var newPWValid: Bool = false
+    // 1.4 DELETE-USER
     @Published var userDeleted: Bool = false
 
     // 2. PROFILE-EDIT DATA
@@ -46,10 +47,13 @@ class SettingViewModel: ObservableObject {
     @Published var eBio: String = ""
     @Published var profileImageURL: String = ""
 
-    var email: String = ""
-    var code: String = ""
+    // 3. PASSWORD-RESET DATA
+    @Published var resetEmail: String = ""
+    @Published var resetVFCode: String = ""
+    @Published var newPassword1: String = ""
+    @Published var newPassword2: String = ""
     
-    // BLOCKED USER
+    // 4. BLOCKED USER DATA
     @Published var blockedUsers: [User] = []
     
     init() {
@@ -67,7 +71,14 @@ class SettingViewModel: ObservableObject {
             .filter { $0 == true }
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.postSendResetPWEmailCode(email: self.email)
+                self.postSendResetPWEmailCode(email: self.resetEmail)
+            }
+            .store(in: &subscription)
+
+        $newPassword1
+            .combineLatest($newPassword2)
+            .sink { [weak self] pw1, pw2 in
+                self?.newPWValid = Utils.inPWFormat(pw1) && pw1 == pw2
             }
             .store(in: &subscription)
         
@@ -229,7 +240,6 @@ class SettingViewModel: ObservableObject {
                 guard let responseData = try? response.map(isDuplicateResponse.self) else { return }
                 print(responseData)
                 if !responseData.isDuplicate { self.unlockService.forceErrorMessage("가입되지 않은 이메일입니다.") }
-                self.email = responseData.isDuplicate ? email : ""
                 self.validResetEmail = responseData.isDuplicate
             }
             .store(in: &subscription)
@@ -271,7 +281,6 @@ class SettingViewModel: ObservableObject {
                 guard let responseData = try? response.map(SuccessResponse.self) else { return }
                 print(responseData)
                 if !responseData.success { self.unlockService.forceErrorMessage("인증번호가 일치하지 않아요.") }
-                self.code = responseData.success ? code : ""
                 self.emailVerified = responseData.success
             }
             .store(in: &subscription)

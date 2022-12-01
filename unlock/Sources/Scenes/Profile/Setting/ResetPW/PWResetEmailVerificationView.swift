@@ -11,7 +11,6 @@ struct PWResetEmailVerificationView: View {
     @EnvironmentObject var unlockService: UnlockService
     @EnvironmentObject var viewModel: SettingViewModel
     
-    @State private var code: String = ""
     @State var timeRemaining = 300
     @State var selection: Int? = nil
     
@@ -37,11 +36,12 @@ struct PWResetEmailVerificationView: View {
                 
                 VStack {
                     HStack(alignment: .lastTextBaseline) {
-                        TextField("인증번호", text: $code)
-                            .keyboardCleaned(keyboardType: .numberPad, text: $code, wordCount: 5)
+                        TextField("인증번호", text: $viewModel.resetVFCode)
+                            .keyboardCleaned(keyboardType: .numberPad, text: $viewModel.resetVFCode, wordCount: 5)
                             .focused($isFocused)
                             .font(.lightCaption1)
                             .frame(maxWidth: .infinity, alignment: .leading)
+
                         Text("\(Utils.secondsToMinuteSecond(timeRemaining))")
                             .font(.semiBoldCaption1)
                             .foregroundColor(.gray5)
@@ -69,7 +69,7 @@ struct PWResetEmailVerificationView: View {
                 }
                 
                 Button {
-                    viewModel.postCheckEmailCode(email: viewModel.email, code: code)
+                    viewModel.postCheckEmailCode(email: viewModel.resetEmail, code: viewModel.resetVFCode)
                 } label: {
                     if unlockService.isLoading {
                         ColoredProgressView(color: .gray)
@@ -77,7 +77,7 @@ struct PWResetEmailVerificationView: View {
                         Text("다음")
                             .font(.regularHeadline)
                             .foregroundColor(
-                                Utils.inVerificationFormat(code) ? .gray8 : .gray2
+                                Utils.inVerificationFormat(viewModel.resetVFCode) ? .gray8 : .gray2
                             )
                             .padding(.vertical, 14)
                             .background(RoundedRectangle(cornerRadius: 12).fill(Color.white))
@@ -89,7 +89,7 @@ struct PWResetEmailVerificationView: View {
                         .stroke(Color.gray2)
                 }
                 .padding(EdgeInsets(top: 16, leading: 32, bottom: 0, trailing: 32))
-                .disabled(!Utils.inVerificationFormat(code))
+                .disabled(!Utils.inVerificationFormat(viewModel.resetVFCode))
                 
                 Spacer()
             }
@@ -108,8 +108,8 @@ struct PWResetEmailVerificationView: View {
             isFocused = true
         }
         .onSubmit {
-            if Utils.inVerificationFormat(code) {
-                viewModel.postCheckEmailCode(email: viewModel.email, code: code)
+            if Utils.inVerificationFormat(viewModel.resetVFCode) {
+                viewModel.postCheckEmailCode(email: viewModel.resetEmail, code: viewModel.resetVFCode)
             }
         }
     }

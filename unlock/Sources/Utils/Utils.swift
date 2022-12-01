@@ -52,6 +52,18 @@ class Utils {
         
         return true
     }
+
+    static func inPWFormat(_ text: String) -> Bool {
+        let cs = CharacterSet.alphanumerics.inverted
+
+        guard text.count >= 8 && text.count <= 12 else { return false }
+
+        guard text.rangeOfCharacter(from: cs) == nil else {
+            return false
+        }
+
+        return true
+    }
     
     static func secondsToMinuteSecond(_ seconds: Int) -> String {
         let min = (seconds % 3600) / 60
