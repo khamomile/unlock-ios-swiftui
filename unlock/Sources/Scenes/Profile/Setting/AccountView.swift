@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AccountView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var viewModel: SettingViewModel
     
     var body: some View {
@@ -20,7 +20,7 @@ struct AccountView: View {
                     Text("이메일 주소")
                         .font(.lightBody)
 
-                    Text(verbatim: unlockService.me.email)
+                    Text(verbatim: appState.me.email)
                         .font(.lightBody)
                         .foregroundColor(.gray6)
                 }
@@ -41,7 +41,7 @@ struct AccountView: View {
                 }
                 
                 Button {
-                    unlockService.setDoublePopup(.deleteAccount(leftAction: nil, rightAction: { viewModel.deleteUser() }))
+                    appState.setDoublePopup(.deleteAccount(leftAction: nil, rightAction: { viewModel.deleteUser() }))
                 } label: {
                     Text("탈퇴하기")
                         .font(.lightBody)
@@ -65,7 +65,7 @@ struct AccountView: View {
 struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
         AccountView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(SettingViewModel())
     }
 }

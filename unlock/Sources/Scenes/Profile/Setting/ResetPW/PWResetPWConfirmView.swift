@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PWResetPWConfirmView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var viewModel: SettingViewModel
     
     enum FocusedField { case pw1, pw2 }
@@ -67,7 +67,7 @@ struct PWResetPWConfirmView: View {
                 Button {
                     viewModel.putResetPassword(email: viewModel.resetEmail, code: viewModel.resetVFCode, newPW: viewModel.newPassword1)
                 } label: {
-                    if unlockService.isLoading {
+                    if appState.isLoading {
                         ColoredProgressView(color: .gray)
                     } else {
                         Text("변경하기")
@@ -104,7 +104,7 @@ struct PWResetPWConfirmView: View {
             }
             .frame(maxHeight: .infinity)
             
-            if let errorMessage = unlockService.errorMessage {
+            if let errorMessage = appState.errorMessage {
                 ErrorPopupView(errorText: errorMessage)
             }
         }
@@ -136,7 +136,7 @@ struct PWResetPWConfirmView: View {
 struct PWResetPWConfirmView_Previews: PreviewProvider {
     static var previews: some View {
         PWResetPWConfirmView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(SettingViewModel())
     }
 }

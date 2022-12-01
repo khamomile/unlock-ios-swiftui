@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegisterOrLoginView: View {
     @EnvironmentObject var viewModel: SignInViewModel
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     
     var body: some View {
         NavigationStack {
@@ -76,6 +76,6 @@ struct RegisterOrLoginView_Previews: PreviewProvider {
     static var previews: some View {
         RegisterOrLoginView()
             .environmentObject(SignInViewModel())
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
     }
 }

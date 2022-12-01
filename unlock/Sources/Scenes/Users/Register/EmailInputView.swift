@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EmailInputView: View {
     @EnvironmentObject var viewModel: SignInViewModel
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     
     @State private var email: String = ""
     @FocusState private var isFocused: Bool
@@ -44,7 +44,7 @@ struct EmailInputView: View {
                 Button {
                     viewModel.postSendEmailCode(email: email)
                 } label: {
-                    if unlockService.isLoading {
+                    if appState.isLoading {
                         ColoredProgressView(color: .gray)
                     } else {
                         Text("다음")
@@ -61,7 +61,7 @@ struct EmailInputView: View {
                         .stroke(Color.gray2)
                 }
                 .padding(EdgeInsets(top: 16, leading: 32, bottom: 0, trailing: 32))
-                .disabled(!Utils.inEmailFormat(email) || unlockService.isLoading)
+                .disabled(!Utils.inEmailFormat(email) || appState.isLoading)
                 
                 Spacer()
             }
@@ -71,7 +71,7 @@ struct EmailInputView: View {
                     .environmentObject(viewModel)
             })
             
-            if let errorMessage = unlockService.errorMessage {
+            if let errorMessage = appState.errorMessage {
                 ErrorPopupView(errorText: errorMessage)
             }
         }
@@ -91,6 +91,6 @@ struct EmailInputView_Previews: PreviewProvider {
     static var previews: some View {
         EmailInputView()
             .environmentObject(SignInViewModel())
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
     }
 }

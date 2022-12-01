@@ -14,7 +14,7 @@ class FriendViewModel: ObservableObject {
     private let provider = MoyaProvider<UnlockAPI>(session: Moya.Session(interceptor: Interceptor()), plugins: [NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))])
     private var subscription = Set<AnyCancellable>()
     
-    private let unlockService = UnlockService.shared
+    private let appState = AppState.shared
     
     // FOR SEARCH
     @Published var userList: [User] = []
@@ -44,12 +44,12 @@ class FriendViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map([UserResponse].self) else { return }
                 print(responseData)
                 
                 self.userList = responseData.compactMap {
-                    if self.unlockService.me.id != $0._id {
+                    if self.appState.me.id != $0._id {
                         return User(data: $0)
                     }
                     return nil
@@ -77,7 +77,7 @@ class FriendViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map([FriendResponse].self) else { return }
                 print(responseData)
                 self.friendStatusList = responseData.map {
@@ -99,8 +99,8 @@ class FriendViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
-                self.unlockService.getMe()
+                guard self.appState.handleResponse(response) == .success else { return }
+                self.appState.getMe()
                 self.getFriendMutualRequests()
                 self.getFriendList()
             }
@@ -118,8 +118,8 @@ class FriendViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
-                self.unlockService.getMe()
+                guard self.appState.handleResponse(response) == .success else { return }
+                self.appState.getMe()
                 self.getFriendMutualRequests()
                 self.getFriendList()
             }
@@ -137,8 +137,8 @@ class FriendViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
-                self.unlockService.getMe()
+                guard self.appState.handleResponse(response) == .success else { return }
+                self.appState.getMe()
                 self.getFriendMutualRequests()
             }
             .store(in: &subscription)
@@ -157,16 +157,16 @@ class FriendViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map([FriendResponse].self) else { return }
                 print(responseData)
                 
                 self.friendList = responseData.compactMap {
-                    if self.unlockService.me.id != $0.requester._id {
+                    if self.appState.me.id != $0.requester._id {
                         return User(data: $0.requester)
                     }
                     
-                    if self.unlockService.me.id != $0.recipient._id {
+                    if self.appState.me.id != $0.recipient._id {
                         return User(data: $0.recipient)
                     }
                     
@@ -180,7 +180,7 @@ class FriendViewModel: ObservableObject {
     }
     
     func getFriendRequestList() {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.getFriendRequestList)
             .sink { completion in
@@ -192,7 +192,7 @@ class FriendViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map([FriendRequestResponse].self) else { return }
                 print(responseData)
                 
@@ -200,7 +200,7 @@ class FriendViewModel: ObservableObject {
                     return User(data: $0.requester)
                 }
                 
-                self.unlockService.isLoading = false
+                self.appState.isLoading = false
             }
             .store(in: &subscription)
     }

@@ -14,7 +14,7 @@ class ReportViewModel: ObservableObject {
     private let provider = MoyaProvider<UnlockAPI>(session: Moya.Session(interceptor: Interceptor()), plugins: [NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))])
     private var subscription = Set<AnyCancellable>()
 
-    private let unlockService = UnlockService.shared
+    private let appState = AppState.shared
 
     @Published var reportSuccess: Bool = false
 
@@ -37,7 +37,7 @@ class ReportViewModel: ObservableObject {
     }
 
     func report(reason: Int, content: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
 
         provider.requestPublisher(.postReport(type: reportType.rawValue, postId: postID, commentId: commentID, reason: reason, content: content))
             .sink { completion in
@@ -48,7 +48,7 @@ class ReportViewModel: ObservableObject {
                     print("Report finished")
                 }
             } receiveValue: { response in
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let _ = try? response.map(ReportResponse.self) else { return }
                 self.reportSuccess = true
             }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct IDInputView: View {
     @EnvironmentObject var viewModel: SignInViewModel
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     
     @State private var username: String = ""
     @FocusState private var isFocused: Bool
@@ -41,7 +41,7 @@ struct IDInputView: View {
                 Button {
                     viewModel.postCheckUsernameDuplicate(username: username)
                 } label: {
-                    if unlockService.isLoading {
+                    if appState.isLoading {
                         ColoredProgressView(color: .gray)
                     } else {
                         Text("다음")
@@ -68,7 +68,7 @@ struct IDInputView: View {
                     .environmentObject(viewModel)
             })
             
-            if let errorMessage = unlockService.errorMessage {
+            if let errorMessage = appState.errorMessage {
                 ErrorPopupView(errorText: errorMessage)
             }
         }
@@ -88,6 +88,6 @@ struct IDInputView_Previews: PreviewProvider {
     static var previews: some View {
         IDInputView()
             .environmentObject(SignInViewModel())
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
     }
 }

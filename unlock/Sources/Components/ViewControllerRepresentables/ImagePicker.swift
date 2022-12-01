@@ -44,7 +44,7 @@ struct ImagePicker: UIViewControllerRepresentable {
                 provider.loadObject(ofClass: UIImage.self) { newImage, error in
                     if let error = error {
                         DispatchQueue.main.async {
-                            UnlockService.shared.errorMessage = "이미지 업로드에 실패하였습니다.\n 다른 이미지를 선택해주세요."
+                            AppState.shared.errorMessage = "이미지 업로드에 실패하였습니다.\n 다른 이미지를 선택해주세요."
                         }
                         print(error.localizedDescription)
                     } else {

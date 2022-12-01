@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PWResetEmailVerificationView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var viewModel: SettingViewModel
     
     @State var timeRemaining = 300
@@ -71,7 +71,7 @@ struct PWResetEmailVerificationView: View {
                 Button {
                     viewModel.postCheckEmailCode(email: viewModel.resetEmail, code: viewModel.resetVFCode)
                 } label: {
-                    if unlockService.isLoading {
+                    if appState.isLoading {
                         ColoredProgressView(color: .gray)
                     } else {
                         Text("다음")
@@ -99,7 +99,7 @@ struct PWResetEmailVerificationView: View {
                     .environmentObject(viewModel)
             }
             
-            if let errorMessage = unlockService.errorMessage {
+            if let errorMessage = appState.errorMessage {
                 ErrorPopupView(errorText: errorMessage)
             }
         }
@@ -118,7 +118,7 @@ struct PWResetEmailVerificationView: View {
 struct PWResetEmailVerificationView_Previews: PreviewProvider {
     static var previews: some View {
         PWResetEmailVerificationView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(SettingViewModel())
     }
 }

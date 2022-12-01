@@ -14,7 +14,7 @@ class PostComposeViewModel: ObservableObject {
     private let provider = MoyaProvider<UnlockAPI>(session: Moya.Session(interceptor: Interceptor()), plugins: [NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))])
     private var subscription = Set<AnyCancellable>()
     
-    private let unlockService = UnlockService.shared
+    private let appState = AppState.shared
     
     // VIEWMODELS FOR UPDATE
     var homeFeedViewModel: HomeFeedViewModel?
@@ -35,7 +35,7 @@ class PostComposeViewModel: ObservableObject {
     @Published var isPostingImage: Bool = false
     
     func postPost(title: String, content: String, showPublic: Bool, images: [PostImage]) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.postPost(title: title, content: content, htmlContent: content.toHTMLContent(), showPublic: showPublic, images: images))
             .sink { completion in
@@ -47,7 +47,7 @@ class PostComposeViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(PostResponse.self) else { return }
                 self.postId = responseData._id
                 self.postSuccess = true
@@ -57,7 +57,7 @@ class PostComposeViewModel: ObservableObject {
     }
     
     func putPost(id: String, title: String, content: String, showPublic: Bool, images: [PostImage]) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.putPost(id: id, title: title, content: content, htmlContent: content.toHTMLContent(), showPublic: showPublic, images: images))
             .sink { completion in
@@ -69,7 +69,7 @@ class PostComposeViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(PostResponse.self) else { return }
                 self.postId = responseData._id
                 self.postSuccess = true
@@ -91,7 +91,7 @@ class PostComposeViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(CustomImage.self) else { return }
                 print(responseData)
                 self.images = [PostImage(url: responseData.transforms[0].location, image: responseData._id)]
@@ -101,7 +101,7 @@ class PostComposeViewModel: ObservableObject {
     }
     
     func getPost() {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.getPost(id: postToEditId ?? ""))
             .sink { completion in
@@ -113,7 +113,7 @@ class PostComposeViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(PostResponse.self) else { return }
                 print(responseData)
                 self.postToEdit = Post(data: responseData)

@@ -73,7 +73,7 @@
 		DA15F74E290A1EF000A188A5 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F74D290A1EF000A188A5 /* SignInViewModel.swift */; };
 		DA15F750290A3E5200A188A5 /* UnlockAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F74F290A3E5200A188A5 /* UnlockAPI.swift */; };
 		DA15F753290A4CE500A188A5 /* ValidResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F752290A4CE500A188A5 /* ValidResponseType.swift */; };
-		DA15F756290A5DD100A188A5 /* UnlockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F755290A5DD100A188A5 /* UnlockService.swift */; };
+		DA15F756290A5DD100A188A5 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F755290A5DD100A188A5 /* AppState.swift */; };
 		DA15F758290A5E5E00A188A5 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F757290A5E5E00A188A5 /* AuthInterceptor.swift */; };
 		DA15F763290B65C500A188A5 /* RegisterOrLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F762290B65C500A188A5 /* RegisterOrLoginView.swift */; };
 		DA15F766290BB40300A188A5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F765290BB40300A188A5 /* Utils.swift */; };
@@ -86,7 +86,6 @@
 		DA903EB52920D7450080F305 /* UnlockAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F74F290A3E5200A188A5 /* UnlockAPI.swift */; };
 		DA903EB62920D7450080F305 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F757290A5E5E00A188A5 /* AuthInterceptor.swift */; };
 		DA903EB72920D7450080F305 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F748290A1CD300A188A5 /* ApiError.swift */; };
-		DA903EB82920D7450080F305 /* UnlockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F755290A5DD100A188A5 /* UnlockService.swift */; };
 		DA903EBD2920D74D0080F305 /* ErrorResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA68A93290E68C2005BA1DE /* ErrorResponseType.swift */; };
 		DA903EBE2920D74D0080F305 /* ValidResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F752290A4CE500A188A5 /* ValidResponseType.swift */; };
 		DA903EBF2920D7530080F305 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15F765290BB40300A188A5 /* Utils.swift */; };
@@ -265,7 +264,7 @@
 		DA15F74F290A3E5200A188A5 /* UnlockAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockAPI.swift; sourceTree = "<group>"; };
 		DA15F752290A4CE500A188A5 /* ValidResponseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidResponseType.swift; sourceTree = "<group>"; };
 		DA15F754290A4D2A00A188A5 /* ApiTest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ApiTest.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		DA15F755290A5DD100A188A5 /* UnlockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockService.swift; sourceTree = "<group>"; };
+		DA15F755290A5DD100A188A5 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		DA15F757290A5E5E00A188A5 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 		DA15F762290B65C500A188A5 /* RegisterOrLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterOrLoginView.swift; sourceTree = "<group>"; };
 		DA15F765290BB40300A188A5 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -566,7 +565,6 @@
 			isa = PBXGroup;
 			children = (
 				DA15F751290A4CD800A188A5 /* DTO */,
-				DA15F755290A5DD100A188A5 /* UnlockService.swift */,
 				DA15F74F290A3E5200A188A5 /* UnlockAPI.swift */,
 				DA15F748290A1CD300A188A5 /* ApiError.swift */,
 				DA15F757290A5E5E00A188A5 /* AuthInterceptor.swift */,
@@ -710,6 +708,7 @@
 				DAC59B20291B8982006F9A28 /* GoogleService-Info.plist */,
 				DAD0BADD29062C0D00E7CD69 /* Info.plist */,
 				DAD0BA9E2906252C00E7CD69 /* unlockApp.swift */,
+				DA15F755290A5DD100A188A5 /* AppState.swift */,
 				DAC59B23291B9086006F9A28 /* AppDelegate.swift */,
 				DAD0BAC929062A2C00E7CD69 /* Resources */,
 				DAD0BAD929062B5900E7CD69 /* Sources */,
@@ -1052,7 +1051,7 @@
 				DA15F6CA29066F6000A188A5 /* PostInsideView.swift in Sources */,
 				DA15F763290B65C500A188A5 /* RegisterOrLoginView.swift in Sources */,
 				DA15F6F82907A94400A188A5 /* ProfileGeneralView.swift in Sources */,
-				DA15F756290A5DD100A188A5 /* UnlockService.swift in Sources */,
+				DA15F756290A5DD100A188A5 /* AppState.swift in Sources */,
 				DAC59B1B291A493A006F9A28 /* BannedUserItemView.swift in Sources */,
 				DA15F72129090BF200A188A5 /* PWInputView.swift in Sources */,
 				DA15F76A290BC8F500A188A5 /* ImagePicker.swift in Sources */,
@@ -1181,7 +1180,6 @@
 				DA903ED42920D76C0080F305 /* HomeFeedViewModel.swift in Sources */,
 				DA903ED92920D7720080F305 /* PostDetailViewModel+Bridge.swift in Sources */,
 				DA903ED22920D76C0080F305 /* FriendViewModel.swift in Sources */,
-				DA903EB82920D7450080F305 /* UnlockService.swift in Sources */,
 				DA903EBD2920D74D0080F305 /* ErrorResponseType.swift in Sources */,
 				DA903EDF2920D77C0080F305 /* HTML+Extension.swift in Sources */,
 				DA903ECC2920D7640080F305 /* Comment.swift in Sources */,

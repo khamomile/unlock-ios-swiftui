@@ -16,7 +16,7 @@ class HomeFeedViewModel: ObservableObject {
     
     private var subscription = Set<AnyCancellable>()
     
-    private let unlockService = UnlockService.shared
+    private let appState = AppState.shared
     
     // PAGING INFORMATION
     @Published var pageNo: Int = 1
@@ -53,7 +53,7 @@ class HomeFeedViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(PaginatedResultResponse.self) else { return }
                 self.totalPageNo = responseData.totalPages
                 self.postList = responseData.docs.map {
@@ -79,7 +79,7 @@ class HomeFeedViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(PaginatedResultResponse.self) else { return }
                 
                 self.postList.append(contentsOf: self.tempPostList)

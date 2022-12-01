@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PWInputView: View {
     @EnvironmentObject var viewModel: SignInViewModel
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     
     @State private var pw1: String = ""
     @State private var pw2: String = ""
@@ -100,7 +100,7 @@ struct PWInputView: View {
                     .environmentObject(viewModel)
             })
             
-            if let errorMessage = unlockService.errorMessage {
+            if let errorMessage = appState.errorMessage {
                 ErrorPopupView(errorText: errorMessage)
             }
         }
@@ -117,7 +117,7 @@ struct PWInputView: View {
                     viewModel.setPW(password: pw1)
                 } else {
                     withAnimation(.easeInOut(duration: 0.2)) {
-                        unlockService.errorMessage = "올바른 형식의 비밀번호를 입력해주세요."
+                        appState.errorMessage = "올바른 형식의 비밀번호를 입력해주세요."
                     }
                 }
             }
@@ -141,6 +141,6 @@ struct PWInputView_Previews: PreviewProvider {
     static var previews: some View {
         PWInputView()
             .environmentObject(SignInViewModel())
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
     }
 }

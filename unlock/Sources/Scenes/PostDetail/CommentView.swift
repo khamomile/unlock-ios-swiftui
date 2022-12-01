@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CommentView: View {
-    @EnvironmentObject var unlockSerice: UnlockService
+    @EnvironmentObject var unlockSerice: AppState
     @EnvironmentObject var viewModel: PostDetailViewModel
     
     @EnvironmentObject var homeFeedViewModel: HomeFeedViewModel

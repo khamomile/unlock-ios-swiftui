@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @StateObject var viewModel = SettingViewModel()
     
     @EnvironmentObject var homeFeedViewModel: HomeFeedViewModel
@@ -75,7 +75,7 @@ struct SettingView: View {
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
         SettingView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(HomeFeedViewModel())
             .environmentObject(DiscoverFeedViewModel())
     }

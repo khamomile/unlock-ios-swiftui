@@ -16,7 +16,7 @@ class DiscoverFeedViewModel: ObservableObject {
     
     private var subscription = Set<AnyCancellable>()
     
-    private let unlockService = UnlockService.shared
+    private let appState = AppState.shared
     
     @Published var pageNo: Int = 1
     @Published var totalPageNo: Int = 1
@@ -47,7 +47,7 @@ class DiscoverFeedViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(PaginatedResultResponse.self) else { return }
                 // print(responseData)
                 self.totalPageNo = responseData.totalPages
@@ -74,7 +74,7 @@ class DiscoverFeedViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(PaginatedResultResponse.self) else { return }
                 
                 self.postList.append(contentsOf: self.tempPostList)

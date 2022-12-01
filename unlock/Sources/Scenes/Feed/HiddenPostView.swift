@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HiddenPostView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @StateObject var viewModel: PostDetailViewModel = PostDetailViewModel()
     
     @EnvironmentObject var homeFeedViewModel: HomeFeedViewModel

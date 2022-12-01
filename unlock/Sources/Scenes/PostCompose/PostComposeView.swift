@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct PostComposeView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @StateObject var viewModel: PostComposeViewModel = PostComposeViewModel()
     
     @EnvironmentObject var homeFeedViewModel: HomeFeedViewModel
@@ -76,8 +76,8 @@ struct PostComposeView: View {
                 viewModel.images = post?.images ?? []
             }
             
-            if unlockService.showPopup {
-                if let doublePopupToShow = unlockService.doublePopupToShow {
+            if appState.showPopup {
+                if let doublePopupToShow = appState.doublePopupToShow {
                     DoublePopupView(doublePopupInfo: doublePopupToShow)
                         .zIndex(1)
                 }
@@ -89,7 +89,7 @@ struct PostComposeView: View {
 struct PostComposeView_Previews: PreviewProvider {
     static var previews: some View {
         PostComposeView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(HomeFeedViewModel())
             .environmentObject(DiscoverFeedViewModel())
             .environmentObject(ProfileViewModel())

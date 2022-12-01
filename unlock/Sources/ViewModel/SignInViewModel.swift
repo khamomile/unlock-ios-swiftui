@@ -14,7 +14,7 @@ class SignInViewModel: ObservableObject {
     private let provider = MoyaProvider<UnlockAPI>(session: Moya.Session(interceptor: Interceptor()), plugins: [NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))])
     private var subscription = Set<AnyCancellable>()
 
-    private let unlockService = UnlockService.shared
+    private let appState = AppState.shared
     
     // CHECK LOGIN STATUS
     @Published var loggedIn: Bool = false
@@ -46,7 +46,7 @@ class SignInViewModel: ObservableObject {
     }
     
     func postSendEmailCode(email: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.postSendEmailCode(email: email))
             .sink { completion in
@@ -58,7 +58,7 @@ class SignInViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 self.email = email
                 self.sentEmail = true
             }
@@ -66,7 +66,7 @@ class SignInViewModel: ObservableObject {
     }
     
     func postCheckEmailCode(email: String, code: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.postCheckEmailCode(email: email, code: code))
             .sink { completion in
@@ -78,10 +78,10 @@ class SignInViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(SuccessResponse.self) else { return }
                 print(responseData)
-                if !responseData.success { self.unlockService.forceErrorMessage("인증번호가 일치하지 않아요.") }
+                if !responseData.success { self.appState.forceErrorMessage("인증번호가 일치하지 않아요.") }
                 self.emailAuthCode = responseData.success ? code : ""
                 self.emailVerified = responseData.success
             }
@@ -89,7 +89,7 @@ class SignInViewModel: ObservableObject {
     }
     
     func postCheckUsernameDuplicate(username: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.postCheckUsernameDuplicate(username: username))
             .sink { completion in
@@ -101,10 +101,10 @@ class SignInViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(isDuplicateResponse.self) else { return }
                 print(responseData)
-                if responseData.isDuplicate { self.unlockService.forceErrorMessage("이미 사용 중인 아이디에요.\n다른 아이디를 입력해주세요.") }
+                if responseData.isDuplicate { self.appState.forceErrorMessage("이미 사용 중인 아이디에요.\n다른 아이디를 입력해주세요.") }
                 self.usernameVerified = !responseData.isDuplicate
                 self.username = responseData.isDuplicate ? "" : username
             }
@@ -127,7 +127,7 @@ class SignInViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(CustomImage.self) else { return }
                 print(responseData)
                 self.profileImageURL = responseData.transforms[0].location
@@ -138,7 +138,7 @@ class SignInViewModel: ObservableObject {
     func postRegister(fullName: String, bDay: String, gender: String) {
         let birthDate = Date.parseYMDDate(from: bDay) ?? Date()
         
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.postRegister(username: username, password: password, email: email, fullname: fullName, birthDate: birthDate, gender: gender, profileImage: profileImageURL, emailAuthCode: emailAuthCode))
             .sink { completion in
@@ -150,7 +150,7 @@ class SignInViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(LoginResponse.self) else { return }
                 print(responseData)
                 self.registerSuccess = responseData.success
@@ -178,7 +178,7 @@ class SignInViewModel: ObservableObject {
     }
     
     func postLogin(email: String, password: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.login(email: email, password: password))
             .sink { completion in
@@ -189,11 +189,11 @@ class SignInViewModel: ObservableObject {
                     print("Post login finished")
                 }
             } receiveValue: { response in
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(LoginResponse.self) else { return }
                 print(responseData)
-                self.unlockService.getMe()
-                self.unlockService.registerFcmToken()
+                self.appState.getMe()
+                self.appState.registerFcmToken()
                 self.loggedIn = true
             }
             .store(in: &subscription)
@@ -218,6 +218,6 @@ class SignInViewModel: ObservableObject {
 
     }
 //    func logIn(email: String, password: String) {
-//        UnlockService.shared.postLogin(email: email, password: password)
+//        AppState.shared.postLogin(email: email, password: password)
 //    }
 }

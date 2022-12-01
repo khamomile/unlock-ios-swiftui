@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FriendListView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @StateObject var viewModel: FriendViewModel = FriendViewModel()
     
     var body: some View {

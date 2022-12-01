@@ -9,8 +9,8 @@ import SwiftUI
 import Introspect
 
 struct PostDetailView: View {
-    // UnlockService + PostDetailViewModel
-    @EnvironmentObject var unlockService: UnlockService
+    // AppState + PostDetailViewModel
+    @EnvironmentObject var appState: AppState
     @StateObject var viewModel: PostDetailViewModel = PostDetailViewModel()
     
     @EnvironmentObject var homeFeedViewModel: HomeFeedViewModel
@@ -75,15 +75,15 @@ struct PostDetailView: View {
                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
             }
             
-            if unlockService.showImageView {
-                if let post = unlockService.postToShowImage {
+            if appState.showImageView {
+                if let post = appState.postToShowImage {
                     PostImageView(title: post.title, imageURL: post.images.first?.url ?? "", opacity: 0.4)
                         .zIndex(1)
                 }
             }
             
-            if unlockService.showPopup {
-                if let doublePopupToShow = unlockService.doublePopupToShow {
+            if appState.showPopup {
+                if let doublePopupToShow = appState.doublePopupToShow {
                     DoublePopupView(doublePopupInfo: doublePopupToShow)
                         .zIndex(1)
                 }
@@ -128,7 +128,7 @@ struct PostDetailView: View {
 struct PostDetailView_Previews: PreviewProvider {
     static var previews: some View {
         PostDetailView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(HomeFeedViewModel())
             .environmentObject(DiscoverFeedViewModel())
             .environmentObject(ProfileViewModel())

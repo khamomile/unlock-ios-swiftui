@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var viewModel: SignInViewModel
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     
     @State private var id: String = ""
     @State private var pw: String = ""
@@ -55,7 +55,7 @@ struct LoginView: View {
                 Button {
                     viewModel.postLogin(email: id, password: pw)
                 } label: {
-                    if unlockService.isLoading {
+                    if appState.isLoading {
                         ColoredProgressView(color: .gray)
                     } else {
                         Text("로그인")
@@ -72,7 +72,7 @@ struct LoginView: View {
                         .stroke(Color.gray2)
                 }
                 .padding(EdgeInsets(top: 16, leading: 32, bottom: 0, trailing: 32))
-                .disabled(!checkIdPw() || unlockService.isLoading)
+                .disabled(!checkIdPw() || appState.isLoading)
                 
                 HStack {
                     Spacer()
@@ -116,13 +116,13 @@ struct LoginView: View {
                 focusedField = nil
             }
             
-            if let errorMessage = unlockService.errorMessage {
+            if let errorMessage = appState.errorMessage {
                 ErrorPopupView(errorText: errorMessage)
                     .zIndex(1)
             }
         }
         .navigationBarHidden(true)
-        .onChange(of: unlockService.errorMessage, perform: { message in
+        .onChange(of: appState.errorMessage, perform: { message in
             focusedField = nil
         })
         .onSubmit {
@@ -144,6 +144,6 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
             .environmentObject(SignInViewModel())
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
     }
 }

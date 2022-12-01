@@ -11,12 +11,12 @@ import SwiftUI
 struct unlockApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
-    let unlockService: UnlockService = UnlockService.shared
+    let appState: AppState = AppState.shared
     
     var body: some Scene {
         WindowGroup {
             UserInitialView()
-                .environmentObject(unlockService)
+                .environmentObject(appState)
         }
     }
 }

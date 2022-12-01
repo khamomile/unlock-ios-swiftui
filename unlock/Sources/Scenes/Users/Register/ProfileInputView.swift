@@ -15,7 +15,7 @@ enum Gender: String {
 
 struct ProfileInputView: View {
     @EnvironmentObject var viewModel: SignInViewModel
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     
     @State private var image: Image?
     @State private var inputImage: UIImage?
@@ -188,7 +188,7 @@ struct ProfileInputView: View {
                     Button {
                         viewModel.postRegister(fullName: name, bDay: bday, gender: genderSelected?.rawValue ?? "others")
                     } label: {
-                        if unlockService.isLoading {
+                        if appState.isLoading {
                             ColoredProgressView(color: .gray)
                         } else {
                             Text("입장하기")
@@ -213,7 +213,7 @@ struct ProfileInputView: View {
                 MainTabView()
             })
             
-            if let errorMessage = unlockService.errorMessage {
+            if let errorMessage = appState.errorMessage {
                 ErrorPopupView(errorText: errorMessage)
             }
         }
@@ -250,6 +250,6 @@ struct ProfileInputView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileInputView()
             .environmentObject(SignInViewModel())
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
     }
 }

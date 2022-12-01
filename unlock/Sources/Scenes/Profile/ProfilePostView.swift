@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfilePostView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var viewModel: ProfileViewModel
     
     private let columns = [
@@ -18,7 +18,7 @@ struct ProfilePostView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            if unlockService.isLoading {
+            if appState.isLoading {
                 ColoredProgressView(color: .gray)
             } else {
                 if viewModel.myPosts.count == 0 {
@@ -50,7 +50,7 @@ struct ProfilePostView: View {
 struct ProfilePostView_Previews: PreviewProvider {
     static var previews: some View {
         ProfilePostView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(ProfileViewModel())
     }
 }

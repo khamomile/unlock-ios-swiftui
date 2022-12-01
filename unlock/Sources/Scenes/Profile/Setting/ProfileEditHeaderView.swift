@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileEditHeaderView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var viewModel: SettingViewModel
     
     @Environment(\.dismiss) var dismiss
@@ -52,7 +52,7 @@ struct ProfileEditHeaderView: View {
 struct ProfileEditHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileEditHeaderView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(SettingViewModel())
     }
 }

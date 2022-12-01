@@ -79,14 +79,14 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         
         let link: String = userInfo["link"] as? String ?? ""
         let realLink = link // getRealLink(title: userInfo["title"] as? String ?? "", link: link, messageBody: userInfo["body"] as? String) ?? ""
-        UnlockService.shared.notiReceived = true
+        AppState.shared.notiReceived = true
         
         let linkIdentifying = realLink.components(separatedBy: "/post/")
         
         if linkIdentifying.count >= 2 {
-            UnlockService.shared.notiDestination = .post(id: linkIdentifying[1])
+            AppState.shared.notiDestination = .post(id: linkIdentifying[1])
         } else {
-            UnlockService.shared.notiDestination = .friend
+            AppState.shared.notiDestination = .friend
         }
         
         completionHandler()

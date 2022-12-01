@@ -14,7 +14,7 @@ class ProfileViewModel: ObservableObject {
     private let provider = MoyaProvider<UnlockAPI>(session: Moya.Session(interceptor: Interceptor()), plugins: [NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))])
     private var subscription = Set<AnyCancellable>()
     
-    private let unlockService = UnlockService.shared
+    private let appState = AppState.shared
 
     // DATA
     @Published var myPosts: [Post] = []
@@ -27,7 +27,7 @@ class ProfileViewModel: ObservableObject {
     
     func getMyPosts(isInitial: Bool = false) {
         if !isInitial {
-            unlockService.isLoading = true
+            appState.isLoading = true
         }
 
         provider.requestPublisher(.getMyPosts)
@@ -39,7 +39,7 @@ class ProfileViewModel: ObservableObject {
                     print("Get my posts finished")
                 }
             } receiveValue: { response in
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map([PostResponse].self) else { return }
 
                 self.myPosts = responseData.map {

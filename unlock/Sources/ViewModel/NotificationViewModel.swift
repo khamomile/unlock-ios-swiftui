@@ -14,7 +14,7 @@ class NotificationViewModel: ObservableObject {
     private let provider = MoyaProvider<UnlockAPI>(session: Moya.Session(interceptor: Interceptor()), plugins: [NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))])
     private var subscription = Set<AnyCancellable>()
     
-    private let unlockService = UnlockService.shared
+    private let appState = AppState.shared
     
     // NOTIFICATION
     @Published var notiList: [Notification] = []
@@ -27,7 +27,7 @@ class NotificationViewModel: ObservableObject {
     var profileViewModel: ProfileViewModel?
     
     func getNotiList() {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.getNotificationList)
             .sink { completion in
@@ -39,7 +39,7 @@ class NotificationViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map([NotificationResponse].self) else { return }
                 print(responseData)
                 
@@ -63,7 +63,7 @@ class NotificationViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 self.hasUnread = false
             }
             .store(in: &subscription)
@@ -80,7 +80,7 @@ class NotificationViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(Bool.self) else { return }
                 self.hasUnread = responseData
                 print("Has unread called")

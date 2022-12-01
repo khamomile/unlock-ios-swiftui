@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct PostComposeFooterView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var viewModel: PostComposeViewModel
     
     @State private var image: Image?
@@ -84,7 +84,7 @@ struct PostComposeFooterView: View {
                 .frame(width: 24, height: 24)
                 .clipShape(Circle())
                 .onTapGesture {
-                    unlockService.setDoublePopup(.deleteImageFromPost(leftAction: nil, rightAction: { viewModel.images = [] }))
+                    appState.setDoublePopup(.deleteImageFromPost(leftAction: nil, rightAction: { viewModel.images = [] }))
                 }
         }
     }
@@ -93,7 +93,7 @@ struct PostComposeFooterView: View {
 struct PostComposeFooterView_Previews: PreviewProvider {
     static var previews: some View {
         PostComposeFooterView(postPublicStatus: .constant(.isPublic))
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(PostComposeViewModel())
     }
 }

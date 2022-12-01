@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyProfileView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     
     @EnvironmentObject var viewModel: ProfileViewModel
     @EnvironmentObject var notificationViewModel: NotificationViewModel
@@ -20,7 +20,7 @@ struct MyProfileView: View {
                 
                 ScrollView(showsIndicators: false) {
                     ProfileGeneralView()
-                        .environmentObject(unlockService.me)
+                        .environmentObject(appState.me)
                     
                     ProfilePostView()
                         .environmentObject(viewModel)
@@ -44,7 +44,7 @@ struct MyProfileView: View {
 struct MyProfileView_Previews: PreviewProvider {
     static var previews: some View {
         MyProfileView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(ProfileViewModel())
             .environmentObject(NotificationViewModel())
     }

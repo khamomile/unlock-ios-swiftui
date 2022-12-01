@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct PostItemView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @StateObject var viewModel: PostDetailViewModel = PostDetailViewModel()
     
     @EnvironmentObject var homeFeedViewModel: HomeFeedViewModel
@@ -111,8 +111,8 @@ struct PostItemView: View {
                         .frame(width: 20, height: 20)
                         .clipShape(Circle())
                         .onTapGesture {
-                            unlockService.postToShowImage = post
-                            unlockService.showImageView = true
+                            appState.postToShowImage = post
+                            appState.showImageView = true
                         }
                 }
             }
@@ -152,11 +152,11 @@ struct PostItemView: View {
     }
     
     func getDropdownButtonInfo() -> [CustomButtonInfo] {
-        if unlockService.me.id == viewModel.post?.author {
+        if appState.me.id == viewModel.post?.author {
             let buttonInfo1 = CustomButtonInfo(title: "수정", btnColor: .gray8, action: { viewModel.moveToEditView = true })
             
             let buttonInfo2 = CustomButtonInfo(title: "삭제", btnColor: .red, action: {
-                unlockService.setDoublePopup(.deletePost(leftAction: nil, rightAction: { viewModel.deletePost(id: viewModel.post?.id ?? "0") }))
+                appState.setDoublePopup(.deletePost(leftAction: nil, rightAction: { viewModel.deletePost(id: viewModel.post?.id ?? "0") }))
             })
             
             return [buttonInfo1, buttonInfo2]
@@ -166,7 +166,7 @@ struct PostItemView: View {
             }
             
             let buttonInfo2 = CustomButtonInfo(title: "차단하기", btnColor: .gray8) {
-                unlockService.setDoublePopup(.blockUser(leftAction: nil, rightAction: {
+                appState.setDoublePopup(.blockUser(leftAction: nil, rightAction: {
                     viewModel.postBlock(userId: viewModel.post?.author ?? "")
                 }, userFullname: viewModel.post?.authorFullname ?? ""))
             }
@@ -181,7 +181,7 @@ struct PostItemView: View {
 struct PostItemView_Previews: PreviewProvider {
     static var previews: some View {
         PostItemView(post: Post.preview)
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(HomeFeedViewModel())
             .environmentObject(DiscoverFeedViewModel())
             .environmentObject(ProfileViewModel())

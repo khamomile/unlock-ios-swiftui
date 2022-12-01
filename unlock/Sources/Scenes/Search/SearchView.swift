@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @StateObject var viewModel: FriendViewModel = FriendViewModel()
     
     @Environment(\.dismiss) var dismiss
@@ -79,8 +79,8 @@ struct SearchView: View {
                 isFocused = true
             }
             
-            if unlockService.showPopup {
-                if let doublePopupToShow = unlockService.doublePopupToShow {
+            if appState.showPopup {
+                if let doublePopupToShow = appState.doublePopupToShow {
                     DoublePopupView(doublePopupInfo: doublePopupToShow)
                         .zIndex(1)
                 }

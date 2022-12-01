@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UserInitialView: View {
     @StateObject var viewModel = SignInViewModel()
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     
     var body: some View {
         VStack {
@@ -21,7 +21,7 @@ struct UserInitialView: View {
         .frame(maxHeight: .infinity)
         .fullScreenCover(isPresented: $viewModel.loggedIn, content: {
             MainTabView()
-                .environmentObject(unlockService)
+                .environmentObject(appState)
         })
         .fullScreenCover(isPresented: $viewModel.notLoggedIn) {
             RegisterOrLoginView()
@@ -33,6 +33,6 @@ struct UserInitialView: View {
 struct UserInitialView_Previews: PreviewProvider {
     static var previews: some View {
         UserInitialView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
     }
 }

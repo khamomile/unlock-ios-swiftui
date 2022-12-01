@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PWResetEmailView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @StateObject var viewModel = SettingViewModel()
     
     @FocusState private var isFocused: Bool
@@ -39,7 +39,7 @@ struct PWResetEmailView: View {
                 Button {
                     viewModel.postCheckEmailDuplicate(email: viewModel.resetEmail)
                 } label: {
-                    if unlockService.isLoading {
+                    if appState.isLoading {
                         ColoredProgressView(color: .gray)
                     } else {
                         Text("비밀번호 재설정")
@@ -67,7 +67,7 @@ struct PWResetEmailView: View {
                     .environmentObject(viewModel)
             }
             
-            if let errorMessage = unlockService.errorMessage {
+            if let errorMessage = appState.errorMessage {
                 ErrorPopupView(errorText: errorMessage)
             }
         }
@@ -86,6 +86,6 @@ struct PWResetEmailView: View {
 struct PWResetEmailView_Previews: PreviewProvider {
     static var previews: some View {
         PWResetEmailView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
     }
 }

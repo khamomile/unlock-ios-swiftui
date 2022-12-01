@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DoublePopupView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var unlockService: UnlockService = UnlockService.shared
+    @ObservedObject var appState: AppState = AppState.shared
     
     var doublePopupInfo: DoublePopupInfo
     
@@ -38,7 +38,7 @@ struct DoublePopupView: View {
                 HStack {
                     Button {
                         withAnimation(.default) {
-                            unlockService.showPopup = false
+                            appState.showPopup = false
                         }
                         
                         if let leftAction = doublePopupInfo.leftAction {
@@ -55,7 +55,7 @@ struct DoublePopupView: View {
                     
                     Button {
                         withAnimation(.default) {
-                            unlockService.showPopup = false
+                            appState.showPopup = false
                         }
                         
                         if let rightAction = doublePopupInfo.rightAction {

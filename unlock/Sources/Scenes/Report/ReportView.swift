@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ReportView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @StateObject var viewModel: ReportViewModel = ReportViewModel()
     
     @Environment(\.dismiss) var dismiss
@@ -61,7 +61,7 @@ struct ReportView: View {
                             .padding(.horizontal, 16)
                         
                         Button {
-                            unlockService.setDoublePopup(.report(leftAction: nil, rightAction: {
+                            appState.setDoublePopup(.report(leftAction: nil, rightAction: {
                                 viewModel.report(reason: selectedReportItem?.option ?? 0, content: content)
                             }, reportType: viewModel.reportType))
                             
@@ -97,8 +97,8 @@ struct ReportView: View {
             .navigationBarHidden(true)
             .toolbar(.hidden, for: .tabBar)
             
-            if unlockService.showPopup {
-                if let doublePopupToShow = unlockService.doublePopupToShow {
+            if appState.showPopup {
+                if let doublePopupToShow = appState.doublePopupToShow {
                     DoublePopupView(doublePopupInfo: doublePopupToShow)
                         .zIndex(1)
                 }
@@ -117,7 +117,7 @@ struct ReportView: View {
 struct ReportView_Previews: PreviewProvider {
     static var previews: some View {
         ReportView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(PostDetailViewModel())
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct CommentItemView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var viewModel: PostDetailViewModel
     
     @EnvironmentObject var homeFeedViewModel: HomeFeedViewModel
@@ -38,7 +38,7 @@ struct CommentItemView: View {
                 
                 Spacer()
                 
-                if comment.author != unlockService.me.id {
+                if comment.author != appState.me.id {
                     Button {
                         showStoreDropDown.toggle()
                         myZindex = myZindex == 10 ? 1 : 10
@@ -83,7 +83,7 @@ struct CommentItemView: View {
     
     func getDropdownButtonInfo() -> [CustomButtonInfo] {
         let buttonInfo1 = CustomButtonInfo(title: "차단하기", btnColor: .gray8) {
-            unlockService.setDoublePopup(.blockUser(leftAction: nil, rightAction: {
+            appState.setDoublePopup(.blockUser(leftAction: nil, rightAction: {
                 viewModel.postBlock(userId: comment.author)
                 viewModel.getComment(id: viewModel.post?.id ?? "")
             }, userFullname: comment.authorFullname))
@@ -101,7 +101,7 @@ struct CommentItemView: View {
 struct CommentItemView_Previews: PreviewProvider {
     static var previews: some View {
         CommentItemView(comment: Comment.preview)
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(PostDetailViewModel())
     }
 }

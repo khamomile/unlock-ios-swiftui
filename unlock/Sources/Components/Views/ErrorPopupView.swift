@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ErrorPopupView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var unlockService: UnlockService = UnlockService.shared
+    @ObservedObject var appState: AppState = AppState.shared
     
     var errorText: String
     
@@ -32,7 +32,7 @@ struct ErrorPopupView: View {
                 
                 Button {
                     withAnimation(.default) {
-                        unlockService.errorMessage = nil
+                        appState.errorMessage = nil
                     }
                 } label: {
                     Text("확인")

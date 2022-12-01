@@ -1,5 +1,5 @@
 //
-//  UnlockService.swift
+//  AppState.swift
 //  unlock
 //
 //  Created by Paul Lee on 2022/10/27.
@@ -16,8 +16,8 @@ enum ResponseHandledResult {
     case failed
 }
 
-class UnlockService: ObservableObject {
-    static let shared = UnlockService()
+class AppState: ObservableObject {
+    static let shared = AppState()
     
     private init() { }
     
@@ -43,7 +43,7 @@ class UnlockService: ObservableObject {
     @Published var notiDestination: PushNotiType?
 }
 
-extension UnlockService {
+extension AppState {
     func handleResponse(_ response: Response) -> ResponseHandledResult {
         
 #if DEBUG

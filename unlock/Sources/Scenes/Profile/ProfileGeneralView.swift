@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct ProfileGeneralView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var me: User
     
     var body: some View {
@@ -20,7 +20,7 @@ struct ProfileGeneralView: View {
                 }
                 .retry(maxCount: 2, interval: .seconds(2))
                 .onFailure({ e in
-                    unlockService.forceErrorMessage("프로필 이미지 로딩에 실패했습니다.")
+                    appState.forceErrorMessage("프로필 이미지 로딩에 실패했습니다.")
                 })
                 .resizable()
                 .frame(width: 80, height: 80)
@@ -76,7 +76,7 @@ struct ProfileGeneralView: View {
 struct ProfileGeneralView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileGeneralView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(User())
     }
 }

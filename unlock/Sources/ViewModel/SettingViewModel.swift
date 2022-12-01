@@ -14,7 +14,7 @@ class SettingViewModel: ObservableObject {
     private let provider = MoyaProvider<UnlockAPI>(session: Moya.Session(interceptor: Interceptor()), plugins: [NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))])
     private var subscription = Set<AnyCancellable>()
     
-    private let unlockService = UnlockService.shared
+    private let appState = AppState.shared
     
     // 0. VIEWMODELS FOR UPDATE
     var homeFeedViewModel: HomeFeedViewModel?
@@ -100,29 +100,29 @@ class SettingViewModel: ObservableObject {
     }
 
     func setUpProfileEditData() {
-        eUsername = unlockService.me.username
-        eName = unlockService.me.fullname
-        eBDay = unlockService.me.birthDate.format(with: "yyMMdd")
-        eBio = unlockService.me.bio
-        profileImageURL = unlockService.me.profileImage
+        eUsername = appState.me.username
+        eName = appState.me.fullname
+        eBDay = appState.me.birthDate.format(with: "yyMMdd")
+        eBio = appState.me.bio
+        profileImageURL = appState.me.profileImage
     }
 
     func profileChanged() -> Bool {
-        let condition1 = profileImageURL != unlockService.me.profileImage
-        let condition2 = eName != unlockService.me.fullname
-        let condition3 = eUsername != unlockService.me.username
-        let condition4 = eBDay != unlockService.me.birthDate.format(with: "yyMMdd")
-        let condition5 = eBio != unlockService.me.bio
+        let condition1 = profileImageURL != appState.me.profileImage
+        let condition2 = eName != appState.me.fullname
+        let condition3 = eUsername != appState.me.username
+        let condition4 = eBDay != appState.me.birthDate.format(with: "yyMMdd")
+        let condition5 = eBio != appState.me.bio
 
         return condition1 || condition2 || condition3 || condition4 || condition5
     }
 
     func postEdit() {
-        if eUsername != unlockService.me.username {
+        if eUsername != appState.me.username {
             if Utils.inIDFormat(eUsername) {
                 postCheckUsernameDuplicate(username: eUsername)
             } else {
-                unlockService.forceErrorMessage("5글자 이상 20글자 이하의 아이디를 입력해주세요.")
+                appState.forceErrorMessage("5글자 이상 20글자 이하의 아이디를 입력해주세요.")
             }
         } else {
             usernameVerified = true
@@ -168,7 +168,7 @@ class SettingViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(CustomImage.self) else { return }
                 print(responseData)
                 self.profileImageURL = responseData.transforms[0].location
@@ -178,7 +178,7 @@ class SettingViewModel: ObservableObject {
     }
     
     func postCheckUsernameDuplicate(username: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.postCheckUsernameDuplicate(username: username))
             .sink { completion in
@@ -190,10 +190,10 @@ class SettingViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(isDuplicateResponse.self) else { return }
                 print(responseData)
-                if responseData.isDuplicate { self.unlockService.forceErrorMessage("이미 사용 중인 아이디에요.\n다른 아이디를 입력해주세요.") }
+                if responseData.isDuplicate { self.appState.forceErrorMessage("이미 사용 중인 아이디에요.\n다른 아이디를 입력해주세요.") }
                 self.usernameVerified = !responseData.isDuplicate
             }
             .store(in: &subscription)
@@ -202,9 +202,9 @@ class SettingViewModel: ObservableObject {
     func putUser(username: String, fullname: String, bDay: String, profileImage: String, bio: String) {
         let birthDate = Date.parseYMDDate(from: bDay) ?? Date()
         
-        unlockService.isLoading = true
+        appState.isLoading = true
         
-        provider.requestPublisher(.putUser(id: unlockService.me.id, username: username, fullname: fullname, birthDate: birthDate, profileImage: profileImage, bio: bio))
+        provider.requestPublisher(.putUser(id: appState.me.id, username: username, fullname: fullname, birthDate: birthDate, profileImage: profileImage, bio: bio))
             .sink { completion in
                 switch completion {
                 case let .failure(error):
@@ -214,18 +214,18 @@ class SettingViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(UserResponse.self) else { return }
                 print(responseData)
                 self.editSuccess = true
                 self.usernameVerified = false
-                self.unlockService.getMe()
+                self.appState.getMe()
             }
             .store(in: &subscription)
     }
     
     func postCheckEmailDuplicate(email: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.postCheckEmailDuplicate(email: email))
             .sink { completion in
@@ -236,17 +236,17 @@ class SettingViewModel: ObservableObject {
                     print("Post check email duplicate finished.")
                 }
             } receiveValue: { response in
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(isDuplicateResponse.self) else { return }
                 print(responseData)
-                if !responseData.isDuplicate { self.unlockService.forceErrorMessage("가입되지 않은 이메일입니다.") }
+                if !responseData.isDuplicate { self.appState.forceErrorMessage("가입되지 않은 이메일입니다.") }
                 self.validResetEmail = responseData.isDuplicate
             }
             .store(in: &subscription)
     }
     
     func postSendResetPWEmailCode(email: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.postSendResetPWEmailCode(email: email))
             .sink { completion in
@@ -258,14 +258,14 @@ class SettingViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 self.resetEmailSent = true
             }
             .store(in: &subscription)
     }
     
     func postCheckEmailCode(email: String, code: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.postCheckEmailCode(email: email, code: code))
             .sink { completion in
@@ -277,17 +277,17 @@ class SettingViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(SuccessResponse.self) else { return }
                 print(responseData)
-                if !responseData.success { self.unlockService.forceErrorMessage("인증번호가 일치하지 않아요.") }
+                if !responseData.success { self.appState.forceErrorMessage("인증번호가 일치하지 않아요.") }
                 self.emailVerified = responseData.success
             }
             .store(in: &subscription)
     }
     
     func putResetPassword(email: String, code: String, newPW: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.putResetPassword(email: email, code: code, newPassword: newPW))
             .sink { completion in
@@ -299,14 +299,14 @@ class SettingViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 self.pwChanged = true
             }
             .store(in: &subscription)
     }
     
     func deleteUser() {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.deleteUser)
             .sink { completion in
@@ -318,7 +318,7 @@ class SettingViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(SuccessResponse.self) else { return }
                 self.userDeleted = responseData.success
             }
@@ -326,7 +326,7 @@ class SettingViewModel: ObservableObject {
     }
     
     func getBlockedUserList() {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.getBlockedUsers)
             .sink { completion in
@@ -338,7 +338,7 @@ class SettingViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map([BlockedUserResponse].self) else { return }
                 print(responseData)
                 
@@ -346,13 +346,13 @@ class SettingViewModel: ObservableObject {
                     User(data: $0.target)
                 }
                 
-                self.unlockService.isLoading = false
+                self.appState.isLoading = false
             }
             .store(in: &subscription)
     }
     
     func unblockUser(userId: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.deleteBlock(userId: userId))
             .sink { completion in
@@ -364,7 +364,7 @@ class SettingViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 self.getBlockedUserList()
                 self.bridgeUnblockedUser(unblockedUserId: userId)
             }

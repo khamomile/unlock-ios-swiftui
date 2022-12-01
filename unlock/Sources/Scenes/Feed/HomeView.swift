@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var viewModel: HomeFeedViewModel
     
     @EnvironmentObject var discoverFeedViewModel: DiscoverFeedViewModel
@@ -93,7 +93,7 @@ struct HomeView: View {
             ColoredProgressView(color: .gray)
                 .frame(maxHeight: .infinity)
         } else {
-            if unlockService.me.friendsCount == 0 {
+            if appState.me.friendsCount == 0 {
                 InviteFriendSearchView()
             } else {
                 ScrollView(showsIndicators: false) {
@@ -120,7 +120,7 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(HomeFeedViewModel())
             .environmentObject(DiscoverFeedViewModel())
             .environmentObject(NotificationViewModel())

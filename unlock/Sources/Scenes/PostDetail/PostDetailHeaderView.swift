@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PostDetailHeaderView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var viewModel: PostDetailViewModel
     
     @EnvironmentObject var homeFeedViewModel: HomeFeedViewModel
@@ -63,11 +63,11 @@ struct PostDetailHeaderView: View {
     }
     
     func getDropdownButtonInfo() -> [CustomButtonInfo] {
-        if unlockService.me.id == viewModel.post?.author {
+        if appState.me.id == viewModel.post?.author {
             let buttonInfo1 = CustomButtonInfo(title: "수정", btnColor: .gray8, action: { viewModel.moveToEditView = true })
             
             let buttonInfo2 = CustomButtonInfo(title: "삭제", btnColor: .red, action: {
-                unlockService.setDoublePopup(.deletePost(leftAction: nil, rightAction: { viewModel.deletePost(id: viewModel.post?.id ?? "0") }))
+                appState.setDoublePopup(.deletePost(leftAction: nil, rightAction: { viewModel.deletePost(id: viewModel.post?.id ?? "0") }))
             })
             
             return [buttonInfo1, buttonInfo2]
@@ -78,7 +78,7 @@ struct PostDetailHeaderView: View {
             }
             
             let buttonInfo2 = CustomButtonInfo(title: "차단하기", btnColor: .gray8) {
-                unlockService.setDoublePopup(.blockUser(leftAction: nil, rightAction: {
+                appState.setDoublePopup(.blockUser(leftAction: nil, rightAction: {
                     viewModel.postBlock(userId: viewModel.post?.author ?? "")
                     dismiss()
                 }, userFullname: viewModel.post?.authorFullname ?? ""))
@@ -94,7 +94,7 @@ struct PostDetailHeaderView: View {
 struct PostDetailHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         PostDetailHeaderView(showStoreDropDown: .constant(false))
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(PostDetailViewModel())
             .environmentObject(ProfileViewModel())
     }

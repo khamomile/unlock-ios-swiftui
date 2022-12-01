@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct PostImageView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     
     var title: String
     var imageURL: String
@@ -20,11 +20,11 @@ struct PostImageView: View {
             Color.black.opacity(opacity)
                 .ignoresSafeArea()
                 .onTapGesture {
-                    unlockService.showImageView = false
+                    appState.showImageView = false
                 }
             
             Button {
-                unlockService.showImageView = false
+                appState.showImageView = false
             } label: {
                 Image(systemName: "xmark")
                     .font(.title)
@@ -39,7 +39,7 @@ struct PostImageView: View {
                     }
                     .retry(maxCount: 2, interval: .seconds(2))
                     .onFailure({ e in
-                        unlockService.forceErrorMessage("프로필 이미지 로딩에 실패했습니다.")
+                        appState.forceErrorMessage("프로필 이미지 로딩에 실패했습니다.")
                     })
                     .resizable()
                     .frame(width: 250, height: 250)

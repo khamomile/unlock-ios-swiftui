@@ -14,7 +14,7 @@ class PostDetailViewModel: ObservableObject {
     private let provider = MoyaProvider<UnlockAPI>(session: Moya.Session(interceptor: Interceptor()), plugins: [NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))])
     private var subscription = Set<AnyCancellable>()
     
-    private let unlockService = UnlockService.shared
+    private let appState = AppState.shared
     
     @Published var post: Post?
     @Published var comments: [Comment] = []
@@ -38,7 +38,7 @@ class PostDetailViewModel: ObservableObject {
     @Published var reportCommentId: String = ""
     
     func getPost(id: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.getPost(id: id))
             .sink { completion in
@@ -50,7 +50,7 @@ class PostDetailViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(PostResponse.self) else { return }
                 print(responseData)
                 self.post = Post(data: responseData)
@@ -60,7 +60,7 @@ class PostDetailViewModel: ObservableObject {
     }
     
     func getComment(id: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.getComment(postId: id))
             .sink { completion in
@@ -72,7 +72,7 @@ class PostDetailViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map([CommentResponse].self) else { return }
                 print(responseData)
                 self.comments = responseData.map {
@@ -85,7 +85,7 @@ class PostDetailViewModel: ObservableObject {
     
     // LIKE POST
     func patchLike(id: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.patchLike(id: id, mode: "add-like"))
             .sink { completion in
@@ -98,7 +98,7 @@ class PostDetailViewModel: ObservableObject {
             } receiveValue: { response in
                 guard let post = self.post else { return }
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(CountResponse.self) else { return }
                 print(responseData)
                 self.getPost(id: post.id)
@@ -108,7 +108,7 @@ class PostDetailViewModel: ObservableObject {
     
     // DISLIKE POST
     func patchDislike(id: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.patchDislike(id: id, mode: "remove-like"))
             .sink { completion in
@@ -121,7 +121,7 @@ class PostDetailViewModel: ObservableObject {
             } receiveValue: { response in
                 guard let post = self.post else { return }
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(CountResponse.self) else { return }
                 print(responseData)
                 self.getPost(id: post.id)
@@ -131,7 +131,7 @@ class PostDetailViewModel: ObservableObject {
     
     // DELETE POST
     func deletePost(id: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.deletePost(id: id))
             .sink { completion in
@@ -143,7 +143,7 @@ class PostDetailViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(PostResponse.self) else { return }
                 print(responseData)
                 self.bridgeDeletedPost()
@@ -154,7 +154,7 @@ class PostDetailViewModel: ObservableObject {
     
     // HIDE POST
     func hidePost(id: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.hidePost(id: id))
             .sink { completion in
@@ -166,7 +166,7 @@ class PostDetailViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 self.post?.didHide = true
                 self.post?.showTrace = true
                 self.updatePostListInfo()
@@ -175,7 +175,7 @@ class PostDetailViewModel: ObservableObject {
     }
     
     func unhidePost(id: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.unhidePost(id: id))
             .sink { completion in
@@ -187,7 +187,7 @@ class PostDetailViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 self.post?.didHide = false
                 self.post?.showTrace = false
                 self.updatePostListInfo()
@@ -197,7 +197,7 @@ class PostDetailViewModel: ObservableObject {
     
     // post comment
     func postComment(postId: String, content: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.postComment(postId: postId, content: content))
             .sink { completion in
@@ -209,7 +209,7 @@ class PostDetailViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 guard let responseData = try? response.map(CommentResponse.self) else { return }
                 print(responseData)
                 self.getComment(id: postId)
@@ -219,7 +219,7 @@ class PostDetailViewModel: ObservableObject {
     }
     
     func postBlock(userId: String) {
-        unlockService.isLoading = true
+        appState.isLoading = true
         
         provider.requestPublisher(.postBlock(userId: userId))
             .sink { completion in
@@ -231,7 +231,7 @@ class PostDetailViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print(response)
-                guard self.unlockService.handleResponse(response) == .success else { return }
+                guard self.appState.handleResponse(response) == .success else { return }
                 self.bridgeBlockedUser(blockedUserId: userId)
             }
             .store(in: &subscription)

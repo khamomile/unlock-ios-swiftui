@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyFriendView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var viewModel: FriendViewModel
     
     var body: some View {
@@ -47,7 +47,7 @@ struct MyFriendView: View {
 struct MyFriendView_Previews: PreviewProvider {
     static var previews: some View {
         MyFriendView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(FriendViewModel())
     }
 }

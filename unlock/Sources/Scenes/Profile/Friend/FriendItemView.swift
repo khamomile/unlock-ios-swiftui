@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct FriendItemView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var viewModel: FriendViewModel
     
     var friend: User
@@ -74,7 +74,7 @@ struct FriendItemView: View {
     
     func getDropdownButtonInfo() -> [CustomButtonInfo] {
         let buttonInfo1 = CustomButtonInfo(title: "친구삭제", btnColor: .red1) {
-            unlockService.setDoublePopup(.deleteFriend(leftAction: nil, rightAction: { viewModel.deleteFriend(id: friend.id) }, userFullname: friend.fullname))
+            appState.setDoublePopup(.deleteFriend(leftAction: nil, rightAction: { viewModel.deleteFriend(id: friend.id) }, userFullname: friend.fullname))
         }
         
         return [buttonInfo1]
@@ -84,7 +84,7 @@ struct FriendItemView: View {
 struct FriendItemView_Previews: PreviewProvider {
     static var previews: some View {
         FriendItemView(friend: User())
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(FriendViewModel())
     }
 }

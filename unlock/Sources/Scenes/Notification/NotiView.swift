@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NotiView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var viewModel: NotificationViewModel
     
     @EnvironmentObject var homeFeedViewModel: HomeFeedViewModel
@@ -25,7 +25,7 @@ struct NotiView: View {
                 
                 GeometryReader { geometry in
                     ScrollView(showsIndicators: false) {
-                        if !unlockService.isLoading {
+                        if !appState.isLoading {
                             if viewModel.notiList.count == 0 {
                                 EmptyNotiView()
                                     .frame(height: geometry.size.height)
@@ -64,20 +64,20 @@ struct NotiView: View {
                 }
             })
             .navigationDestination(isPresented: $viewModel.pushNotiReceived, destination: {
-                if let pushNoti = unlockService.notiDestination {
+                if let pushNoti = appState.notiDestination {
                     switch pushNoti {
                     case .friend:
                         FriendListView()
                             .onDisappear {
-                                if unlockService.notiDestination != nil {
-                                    unlockService.notiDestination = nil
+                                if appState.notiDestination != nil {
+                                    appState.notiDestination = nil
                                 }
                             }
                     case .post:
                         PostDetailView(postID: pushNoti.postID)
                             .onDisappear {
-                                if unlockService.notiDestination != nil {
-                                    unlockService.notiDestination = nil
+                                if appState.notiDestination != nil {
+                                    appState.notiDestination = nil
                                 }
                             }
                     case .unknown:
@@ -90,7 +90,7 @@ struct NotiView: View {
             viewModel.getNotiList()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                viewModel.pushNotiReceived = unlockService.notiDestination != nil ? true : false
+                viewModel.pushNotiReceived = appState.notiDestination != nil ? true : false
             }
         }
     }
@@ -99,7 +99,7 @@ struct NotiView: View {
 struct NotiView_Previews: PreviewProvider {
     static var previews: some View {
         NotiView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
             .environmentObject(NotificationViewModel())
     }
 }

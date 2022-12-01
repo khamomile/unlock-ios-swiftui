@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EmailVerificationView: View {
     @EnvironmentObject var viewModel: SignInViewModel
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     
     @State private var code: String = ""
     @FocusState private var isFocused: Bool
@@ -71,7 +71,7 @@ struct EmailVerificationView: View {
                 Button {
                     viewModel.postCheckEmailCode(email: viewModel.email, code: code)
                 } label: {
-                    if unlockService.isLoading {
+                    if appState.isLoading {
                         ColoredProgressView(color: .gray)
                     } else {
                         Text("다음")
@@ -88,7 +88,7 @@ struct EmailVerificationView: View {
                         .stroke(Color.gray2)
                 }
                 .padding(EdgeInsets(top: 16, leading: 32, bottom: 0, trailing: 32))
-                .disabled(!Utils.inVerificationFormat(code) || unlockService.isLoading)
+                .disabled(!Utils.inVerificationFormat(code) || appState.isLoading)
                 
                 Spacer()
             }
@@ -97,7 +97,7 @@ struct EmailVerificationView: View {
                 IDInputView()
             })
             
-            if let errorMessage = unlockService.errorMessage {
+            if let errorMessage = appState.errorMessage {
                 ErrorPopupView(errorText: errorMessage)
             }
         }
@@ -110,7 +110,7 @@ struct EmailVerificationView: View {
                 viewModel.postCheckEmailCode(email: viewModel.email, code: code)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
-                    unlockService.errorMessage = "올바른 형식의 인증코드를 입력해주세요."
+                    appState.errorMessage = "올바른 형식의 인증코드를 입력해주세요."
                 }
             }
         }
@@ -121,6 +121,6 @@ struct EmailVerificationView_Previews: PreviewProvider {
     static var previews: some View {
         EmailVerificationView()
             .environmentObject(SignInViewModel())
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
     }
 }

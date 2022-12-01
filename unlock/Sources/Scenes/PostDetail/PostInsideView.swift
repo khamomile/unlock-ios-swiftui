@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct PostInsideView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var viewModel: PostDetailViewModel
     
     @EnvironmentObject var homeFeedViewModel: HomeFeedViewModel
@@ -82,8 +82,8 @@ struct PostInsideView: View {
                             .frame(width: 20, height: 20)
                             .clipShape(Circle())
                             .onTapGesture {
-                                unlockService.postToShowImage = viewModel.post
-                                unlockService.showImageView = true
+                                appState.postToShowImage = viewModel.post
+                                appState.showImageView = true
                             }
                     }
                 }

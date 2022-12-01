@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     
     @StateObject var homeFeedViewModel: HomeFeedViewModel = HomeFeedViewModel()
     @StateObject var discoverFeedViewModel: DiscoverFeedViewModel = DiscoverFeedViewModel()
@@ -66,31 +66,31 @@ struct MainTabView: View {
             }
             .navigationBarHidden(true)
             .onAppear {
-                unlockService.getMe()
+                appState.getMe()
                 notificationViewModel.getUnreadNoti()
 
-                if unlockService.notiReceived == true {
+                if appState.notiReceived == true {
                     selectedTab = .notification
-                    unlockService.notiReceived = false
+                    appState.notiReceived = false
                 }
             }
-            .onChange(of: unlockService.notiReceived) { newValue in
-                print("Noti received 2: \(unlockService.notiReceived)")
+            .onChange(of: appState.notiReceived) { newValue in
+                print("Noti received 2: \(appState.notiReceived)")
                 if newValue == true {
                     selectedTab = .notification
-                    unlockService.notiReceived = false
+                    appState.notiReceived = false
                 }
             }
             
-            if unlockService.showImageView {
-                if let post = unlockService.postToShowImage {
+            if appState.showImageView {
+                if let post = appState.postToShowImage {
                     PostImageView(title: post.title, imageURL: post.images.first?.url ?? "", opacity: 0.8)
                         .zIndex(1)
                 }
             }
             
-            if unlockService.showPopup {
-                if let doublePopupToShow = unlockService.doublePopupToShow {
+            if appState.showPopup {
+                if let doublePopupToShow = appState.doublePopupToShow {
                     DoublePopupView(doublePopupInfo: doublePopupToShow)
                         .zIndex(1)
                 }
@@ -102,6 +102,6 @@ struct MainTabView: View {
 struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
         MainTabView()
-            .environmentObject(UnlockService.shared)
+            .environmentObject(AppState.shared)
     }
 }

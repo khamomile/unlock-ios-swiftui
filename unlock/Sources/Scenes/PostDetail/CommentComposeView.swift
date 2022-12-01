@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CommentComposeView: View {
-    @EnvironmentObject var unlockService: UnlockService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var viewModel: PostDetailViewModel
     
     @EnvironmentObject var homeFeedViewModel: HomeFeedViewModel
