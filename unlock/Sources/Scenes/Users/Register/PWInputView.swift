@@ -19,7 +19,7 @@ struct PWInputView: View {
     @FocusState private var focusedField: FocusedField?
     
     var body: some View {
-        ZStack {
+        CustomZStackView {
             VStack {
                 HStack(spacing: 0) {
                     Text("비밀번호를 ")
@@ -29,7 +29,7 @@ struct PWInputView: View {
                 .font(.boldHeadline)
                 .foregroundColor(.gray9)
                 .padding(EdgeInsets(top:80, leading: 0, bottom: 100, trailing: 0))
-                
+
                 VStack(alignment: .leading) {
                     SecureField(String("비밀번호를 입력해주세요"), text: $pw1)
                         .keyboardCleaned(keyboardType: .default, text: $pw1)
@@ -40,9 +40,9 @@ struct PWInputView: View {
                         .foregroundColor(.gray1)
                         .frame(height: 1)
                     if pw1.count > 0 {
-                        Text(inPWFormat(pw1) ? "좋은 비밀번호에요" : "불가능한 비밀번호에요.")
+                        Text(Utils.inPWFormat(pw1) ? "좋은 비밀번호에요" : "불가능한 비밀번호에요.")
                             .font(.lightCaption3)
-                            .foregroundColor(inPWFormat(pw1) ? .green1 : .red1)
+                            .foregroundColor(Utils.inPWFormat(pw1) ? .green1 : .red1)
                     }
                     SecureField(String("한 번 더 입력해주세요"), text: $pw2)
                         .keyboardCleaned(keyboardType: .default, text: $pw2)
@@ -60,14 +60,14 @@ struct PWInputView: View {
                     }
                 }
                 .padding(.horizontal, 32)
-                
+
                 Button {
                     viewModel.setPW(password: pw1)
                 } label: {
                     Text("다음")
                         .font(.regularHeadline)
                         .foregroundColor(
-                            inPWFormat(pw1) && pw1 == pw2 ? .gray8 : .gray2
+                            Utils.inPWFormat(pw1) && pw1 == pw2 ? .gray8 : .gray2
                         )
                         .padding(.vertical, 14)
                         .frame(maxWidth: .infinity)
@@ -77,8 +77,8 @@ struct PWInputView: View {
                         .stroke(Color.gray2)
                 }
                 .padding(EdgeInsets(top: 32, leading: 32, bottom: 0, trailing: 32))
-                .disabled(!inPWFormat(pw1) || pw1 != pw2)
-                
+                .disabled(!Utils.inPWFormat(pw1) || pw1 != pw2)
+
                 Text("""
     - 8~12자로 영문, 숫자, 특수문자를 사용하실 수 있습니다.
     - 한글과 공백은 사용하실 수 없습니다.
@@ -91,19 +91,15 @@ struct PWInputView: View {
                 .lineSpacing(7)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(32)
-                
+
                 Spacer()
             }
             .frame(maxHeight: .infinity)
-            .navigationDestination(isPresented: $viewModel.passwordVerified, destination: {
-                ProfileInputView()
-                    .environmentObject(viewModel)
-            })
-            
-            if let errorMessage = appState.errorMessage {
-                ErrorPopupView(errorText: errorMessage)
-            }
         }
+        .navigationDestination(isPresented: $viewModel.passwordVerified, destination: {
+            ProfileInputView()
+                .environmentObject(viewModel)
+        })
         .navigationBarHidden(true)
         .onAppear {
             focusedField = .pw1
@@ -113,7 +109,7 @@ struct PWInputView: View {
                 focusedField = .pw2
             } else {
                 focusedField = nil
-                if inPWFormat(pw1) && pw1 == pw2 {
+                if Utils.inPWFormat(pw1) && pw1 == pw2 {
                     viewModel.setPW(password: pw1)
                 } else {
                     withAnimation(.easeInOut(duration: 0.2)) {
@@ -122,18 +118,6 @@ struct PWInputView: View {
                 }
             }
         }
-    }
-    
-    func inPWFormat(_ text: String) -> Bool {
-        let cs = CharacterSet.alphanumerics.inverted
-        
-        guard text.count >= 8 && text.count <= 12 else { return false }
-        
-        guard text.rangeOfCharacter(from: cs) == nil else {
-            return false
-        }
-        
-        return true
     }
 }
 

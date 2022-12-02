@@ -70,6 +70,8 @@ class NotificationViewModel: ObservableObject {
     }
     
     func getUnreadNoti() {
+        guard appState.loggedIn == true else { return }
+
         provider.requestPublisher(.getHasUnreadNotification)
             .sink { completion in
                 switch completion {

@@ -20,7 +20,7 @@ struct AccountView: View {
                     Text("이메일 주소")
                         .font(.lightBody)
 
-                    Text(verbatim: appState.me.email)
+                    Text(verbatim: appState.me?.email ?? "")
                         .font(.lightBody)
                         .foregroundColor(.gray6)
                 }
@@ -52,12 +52,7 @@ struct AccountView: View {
         }
         .navigationBarHidden(true)
         .alert("회원 탈퇴가 완료되었습니다.", isPresented: $viewModel.userDeleted) {
-            Button("확인", role: .cancel) {
-                viewModel.setMoveToMain(true)
-            }
-        }
-        .fullScreenCover(isPresented: $viewModel.moveToMain) {
-            UserInitialView()
+            Button("확인", role: .cancel) { }
         }
     }
 }

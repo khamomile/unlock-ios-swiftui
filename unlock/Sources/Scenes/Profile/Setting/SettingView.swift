@@ -58,12 +58,7 @@ struct SettingView: View {
             .listStyle(.inset)
         }
         .alert("로그아웃이 완료되었습니다.", isPresented: $viewModel.logoutSuccess) {
-            Button("확인", role: .cancel) {
-                viewModel.setMoveToMain(true)
-            }
-        }
-        .fullScreenCover(isPresented: $viewModel.moveToMain) {
-            UserInitialView()
+            Button("확인", role: .cancel) { }
         }
         .navigationBarHidden(true)
         .onAppear {

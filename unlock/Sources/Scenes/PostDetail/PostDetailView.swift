@@ -24,13 +24,13 @@ struct PostDetailView: View {
     var postID: String = ""
     
     var body: some View {
-        ZStack {
+        CustomZStackView {
             VStack {
                 PostDetailHeaderView(showStoreDropDown: $showDropDown)
                     .environmentObject(viewModel)
                     .environmentObject(profileViewModel)
                     .zIndex(1)
-                
+
                 ScrollView {
                     ScrollViewReader { proxy in
                         VStack {
@@ -39,10 +39,10 @@ struct PostDetailView: View {
                                 .environmentObject(profileViewModel)
                         }
                         .animation(.default, value: viewModel.post)
-                        
+
                         Divider()
                             .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                        
+
                         VStack {
                             if viewModel.post?.author == "" {
                                 LockedCommentView()
@@ -69,28 +69,12 @@ struct PostDetailView: View {
                 .onTapGesture {
                     isFocused = false
                 }
-                
+
                 CommentComposeView(isFocused: _isFocused, id: postID)
                     .environmentObject(viewModel)
                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
             }
-            
-            if appState.showImageView {
-                if let post = appState.postToShowImage {
-                    PostImageView(title: post.title, imageURL: post.images.first?.url ?? "", opacity: 0.4)
-                        .zIndex(1)
-                }
-            }
-            
-            if appState.showPopup {
-                if let doublePopupToShow = appState.doublePopupToShow {
-                    DoublePopupView(doublePopupInfo: doublePopupToShow)
-                        .zIndex(1)
-                }
-            }
         }
-        .navigationBarHidden(true)
-        .toolbar(.hidden, for: .tabBar)
         .navigationDestination(isPresented: $viewModel.moveToReportPostView) {
             ReportView(postID: postID)
                 .environmentObject(viewModel)
@@ -101,11 +85,12 @@ struct PostDetailView: View {
                 .environmentObject(discoverFeedViewModel)
                 .environmentObject(profileViewModel)
         }
+        .navigationBarHidden(true)
+        .toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             showDropDown = false
         }
         .onAppear {
-            print("Post ID: \(postID)")
             viewModel.getPost(id: postID)
             viewModel.getComment(id: postID)
             viewModel.setViewModel(homeFeedViewModel: homeFeedViewModel, discoverFeedViewModel: discoverFeedViewModel, profileViewModel: profileViewModel)
@@ -117,7 +102,7 @@ struct PostDetailView: View {
             if navController.viewControllers.count == 3 {
                 navController.viewControllers = [navController.viewControllers[0], navController.viewControllers[2]]
             }
-            
+
             if navController.viewControllers.count == 4 {
                 navController.viewControllers = [navController.viewControllers[0], navController.viewControllers[3]]
             }

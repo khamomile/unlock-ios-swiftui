@@ -35,7 +35,7 @@ struct ProfileInputView: View {
     @FocusState private var focusedField: FocusedField?
     
     var body: some View {
-        ZStack {
+        CustomZStackView {
             ScrollView {
                 VStack {
                     VStack {
@@ -64,7 +64,7 @@ struct ProfileInputView: View {
                         }
                     }
                     .padding(.top, 80)
-                    
+
                     VStack(alignment: .leading) {
                         Text("이름")
                             .font(.semiBoldHeadline)
@@ -79,7 +79,7 @@ struct ProfileInputView: View {
                             .frame(height: 1)
                     }
                     .padding(EdgeInsets(top: 64, leading: 32, bottom: 32, trailing: 32))
-                    
+
                     VStack(alignment: .leading) {
                         Text("생년월일 6자리")
                             .font(.semiBoldHeadline)
@@ -94,7 +94,7 @@ struct ProfileInputView: View {
                             .frame(height: 1)
                     }
                     .padding(EdgeInsets(top: 0, leading: 32, bottom: 32, trailing: 32))
-                    
+
                     VStack(alignment: .leading) {
                         Text("성별")
                             .font(.semiBoldHeadline)
@@ -112,7 +112,7 @@ struct ProfileInputView: View {
                             .onTapGesture {
                                 genderSelected = .male
                             }
-                            
+
                             VStack(spacing: 5) {
                                 Text("여성")
                                     .font(.lightHeadline)
@@ -124,7 +124,7 @@ struct ProfileInputView: View {
                             .onTapGesture {
                                 genderSelected = .female
                             }
-                            
+
                             VStack(spacing: 5) {
                                 Text("기타")
                                     .font(.lightHeadline)
@@ -139,7 +139,7 @@ struct ProfileInputView: View {
                         }
                     }
                     .padding(EdgeInsets(top: 0, leading: 32, bottom: 64, trailing: 32))
-                    
+
                     VStack {
                         HStack {
                             Button {
@@ -147,7 +147,7 @@ struct ProfileInputView: View {
                             } label: {
                                 Image(usageAgreementChecked ? "checkbox-checked" : "checkbox")
                             }
-                
+
                             Link(destination: URL(string: "https://polyester-ghoul-e62.notion.site/Unlock-b6ed1f758c0f41608f7a37ec8c6ce23f")!, label: {
                                 Text("이용약관 동의")
                                     .underline()
@@ -184,7 +184,7 @@ struct ProfileInputView: View {
                     .font(.lightCaption2)
                     .foregroundColor(.gray7)
                     .padding(EdgeInsets(top: 0, leading: 32, bottom: 32, trailing: 32))
-                    
+
                     Button {
                         viewModel.postRegister(fullName: name, bDay: bday, gender: genderSelected?.rawValue ?? "others")
                     } label: {
@@ -209,14 +209,10 @@ struct ProfileInputView: View {
                     .disabled(!checkAllInput())
                 }
             }
-            .navigationDestination(isPresented: $viewModel.registerSuccess, destination: {
-                MainTabView()
-            })
-            
-            if let errorMessage = appState.errorMessage {
-                ErrorPopupView(errorText: errorMessage)
-            }
         }
+        .navigationDestination(isPresented: $viewModel.registerSuccess, destination: {
+            MainTabView()
+        })
         .navigationBarHidden(true)
         .sheet(isPresented: $showingImagePicker, content: {
             ImagePicker(image: $inputImage)

@@ -15,7 +15,7 @@ struct EmailInputView: View {
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        ZStack {
+        CustomZStackView {
             VStack {
                 VStack {
                     Text("서비스에서 사용할")
@@ -28,7 +28,7 @@ struct EmailInputView: View {
                 .font(.boldHeadline)
                 .foregroundColor(.gray9)
                 .padding(EdgeInsets(top: 80, leading: 0, bottom: 100, trailing: 0))
-                
+
                 VStack {
                     TextField(String("예) minds@unlock.im"), text: $email)
                         .font(.lightCaption1)
@@ -40,7 +40,7 @@ struct EmailInputView: View {
                         .frame(height: 1)
                 }
                 .padding(.horizontal, 32)
-                
+
                 Button {
                     viewModel.postSendEmailCode(email: email)
                 } label: {
@@ -62,19 +62,15 @@ struct EmailInputView: View {
                 }
                 .padding(EdgeInsets(top: 16, leading: 32, bottom: 0, trailing: 32))
                 .disabled(!Utils.inEmailFormat(email) || appState.isLoading)
-                
+
                 Spacer()
             }
             .frame(maxHeight: .infinity)
-            .navigationDestination(isPresented: $viewModel.sentEmail, destination: {
-                EmailVerificationView()
-                    .environmentObject(viewModel)
-            })
-            
-            if let errorMessage = appState.errorMessage {
-                ErrorPopupView(errorText: errorMessage)
-            }
         }
+        .navigationDestination(isPresented: $viewModel.sentEmail, destination: {
+            EmailVerificationView()
+                .environmentObject(viewModel)
+        })
         .navigationBarHidden(true)
         .onAppear {
             isFocused = true

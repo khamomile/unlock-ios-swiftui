@@ -17,41 +17,39 @@ struct DiscoverView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                VStack(spacing: 0) {
-                    SimpleHeaderView(title: "Discover")
-                    
-                    ZStack(alignment: .bottomTrailing) {
-                        Color(.init(gray: 0.9, alpha: 0.5))
-                        
-                        ScrollView(showsIndicators: false) {
-                            LazyVStack {
-                                ForEach(Array(viewModel.postList.enumerated()), id: \.element.self) { idx, post in
-                                        getPostItemView(post: post)
-                                        .onAppear {
-                                            inifitePaging(idx: idx)
-                                        }
-                                }
-                                .id(UUID())
+            VStack(spacing: 0) {
+                SimpleHeaderView(title: "Discover")
+
+                ZStack(alignment: .bottomTrailing) {
+                    Color(.init(gray: 0.9, alpha: 0.5))
+
+                    ScrollView(showsIndicators: false) {
+                        LazyVStack {
+                            ForEach(Array(viewModel.postList.enumerated()), id: \.element.self) { idx, post in
+                                    getPostItemView(post: post)
+                                    .onAppear {
+                                        inifitePaging(idx: idx)
+                                    }
                             }
-                            .padding(.bottom, 100)
-                            .animation(.easeInOut, value: viewModel.postList)
+                            .id(UUID())
                         }
-                        .refreshable {
-                            viewModel.refreshPages()
-                        }
-                        
-                        NavigationLink(value: NavButton.composePost) {
-                            Image("pencil")
-                                .padding()
-                                .background(Circle().fill(Color.gray9.opacity(0.8)))
-                        }
-                        .padding(.trailing, 16)
-                        .padding(.bottom, 16)
+                        .padding(.bottom, 100)
+                        .animation(.easeInOut, value: viewModel.postList)
                     }
+                    .refreshable {
+                        viewModel.refreshPages()
+                    }
+
+                    NavigationLink(value: NavButton.composePost) {
+                        Image("pencil")
+                            .padding()
+                            .background(Circle().fill(Color.gray9.opacity(0.8)))
+                    }
+                    .padding(.trailing, 16)
+                    .padding(.bottom, 16)
                 }
-                .toolbar(.visible, for: .tabBar)
             }
+            .toolbar(.visible, for: .tabBar)
             .navigationDestination(for: NavButton.self, destination: { navButton in
                 switch navButton {
                 case .composePost:

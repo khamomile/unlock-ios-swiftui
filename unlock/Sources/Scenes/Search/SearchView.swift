@@ -17,7 +17,7 @@ struct SearchView: View {
     @FocusState var isFocused: Bool
     
     var body: some View {
-        ZStack {
+        CustomZStackView {
             VStack {
                 HStack(spacing: 15) {
                     Button {
@@ -28,12 +28,12 @@ struct SearchView: View {
 
                     HStack {
                         Image("search-grey")
-                        
+
                         TextField("아이디 또는 이름으로 검색", text: $keyword)
                             .keyboardCleaned(keyboardType: .default, text: $keyword)
                             .focused($isFocused)
                             .font(.lightCaption1)
-                        
+
                         Image("close-input")
                             .onTapGesture {
                                 keyword = ""
@@ -45,7 +45,7 @@ struct SearchView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
                 .padding()
-                
+
                 GeometryReader { geometry in
                     ScrollView(showsIndicators: false) {
                         if keyword.count < 2 {
@@ -77,13 +77,6 @@ struct SearchView: View {
             }
             .onAppear {
                 isFocused = true
-            }
-            
-            if appState.showPopup {
-                if let doublePopupToShow = appState.doublePopupToShow {
-                    DoublePopupView(doublePopupInfo: doublePopupToShow)
-                        .zIndex(1)
-                }
             }
         }
     }

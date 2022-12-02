@@ -19,16 +19,16 @@ struct LoginView: View {
     @FocusState private var focusedField: FocusedField?
     
     var body: some View {
-        ZStack {
+        CustomZStackView {
             VStack {
                 Spacer()
-                
+
                 Text("UNLOCK")
                     .font(.extraLightHeadline)
                     .foregroundColor(.gray9)
-                
+
                 Spacer()
-                
+
                 VStack {
                     TextField(String("이메일을 입력해주세요"), text: $id)
                         .keyboardCleaned(keyboardType: .emailAddress, text: $id)
@@ -39,7 +39,7 @@ struct LoginView: View {
                     Rectangle()
                         .foregroundColor(.gray1)
                         .frame(height: 1)
-                    
+
                     SecureField(String("비밀번호를 입력해주세요"), text: $pw)
                         .keyboardCleaned(keyboardType: .emailAddress, text: $pw)
                         .focused($focusedField, equals: .pw)
@@ -51,7 +51,7 @@ struct LoginView: View {
                         .frame(height: 1)
                 }
                 .padding(.horizontal, 32)
-                
+
                 Button {
                     viewModel.postLogin(email: id, password: pw)
                 } label: {
@@ -73,10 +73,10 @@ struct LoginView: View {
                 }
                 .padding(EdgeInsets(top: 16, leading: 32, bottom: 0, trailing: 32))
                 .disabled(!checkIdPw() || appState.isLoading)
-                
+
                 HStack {
                     Spacer()
-                    
+
                     NavigationLink {
                         PWResetEmailView()
                     } label: {
@@ -89,7 +89,7 @@ struct LoginView: View {
                 }
 
                 Spacer()
-                
+
                 HStack {
                     Link(destination: URL(string: "https://www.unlock.im/privacy.html")!, label: {
                         Text("개인정보처리방침")
@@ -106,20 +106,12 @@ struct LoginView: View {
                 .font(.lightCaption3)
                 .foregroundColor(.gray4)
                 .padding(.bottom, 10)
-                
+
             }
             .frame(maxHeight: .infinity)
-            .fullScreenCover(isPresented: $viewModel.loggedIn, content: {
-                MainTabView()
-            })
-            .onTapGesture {
-                focusedField = nil
-            }
-            
-            if let errorMessage = appState.errorMessage {
-                ErrorPopupView(errorText: errorMessage)
-                    .zIndex(1)
-            }
+        }
+        .onTapGesture {
+            focusedField = nil
         }
         .navigationBarHidden(true)
         .onChange(of: appState.errorMessage, perform: { message in

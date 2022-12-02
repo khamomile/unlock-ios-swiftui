@@ -16,7 +16,7 @@ struct PWResetPWConfirmView: View {
     @FocusState private var focusedField: FocusedField?
     
     var body: some View {
-        ZStack {
+        CustomZStackView {
             VStack {
                 BasicHeaderView(text: "비밀번호 변경")
                 HStack(spacing: 0) {
@@ -27,7 +27,7 @@ struct PWResetPWConfirmView: View {
                 .font(.boldHeadline)
                 .foregroundColor(.gray9)
                 .padding(EdgeInsets(top:80, leading: 0, bottom: 100, trailing: 0))
-                
+
                 VStack(alignment: .leading) {
                     SecureField(String("비밀번호를 입력해주세요"), text: $viewModel.newPassword1)
                         .keyboardCleaned(keyboardType: .default, text: $viewModel.newPassword1)
@@ -63,7 +63,7 @@ struct PWResetPWConfirmView: View {
                     }
                 }
                 .padding(.horizontal, 32)
-                
+
                 Button {
                     viewModel.putResetPassword(email: viewModel.resetEmail, code: viewModel.resetVFCode, newPW: viewModel.newPassword1)
                 } label: {
@@ -86,7 +86,7 @@ struct PWResetPWConfirmView: View {
                 }
                 .padding(EdgeInsets(top: 32, leading: 32, bottom: 0, trailing: 32))
                 .disabled(!viewModel.newPWValid)
-                
+
                 Text("""
     - 8~12자로 영문, 숫자, 특수문자를 사용하실 수 있습니다.
     - 한글과 공백은 사용하실 수 없습니다.
@@ -99,14 +99,10 @@ struct PWResetPWConfirmView: View {
                 .lineSpacing(7)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(32)
-                
+
                 Spacer()
             }
             .frame(maxHeight: .infinity)
-            
-            if let errorMessage = appState.errorMessage {
-                ErrorPopupView(errorText: errorMessage)
-            }
         }
         .navigationBarHidden(true)
         .onAppear {
@@ -123,12 +119,7 @@ struct PWResetPWConfirmView: View {
             }
         }
         .alert("비밀번호 재설정이 완료되었습니다.\n로그인을 다시 해주시기 바랍니다.", isPresented: $viewModel.logoutSuccess) {
-            Button("확인", role: .cancel) {
-                viewModel.setMoveToMain(true)
-            }
-        }
-        .fullScreenCover(isPresented: $viewModel.moveToMain) {
-            UserInitialView()
+            Button("확인", role: .cancel) { }
         }
     }
 }

@@ -152,7 +152,7 @@ struct PostItemView: View {
     }
     
     func getDropdownButtonInfo() -> [CustomButtonInfo] {
-        if appState.me.id == viewModel.post?.author {
+        if appState.me?.id == viewModel.post?.author {
             let buttonInfo1 = CustomButtonInfo(title: "수정", btnColor: .gray8, action: { viewModel.moveToEditView = true })
             
             let buttonInfo2 = CustomButtonInfo(title: "삭제", btnColor: .red, action: {

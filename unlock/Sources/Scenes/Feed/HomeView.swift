@@ -17,44 +17,42 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                VStack(spacing: 0) {
-                    SimpleHeaderView(title: "Unlock")
-                    
-                    ZStack(alignment: .bottomTrailing) {
-                        Color(.init(gray: 0.9, alpha: 0.5))
-                        
-                        postListView()
-                        
-                        NavigationLink(value: NavButton.composePost) {
-                            Image("pencil")
-                                .padding()
-                                .background(Circle().fill(Color.gray9.opacity(0.8)))
-                        }
-                        .padding(.trailing, 16)
-                        .padding(.bottom, 16)
+            VStack(spacing: 0) {
+                SimpleHeaderView(title: "Unlock")
+
+                ZStack(alignment: .bottomTrailing) {
+                    Color(.init(gray: 0.9, alpha: 0.5))
+
+                    postListView()
+
+                    NavigationLink(value: NavButton.composePost) {
+                        Image("pencil")
+                            .padding()
+                            .background(Circle().fill(Color.gray9.opacity(0.8)))
                     }
+                    .padding(.trailing, 16)
+                    .padding(.bottom, 16)
                 }
-                .toolbar(.visible, for: .tabBar)
-                .animation(.default, value: viewModel.isLoadingPost)
-                .navigationDestination(for: NavButton.self, destination: { navButton in
-                    switch navButton {
-                    case .composePost:
-                        PostComposeView()
-                            .environmentObject(viewModel)
-                            .environmentObject(discoverFeedViewModel)
-                            .environmentObject(profileViewModel)
-                    case .searchUser:
-                        SearchView()
-                    }
-                })
-                .navigationDestination(for: String.self, destination: { postId in
-                    PostDetailView(postID: postId)
-                })
-                .onAppear {
-                    viewModel.batchUpdateLikesCount()
-                    notificationViewModel.getUnreadNoti()
+            }
+            .toolbar(.visible, for: .tabBar)
+            .animation(.default, value: viewModel.isLoadingPost)
+            .navigationDestination(for: NavButton.self, destination: { navButton in
+                switch navButton {
+                case .composePost:
+                    PostComposeView()
+                        .environmentObject(viewModel)
+                        .environmentObject(discoverFeedViewModel)
+                        .environmentObject(profileViewModel)
+                case .searchUser:
+                    SearchView()
                 }
+            })
+            .navigationDestination(for: String.self, destination: { postId in
+                PostDetailView(postID: postId)
+            })
+            .onAppear {
+                viewModel.batchUpdateLikesCount()
+                notificationViewModel.getUnreadNoti()
             }
         }
     }
@@ -93,7 +91,7 @@ struct HomeView: View {
             ColoredProgressView(color: .gray)
                 .frame(maxHeight: .infinity)
         } else {
-            if appState.me.friendsCount == 0 {
+            if appState.me?.friendsCount == 0 {
                 InviteFriendSearchView()
             } else {
                 ScrollView(showsIndicators: false) {

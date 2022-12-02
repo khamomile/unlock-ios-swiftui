@@ -38,7 +38,7 @@ struct CommentItemView: View {
                 
                 Spacer()
                 
-                if comment.author != appState.me.id {
+                if comment.author != appState.me?.id {
                     Button {
                         showStoreDropDown.toggle()
                         myZindex = myZindex == 10 ? 1 : 10

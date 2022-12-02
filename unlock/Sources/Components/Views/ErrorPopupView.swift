@@ -29,7 +29,7 @@ struct ErrorPopupView: View {
                 
                 Divider()
                     .padding(.horizontal, 16)
-                
+
                 Button {
                     withAnimation(.default) {
                         appState.errorMessage = nil

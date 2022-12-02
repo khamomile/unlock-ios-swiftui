@@ -9,6 +9,7 @@ import Foundation
 import Alamofire
 import Combine
 import Moya
+import SwiftUI
 
 class SettingViewModel: ObservableObject {
     private let provider = MoyaProvider<UnlockAPI>(session: Moya.Session(interceptor: Interceptor()), plugins: [NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))])
@@ -100,25 +101,27 @@ class SettingViewModel: ObservableObject {
     }
 
     func setUpProfileEditData() {
-        eUsername = appState.me.username
-        eName = appState.me.fullname
-        eBDay = appState.me.birthDate.format(with: "yyMMdd")
-        eBio = appState.me.bio
-        profileImageURL = appState.me.profileImage
+        if let me = appState.me {
+            eUsername = me.username
+            eName = me.fullname
+            eBDay = me.birthDate.format(with: "yyMMdd")
+            eBio = me.bio
+            profileImageURL = me.profileImage
+        }
     }
 
     func profileChanged() -> Bool {
-        let condition1 = profileImageURL != appState.me.profileImage
-        let condition2 = eName != appState.me.fullname
-        let condition3 = eUsername != appState.me.username
-        let condition4 = eBDay != appState.me.birthDate.format(with: "yyMMdd")
-        let condition5 = eBio != appState.me.bio
+        let condition1 = profileImageURL != appState.me?.profileImage
+        let condition2 = eName != appState.me?.fullname
+        let condition3 = eUsername != appState.me?.username
+        let condition4 = eBDay != appState.me?.birthDate.format(with: "yyMMdd")
+        let condition5 = eBio != appState.me?.bio
 
         return condition1 || condition2 || condition3 || condition4 || condition5
     }
 
     func postEdit() {
-        if eUsername != appState.me.username {
+        if eUsername != appState.me?.username {
             if Utils.inIDFormat(eUsername) {
                 postCheckUsernameDuplicate(username: eUsername)
             } else {
@@ -151,6 +154,10 @@ class SettingViewModel: ObservableObject {
                 guard let responseData = try? response.map(SuccessResponse.self) else { return }
                 print(responseData)
                 self.logoutSuccess = true
+
+                withAnimation {
+                    self.appState.loggedIn = false
+                }
             }
             .store(in: &subscription)
     }
@@ -203,8 +210,10 @@ class SettingViewModel: ObservableObject {
         let birthDate = Date.parseYMDDate(from: bDay) ?? Date()
         
         appState.isLoading = true
+
+        guard let id = appState.me?.id else { return }
         
-        provider.requestPublisher(.putUser(id: appState.me.id, username: username, fullname: fullname, birthDate: birthDate, profileImage: profileImage, bio: bio))
+        provider.requestPublisher(.putUser(id: id, username: username, fullname: fullname, birthDate: birthDate, profileImage: profileImage, bio: bio))
             .sink { completion in
                 switch completion {
                 case let .failure(error):

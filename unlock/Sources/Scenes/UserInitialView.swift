@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct UserInitialView: View {
-    @StateObject var viewModel = SignInViewModel()
     @EnvironmentObject var appState: AppState
     
     var body: some View {
@@ -19,13 +18,14 @@ struct UserInitialView: View {
                 .foregroundColor(.blue1)
         }
         .frame(maxHeight: .infinity)
-        .fullScreenCover(isPresented: $viewModel.loggedIn, content: {
-            MainTabView()
+        .fullScreenCover(isPresented: $appState.loginStatusReceived) {
+            MainView()
                 .environmentObject(appState)
-        })
-        .fullScreenCover(isPresented: $viewModel.notLoggedIn) {
-            RegisterOrLoginView()
-                .environmentObject(viewModel)
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                appState.getUserLoggedIn()
+            }
         }
     }
 }

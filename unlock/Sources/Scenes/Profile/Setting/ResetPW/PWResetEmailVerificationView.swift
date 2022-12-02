@@ -19,7 +19,7 @@ struct PWResetEmailVerificationView: View {
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        ZStack {
+        CustomZStackView {
             VStack {
                 BasicHeaderView(text: "비밀번호 변경")
                 VStack {
@@ -33,7 +33,7 @@ struct PWResetEmailVerificationView: View {
                 .font(.boldHeadline)
                 .foregroundColor(.gray9)
                 .padding(EdgeInsets(top: 80, leading: 0, bottom: 100, trailing: 0))
-                
+
                 VStack {
                     HStack(alignment: .lastTextBaseline) {
                         TextField("인증번호", text: $viewModel.resetVFCode)
@@ -56,7 +56,7 @@ struct PWResetEmailVerificationView: View {
                         .frame(height: 1)
                 }
                 .padding(.horizontal, 32)
-                
+
                 Button {
                     timeRemaining = 300
                 } label: {
@@ -67,7 +67,7 @@ struct PWResetEmailVerificationView: View {
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .padding(EdgeInsets(top: 10, leading: 32, bottom: 0, trailing: 32))
                 }
-                
+
                 Button {
                     viewModel.postCheckEmailCode(email: viewModel.resetEmail, code: viewModel.resetVFCode)
                 } label: {
@@ -90,18 +90,14 @@ struct PWResetEmailVerificationView: View {
                 }
                 .padding(EdgeInsets(top: 16, leading: 32, bottom: 0, trailing: 32))
                 .disabled(!Utils.inVerificationFormat(viewModel.resetVFCode))
-                
+
                 Spacer()
             }
             .frame(maxHeight: .infinity)
-            .navigationDestination(isPresented: $viewModel.emailVerified) {
-                PWResetPWConfirmView()
-                    .environmentObject(viewModel)
-            }
-            
-            if let errorMessage = appState.errorMessage {
-                ErrorPopupView(errorText: errorMessage)
-            }
+        }
+        .navigationDestination(isPresented: $viewModel.emailVerified) {
+            PWResetPWConfirmView()
+                .environmentObject(viewModel)
         }
         .navigationBarHidden(true)
         .onAppear {

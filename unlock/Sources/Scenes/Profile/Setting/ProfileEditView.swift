@@ -17,11 +17,11 @@ struct ProfileEditView: View {
     @State private var showingImagePicker: Bool = false
     
     var body: some View {
-        ZStack {
+        CustomZStackView {
             VStack {
                 ProfileEditHeaderView()
                     .environmentObject(viewModel)
-                
+
                 ScrollView {
                     VStack {
                         if viewModel.isPostingImage {
@@ -57,7 +57,7 @@ struct ProfileEditView: View {
                                     showingImagePicker = true
                                 }
                         }
-                        
+
                         VStack(alignment: .leading) {
                             HStack(alignment: .lastTextBaseline) {
                                 Text("이름")
@@ -105,10 +105,6 @@ struct ProfileEditView: View {
                     }
                 }
                 .padding(.top, 16)
-            }
-            
-            if let errorMessage = appState.errorMessage {
-                ErrorPopupView(errorText: errorMessage)
             }
         }
         .navigationBarHidden(true)

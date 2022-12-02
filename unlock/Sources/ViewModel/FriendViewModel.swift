@@ -49,7 +49,7 @@ class FriendViewModel: ObservableObject {
                 print(responseData)
                 
                 self.userList = responseData.compactMap {
-                    if self.appState.me.id != $0._id {
+                    if self.appState.me?.id != $0._id {
                         return User(data: $0)
                     }
                     return nil
@@ -162,11 +162,11 @@ class FriendViewModel: ObservableObject {
                 print(responseData)
                 
                 self.friendList = responseData.compactMap {
-                    if self.appState.me.id != $0.requester._id {
+                    if self.appState.me?.id != $0.requester._id {
                         return User(data: $0.requester)
                     }
                     
-                    if self.appState.me.id != $0.recipient._id {
+                    if self.appState.me?.id != $0.recipient._id {
                         return User(data: $0.recipient)
                     }
                     

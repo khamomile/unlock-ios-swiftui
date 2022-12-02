@@ -15,7 +15,7 @@ struct IDInputView: View {
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        ZStack {
+        CustomZStackView {
             VStack {
                 HStack(spacing: 0) {
                     Text("아이디를 ")
@@ -25,7 +25,7 @@ struct IDInputView: View {
                 .font(.boldHeadline)
                 .foregroundColor(.gray9)
                 .padding(EdgeInsets(top: 80, leading: 0, bottom: 100, trailing: 0))
-                
+
                 VStack {
                     TextField(String("5-20자 이내의 아이디"), text: $username)
                         .keyboardCleaned(keyboardType: .default, text: $username)
@@ -37,7 +37,7 @@ struct IDInputView: View {
                         .frame(height: 1)
                 }
                 .padding(.horizontal, 32)
-                
+
                 Button {
                     viewModel.postCheckUsernameDuplicate(username: username)
                 } label: {
@@ -59,19 +59,15 @@ struct IDInputView: View {
                 }
                 .padding(EdgeInsets(top: 16, leading: 32, bottom: 0, trailing: 32))
                 .disabled(!Utils.inIDFormat(username))
-                
+
                 Spacer()
             }
             .frame(maxHeight: .infinity)
-            .navigationDestination(isPresented: $viewModel.usernameVerified, destination: {
-                PWInputView()
-                    .environmentObject(viewModel)
-            })
-            
-            if let errorMessage = appState.errorMessage {
-                ErrorPopupView(errorText: errorMessage)
-            }
         }
+        .navigationDestination(isPresented: $viewModel.usernameVerified, destination: {
+            PWInputView()
+                .environmentObject(viewModel)
+        })
         .navigationBarHidden(true)
         .onAppear {
             isFocused = true

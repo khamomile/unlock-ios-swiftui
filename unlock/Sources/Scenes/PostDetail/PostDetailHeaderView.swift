@@ -54,7 +54,6 @@ struct PostDetailHeaderView: View {
             }.animation(.easeInOut, value: showStoreDropDown), alignment: .topTrailing
         )
         .padding(EdgeInsets(top: 8, leading: 16, bottom: 0, trailing: 16))
-        // .navigationDestination(isPresented: <#T##Binding<Bool>#>, destination: <#T##() -> View#>)
         .alert("게시물 삭제가 완료되었습니다.", isPresented: $viewModel.deleteSuccess) {
             Button("확인", role: .cancel) {
                 dismiss()
@@ -63,7 +62,7 @@ struct PostDetailHeaderView: View {
     }
     
     func getDropdownButtonInfo() -> [CustomButtonInfo] {
-        if appState.me.id == viewModel.post?.author {
+        if appState.me?.id == viewModel.post?.author {
             let buttonInfo1 = CustomButtonInfo(title: "수정", btnColor: .gray8, action: { viewModel.moveToEditView = true })
             
             let buttonInfo2 = CustomButtonInfo(title: "삭제", btnColor: .red, action: {

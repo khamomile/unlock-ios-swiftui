@@ -27,16 +27,19 @@ class AppState: ObservableObject {
     // GENERAL STATUS
     @Published var errorMessage: String?
     @Published var isLoading: Bool = false
-    
+
+    // SHOW DOUBLE-STYLE POPUP
     @Published var showPopup: Bool = false
     @Published var doublePopupToShow: DoublePopupInfo?
     
-    // IMAGE POPUP
+    // SHOW IMAGE POPUP
     @Published var showImageView: Bool = false
     @Published var postToShowImage: Post?
     
-    // GET USER
-    @Published var me: User = User()
+    // GET USER & GET LOGGED-IN STATUS
+    @Published var me: User? = nil
+    @Published var loggedIn: Bool = false
+    @Published var loginStatusReceived: Bool = false
     
     // PUSH-NOTIFICATION
     @Published var notiReceived: Bool = false
@@ -112,6 +115,24 @@ extension AppState {
                 guard let responseData = try? response.map(UserResponse.self) else { return }
                 print(responseData)
                 self.me = User(data: responseData)
+            }
+            .store(in: &subscription)
+    }
+
+    func getUserLoggedIn() {
+        provider.requestPublisher(.userLoggedIn)
+            .sink { completion in
+                switch completion {
+                case let .failure(error):
+                    print("Get user logged in failed: " + error.localizedDescription)
+                case .finished:
+                    print("Get user logged in finished")
+                }
+            } receiveValue: { response in
+                guard let responseData = try? response.map(Bool.self) else { return }
+                print(responseData)
+                self.loggedIn = responseData
+                self.loginStatusReceived = true
             }
             .store(in: &subscription)
     }

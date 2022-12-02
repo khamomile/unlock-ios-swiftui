@@ -20,7 +20,7 @@ struct MyProfileView: View {
                 
                 ScrollView(showsIndicators: false) {
                     ProfileGeneralView()
-                        .environmentObject(appState.me)
+                        .environmentObject(appState.me ?? User())
                     
                     ProfilePostView()
                         .environmentObject(viewModel)

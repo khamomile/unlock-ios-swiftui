@@ -16,10 +16,6 @@ class SignInViewModel: ObservableObject {
 
     private let appState = AppState.shared
     
-    // CHECK LOGIN STATUS
-    @Published var loggedIn: Bool = false
-    @Published var notLoggedIn: Bool = false
-    
     // CHECK EMAIL STATUS
     @Published var sentEmail: Bool = false
     @Published var emailVerified: Bool = false
@@ -38,12 +34,6 @@ class SignInViewModel: ObservableObject {
     var username: String = ""
     var password: String = ""
     var profileImageURL: String = ""
-    
-    init() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.getUserLoggedIn()
-        }
-    }
     
     func postSendEmailCode(email: String) {
         appState.isLoading = true
@@ -157,25 +147,6 @@ class SignInViewModel: ObservableObject {
             }
             .store(in: &subscription)
     }
-
-    // CHECKING STATUS
-    func getUserLoggedIn() {
-        provider.requestPublisher(.userLoggedIn)
-            .sink { completion in
-                switch completion {
-                case let .failure(error):
-                    print("Get user logged in failed: " + error.localizedDescription)
-                case .finished:
-                    print("Get user logged in finished")
-                }
-            } receiveValue: { response in
-                guard let responseData = try? response.map(Bool.self) else { return }
-                print(responseData)
-                self.loggedIn = responseData
-                self.notLoggedIn = !responseData
-            }
-            .store(in: &subscription)
-    }
     
     func postLogin(email: String, password: String) {
         appState.isLoading = true
@@ -194,7 +165,7 @@ class SignInViewModel: ObservableObject {
                 print(responseData)
                 self.appState.getMe()
                 self.appState.registerFcmToken()
-                self.loggedIn = true
+                self.appState.loggedIn = true
             }
             .store(in: &subscription)
     }
@@ -212,12 +183,8 @@ class SignInViewModel: ObservableObject {
                 print(response)
                 guard let responseData = try? response.map(SuccessResponse.self) else { return }
                 print(responseData)
-                self.loggedIn = false
+                self.appState.loggedIn = false
             }
             .store(in: &subscription)
-
     }
-//    func logIn(email: String, password: String) {
-//        AppState.shared.postLogin(email: email, password: password)
-//    }
 }

@@ -14,7 +14,7 @@ struct PWResetEmailView: View {
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        ZStack {
+        CustomZStackView {
             VStack {
                 BasicHeaderView(text: "비밀번호 변경")
                 VStack {
@@ -23,7 +23,7 @@ struct PWResetEmailView: View {
                 .font(.boldHeadline)
                 .foregroundColor(.gray9)
                 .padding(EdgeInsets(top: 80, leading: 0, bottom: 100, trailing: 0))
-                
+
                 VStack {
                     TextField(String("예) minds@unlock.im"), text: $viewModel.resetEmail)
                         .keyboardCleaned(keyboardType: .emailAddress, text: $viewModel.resetEmail)
@@ -35,7 +35,7 @@ struct PWResetEmailView: View {
                         .frame(height: 1)
                 }
                 .padding(.horizontal, 32)
-                
+
                 Button {
                     viewModel.postCheckEmailDuplicate(email: viewModel.resetEmail)
                 } label: {
@@ -58,18 +58,14 @@ struct PWResetEmailView: View {
                 }
                 .padding(EdgeInsets(top: 16, leading: 32, bottom: 0, trailing: 32))
                 .disabled(!Utils.inEmailFormat(viewModel.resetEmail))
-                
+
                 Spacer()
             }
             .frame(maxHeight: .infinity)
-            .navigationDestination(isPresented: $viewModel.resetEmailSent) {
-                PWResetEmailVerificationView()
-                    .environmentObject(viewModel)
-            }
-            
-            if let errorMessage = appState.errorMessage {
-                ErrorPopupView(errorText: errorMessage)
-            }
+        }
+        .navigationDestination(isPresented: $viewModel.resetEmailSent) {
+            PWResetEmailVerificationView()
+                .environmentObject(viewModel)
         }
         .navigationBarHidden(true)
         .onAppear {

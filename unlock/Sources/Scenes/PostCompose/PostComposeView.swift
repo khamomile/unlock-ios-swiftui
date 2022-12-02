@@ -25,13 +25,13 @@ struct PostComposeView: View {
     var postToEditId: String?
     
     var body: some View {
-        ZStack {
+        CustomZStackView {
             VStack {
                 PostComposeHeaderView(titleText: $titleText, contentText: $contentText, showPublic: $postPublicStatus)
                     .environmentObject(viewModel)
-                
+
                 Divider()
-                
+
                 ScrollView {
                     TextField("제목을 입력하세요", text: $titleText)
                         .textInputAutocapitalization(.never)
@@ -39,18 +39,18 @@ struct PostComposeView: View {
                         .font(.boldBody)
                         .foregroundColor(.gray9)
                         .padding(EdgeInsets(top: 10, leading: 16, bottom: 5, trailing: 16))
-                    
+
                     Divider()
                         .padding(.horizontal, 16)
-                    
+
                     TextEditorApproachView(text: $contentText, placeholder: "내용을 입력하세요.", editorBackgroundColor: .white)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                 }
-                
+
                 Divider()
                     .padding(.horizontal, 16)
-                
+
                 PostComposeFooterView(postPublicStatus: $postPublicStatus)
                     .environmentObject(viewModel)
             }
@@ -63,7 +63,7 @@ struct PostComposeView: View {
             .toolbar(.hidden, for: .tabBar)
             .onAppear {
                 viewModel.setViewModel(homeFeedViewModel: homeFeedViewModel, discoverFeedViewModel: discoverFeedViewModel, profileViewModel: profileViewModel)
-                
+
                 if let postToEditId = postToEditId {
                     viewModel.postToEditId = postToEditId
                     viewModel.getPost()
@@ -74,13 +74,6 @@ struct PostComposeView: View {
                 contentText = post?.swiftContent ?? ""
                 postPublicStatus = (post?.showPublic ?? false) ? .isPublic : .isNotPublic
                 viewModel.images = post?.images ?? []
-            }
-            
-            if appState.showPopup {
-                if let doublePopupToShow = appState.doublePopupToShow {
-                    DoublePopupView(doublePopupInfo: doublePopupToShow)
-                        .zIndex(1)
-                }
             }
         }
     }

@@ -22,10 +22,10 @@ struct ReportView: View {
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        ZStack {
+        CustomZStackView {
             VStack(alignment: .center) {
                 BasicHeaderView(text: "신고하기")
-                
+
                 ScrollView {
                     VStack(alignment: .leading) {
                         VStack(alignment: .leading) {
@@ -34,7 +34,7 @@ struct ReportView: View {
                                 .foregroundColor(.gray8)
                                 .padding(.horizontal, 16)
                                 .padding(.top, 16)
-                            
+
                             ForEach(ReportItem.allCases) { reportItem in
                                 Button {
                                     selectedReportItem = reportItem
@@ -56,15 +56,15 @@ struct ReportView: View {
                             .foregroundColor(.gray8)
                             .padding(.horizontal, 16)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        
+
                         TextEditorApproachView(text: $content, isFocused: _isFocused, placeholder: "예) 위협적인 발언으로 보여 신고합니다.", editorBackgroundColor: .gray1)
                             .padding(.horizontal, 16)
-                        
+
                         Button {
                             appState.setDoublePopup(.report(leftAction: nil, rightAction: {
                                 viewModel.report(reason: selectedReportItem?.option ?? 0, content: content)
                             }, reportType: viewModel.reportType))
-                            
+
                             isFocused = false
                         } label: {
                             Text("신고하기")
@@ -85,25 +85,18 @@ struct ReportView: View {
                     }
                 }
             }
-            .alert(viewModel.reportSuccessAlertText, isPresented: $viewModel.reportSuccess) {
-                Button("확인", role: .cancel) {
-                    dismiss()
-                }
-            }
-            .onAppear {
-                UITextView.appearance().backgroundColor = .clear
-                viewModel.setPostAndCommentID(postID: postID, commentID: commentID)
-            }
-            .navigationBarHidden(true)
-            .toolbar(.hidden, for: .tabBar)
-            
-            if appState.showPopup {
-                if let doublePopupToShow = appState.doublePopupToShow {
-                    DoublePopupView(doublePopupInfo: doublePopupToShow)
-                        .zIndex(1)
-                }
+        }
+        .alert(viewModel.reportSuccessAlertText, isPresented: $viewModel.reportSuccess) {
+            Button("확인", role: .cancel) {
+                dismiss()
             }
         }
+        .onAppear {
+            UITextView.appearance().backgroundColor = .clear
+            viewModel.setPostAndCommentID(postID: postID, commentID: commentID)
+        }
+        .navigationBarHidden(true)
+        .toolbar(.hidden, for: .tabBar)
     }
     
     func checkInput() -> Bool {
