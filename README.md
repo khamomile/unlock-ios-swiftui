@@ -6,7 +6,7 @@
 ## About
 ![N|Description](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c6c64f6c-fa5a-4c4f-91fa-875bf8aa250f/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221204%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221204T023940Z&X-Amz-Expires=86400&X-Amz-Signature=251a1d0809b57f61b1d48c3cda061efaee170ae805c7e5e8847aaf0937bb1c18&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
 
-Unlock은 지인과 함께 사용할 수 있는 프라이빗, 익명 커뮤니티입니다.
+Unlock은 지인과 함께 사용할 수 있는 프라이빗, 익명 커뮤니티입니다.  
 Unlock은 ️기존 소셜미디어와 달리 댓글을 달기 전까지 게시물 작성자를 알 수 없습니다.
 
 Unlock만이 제공하는 특별한 경험🌟  
