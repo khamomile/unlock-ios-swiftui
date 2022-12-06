@@ -4,7 +4,7 @@
 [![N|AppStore](https://camo.githubusercontent.com/256c4c0f137426227c87b21c9d7230e30362eba3d7bdd69cd212c343bb9a132c/68747470733a2f2f646576696d616765732d63646e2e6170706c652e636f6d2f6170702d73746f72652f6d61726b6574696e672f67756964656c696e65732f696d616765732f62616467652d646f776e6c6f61642d6f6e2d7468652d6170702d73746f72652e737667)](https://apps.apple.com/us/app/unlock-%EB%A7%88%EC%9D%8C%EC%9D%84-%EC%97%B4%EC%96%B4%EB%B3%B4%EB%8B%A4/id1612819350)
 
 ## About
-![N|Description](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c6c64f6c-fa5a-4c4f-91fa-875bf8aa250f/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221204%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221204T023940Z&X-Amz-Expires=86400&X-Amz-Signature=251a1d0809b57f61b1d48c3cda061efaee170ae805c7e5e8847aaf0937bb1c18&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![N|Description](https://www.dropbox.com/s/0qev2khtku5j3xt/unlock_screenshot.png?raw=1)
 
 Unlock은 지인과 함께 사용할 수 있는 프라이빗, 익명 커뮤니티입니다.  
 Unlock은 ️기존 소셜미디어와 달리 댓글을 달기 전까지 게시물 작성자를 알 수 없습니다.
